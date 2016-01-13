@@ -51,8 +51,8 @@
             this.comboFireType = new System.Windows.Forms.ComboBox();
             this.textInitialHealthLabel = new System.Windows.Forms.Label();
             this.textInitialHealth = new System.Windows.Forms.TextBox();
-            this.textRangeLabel = new System.Windows.Forms.Label();
-            this.textRange = new System.Windows.Forms.TextBox();
+            this.textDistanceLabel = new System.Windows.Forms.Label();
+            this.textDistance = new System.Windows.Forms.TextBox();
             this.resultsLabel = new System.Windows.Forms.Label();
             this.textDamageDealtLabel = new System.Windows.Forms.Label();
             this.textDamageDealt = new System.Windows.Forms.TextBox();
@@ -271,21 +271,21 @@
             this.textInitialHealth.TabIndex = 23;
             this.textInitialHealth.Text = "0";
             // 
-            // textRangeLabel
+            // textDistanceLabel
             // 
-            this.textRangeLabel.AutoSize = true;
-            this.textRangeLabel.Location = new System.Drawing.Point(272, 152);
-            this.textRangeLabel.Name = "textRangeLabel";
-            this.textRangeLabel.Size = new System.Drawing.Size(39, 13);
-            this.textRangeLabel.TabIndex = 24;
-            this.textRangeLabel.Text = "Range";
+            this.textDistanceLabel.AutoSize = true;
+            this.textDistanceLabel.Location = new System.Drawing.Point(272, 152);
+            this.textDistanceLabel.Name = "textDistanceLabel";
+            this.textDistanceLabel.Size = new System.Drawing.Size(39, 13);
+            this.textDistanceLabel.TabIndex = 24;
+            this.textDistanceLabel.Text = "Range";
             // 
-            // textRange
+            // textDistance
             // 
-            this.textRange.Location = new System.Drawing.Point(275, 168);
-            this.textRange.Name = "textRange";
-            this.textRange.Size = new System.Drawing.Size(100, 20);
-            this.textRange.TabIndex = 25;
+            this.textDistance.Location = new System.Drawing.Point(275, 168);
+            this.textDistance.Name = "textDistance";
+            this.textDistance.Size = new System.Drawing.Size(100, 20);
+            this.textDistance.TabIndex = 25;
             // 
             // resultsLabel
             // 
@@ -382,8 +382,8 @@
             this.Controls.Add(this.textDamageDealt);
             this.Controls.Add(this.textDamageDealtLabel);
             this.Controls.Add(this.resultsLabel);
-            this.Controls.Add(this.textRange);
-            this.Controls.Add(this.textRangeLabel);
+            this.Controls.Add(this.textDistance);
+            this.Controls.Add(this.textDistanceLabel);
             this.Controls.Add(this.textInitialHealth);
             this.Controls.Add(this.textInitialHealthLabel);
             this.Controls.Add(this.comboFireType);
@@ -439,8 +439,8 @@
         private System.Windows.Forms.ComboBox comboFireType;
         private System.Windows.Forms.Label textInitialHealthLabel;
         private System.Windows.Forms.TextBox textInitialHealth;
-        private System.Windows.Forms.Label textRangeLabel;
-        private System.Windows.Forms.TextBox textRange;
+        private System.Windows.Forms.Label textDistanceLabel;
+        private System.Windows.Forms.TextBox textDistance;
         private System.Windows.Forms.Label resultsLabel;
         private System.Windows.Forms.Label textDamageDealtLabel;
         private System.Windows.Forms.TextBox textDamageDealt;

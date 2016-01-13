@@ -96,5 +96,76 @@ namespace FRPGC
         {
 
         }
+
+        private double singleShotHitChance()
+        {
+            int skill;
+            int weaponRange;
+            int perception;
+            int distance = int.Parse(textDistance.Text);
+            int oac;
+            int hitBonuses;
+            return skill + weaponRange + Math.Floor(perception / 2.0) - distance - oac + hitBonuses;
+        }
+
+        private double burstShotHitChance()
+        {
+            return 0;
+            // % = Ceil(1d100 + 15 * (Skill / 4) + 4 * Luck - OAC)
+        }
+
+        private int[] singleShotDamage(int shots)
+        {
+            writeLog(log, "Beginning Single Shot Calculation");
+            writeLog(log, "Number of shots: " + shots);
+
+            int baseDamage;
+            int baseDamageDie;
+            int additionalDamage;
+            int additionalDamageDie;
+
+            int[] damages = new int[shots];
+            for (int i = 0; i < shots; i++)
+            {
+                damages[i] = roll(baseDamage, baseDamageDie) + roll(additionalDamage, additionalDamageDie);
+                writeLog(log, "Combined Damage: " + damages[i].ToString());
+            }
+
+            writeLog(log, "Ending Single Shot Calculation");
+            return damages;
+        }
+
+        private int[] burstShotDamage(double hitChance, int shotsFired)
+        {
+            int baseDamage;
+            int baseDamageDie;
+            int additionalDamage;
+            int additionalDamageDie;
+
+            int[] damages = new int[shotsFired];
+            for (int i = 0; i < shotsFired; i++)
+            {
+                if (roll(1, 100) < hitChance)
+                {
+                    damages[i] = roll(baseDamage, baseDamageDie) + roll(additionalDamage, additionalDamageDie);
+                }
+                else
+                {
+                    damages[i] = 0;
+                }
+            }
+
+            return damages;
+        }
+
+        private int roll(int multiplier, int maxRoll)
+        {
+            Random die = new Random();
+            int roll = die.Next(1, maxRoll);
+            int result = multiplier * roll;
+
+            writeLog(log, "Rolling " + multiplier.ToString() + "d" + maxRoll.ToString() + ": " + result.ToString());
+            return result;
+        }
     }
 }
