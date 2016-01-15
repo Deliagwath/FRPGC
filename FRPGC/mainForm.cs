@@ -13,29 +13,38 @@ namespace FRPGC
 {
     public partial class mainForm : Form
     {
-
         private string log = "FRPGCLog";
         private string[] files = new string[]
         {
             "Weapons.csv",
-            "Armour.csv",
-            "PlayerEquip.csv",
-            "EnemyEquip.csv",
-            "EnemyStats.csv"
+            "Armour.csv"
+            //"PlayerEquip.csv",
+            //"PlayerStats.csv",
+            //"EnemyEquip.csv",
+            //"EnemyStats.csv"
         };
+
+        
+        private BindingList<Weapon> weapons = new BindingList<Weapon>();
+        // Armour {"Name", "ID", "AC", "DR", "DRLA", "DRPL", "DREL", "DRFR", "DREX"}
+        private Dictionary<string, string> armour = new Dictionary<string, string>();
+        //private Dictionary<string, string> playerEquip = new Dictionary<string, string>();
+        //private Dictionary<string, string> playerStats = new Dictionary<string, string>();
+        //private Dictionary<string, string> enemyEquip = new Dictionary<string, string>();
+        //private Dictionary<string, string> enemyStats = new Dictionary<string, string>();
 
         public mainForm()
         {
-            writeLog(log, "Initialising Program.");
-            getData();
             InitializeComponent();
+            getData();
         }
 
         public void getData()
         {
+            writeLog(log, "Fetching Data");
+
             // Initialise null Containers
             StreamReader reader = null;
-            string line = null;
 
             // Initialise Check Array and Counter
             bool[] check = new bool[this.files.Length];
@@ -49,10 +58,14 @@ namespace FRPGC
                     // Reading from File
                     reader = new StreamReader(filename);
 
-                    while ((line = reader.ReadLine()) != null)
+                    switch (filename)
                     {
-                        // Nom nom nom
-                        // Parse Parse Parse
+                        case ("Weapons.csv"):
+                        getWeapons(reader);
+                        break;
+
+                        case ("Armour.csv"):
+                        break;
                     }
                 }
                 
@@ -61,19 +74,198 @@ namespace FRPGC
                 {
                     writeLog(log, "Exception Occurred: " + e.ToString());
                     writeLog(log, "Ignoring " + filename);
-                    reader.Close();
-                    check[counter++] = false;
+                    try { reader.Close(); } catch { }
+                    check[counter] = false;
                 }
                 finally
                 {
-                    writeLog(log, "Read Successful from " + filename);
-                    reader.Close();
-                    check[counter++] = true;
+                    writeLog(log, "Read Finished from " + filename);
+                    try { reader.Close(); } catch { }
+                    check[counter] = true;
                 }
+                counter++;
             }
 
             writeLog(log, "Data Retrieval Completed.");
             return;
+        }
+
+        public void getWeapons(StreamReader reader)
+        {
+            string line, name, id = null;
+            int singleRange, burstRange, c, m, r, spb = 0;
+            Dice bd, ad = null;
+            DamageTypes dt;
+            string[] splitted, constantSplit, diceSplit = null;
+
+            while ((line = reader.ReadLine()) != null)
+            {
+                // Weapons {"Name":0, "ID":1, "Range":2, "BD":3, "AD":4, "SPB"(Shots per burst):5, "DamageType":6}
+                splitted = line.Trim().Split(',');
+
+                name = splitted[0].Trim();
+                logBoth(log, "Parsing " + name);
+                id = splitted[1].Trim();
+
+                // Parse Range X\Y or X Format
+                try
+                {
+                    // Parsing X\Y Format
+                    constantSplit = splitted[2].Trim().Split('\\');
+                    singleRange = int.Parse(constantSplit[0].Trim());
+                    burstRange = int.Parse(constantSplit[1].Trim());
+                }
+                catch
+                {
+                    try
+                    {
+                        singleRange = int.Parse(splitted[2].Trim());
+                        burstRange = -1;
+                    }
+                    catch
+                    {
+                        logBoth(log, "Range could not be parsed. Expected int, got: " + splitted[2].Trim());
+                        continue;
+                    }
+                }
+                
+                // Parse Base Damage X+YdZ or XdY or X Format
+                try
+                {
+                    // Parsing X+YdZ Format
+                    constantSplit = splitted[3].Trim().Split('+');
+                    diceSplit = constantSplit[1].Trim().ToLower().Split('d');
+                    c = int.Parse(constantSplit[0].Trim());
+                    m = int.Parse(diceSplit[0].Trim());
+                    r = int.Parse(diceSplit[1].Trim());
+                    bd = new Dice(m, r, this.logBoth, this.log);
+                }
+                catch
+                {
+                    try
+                    {
+                        // Parsing XdY Format
+                        diceSplit = splitted[3].Trim().ToLower().Split('d');
+                        c = 0;
+                        m = int.Parse(diceSplit[0].Trim());
+                        r = int.Parse(diceSplit[1].Trim());
+                        bd = new Dice(m, r, this.logBoth, this.log);
+                    }
+                    catch
+                    {
+                        try
+                        {
+                            // Parsing X Format
+                            c = 0;
+                            m = int.Parse(splitted[3]);
+                            bd = new Dice(m, 1, this.logBoth, this.log);
+                        }
+                        catch
+                        {
+                            logBoth(log, "Base Damage could not be parsed. Expected X+YdZ or XdY or X, got: " + splitted[3].Trim());
+                            continue;
+                        }
+                    }
+                }
+
+                // Parse Additional Damage X+YdZ or XdY or X Format
+                try
+                {
+                    // Parsing X+YdZ Format
+                    constantSplit = splitted[4].Trim().Split('+');
+                    diceSplit = constantSplit[1].Trim().ToLower().Split('d');
+                    c = int.Parse(constantSplit[0].Trim());
+                    m = int.Parse(diceSplit[0].Trim());
+                    r = int.Parse(diceSplit[1].Trim());
+                    bd = new Dice(m, r, this.logBoth, this.log);
+                }
+                catch
+                {
+                    try
+                    {
+                        // Parsing XdY Format
+                        diceSplit = splitted[4].Trim().ToLower().Split('d');
+                        c = 0;
+                        m = int.Parse(diceSplit[0].Trim());
+                        r = int.Parse(diceSplit[1].Trim());
+                        ad = new Dice(m, r, this.logBoth, this.log);
+                    }
+                    catch
+                    {
+                        try
+                        {
+                            // Parsing X Format
+                            c = 0;
+                            m = int.Parse(splitted[4]);
+                            ad = new Dice(m, 1, this.logBoth, this.log);
+                        }
+                        catch
+                        {
+                            logBoth(log, "Additional Damage could not be parsed. Expected X+YdZ or XdY or X, got: " + splitted[4].Trim());
+                            continue;
+                        }
+                    }
+                }
+
+                try
+                {
+                    if (splitted[5].Trim().ToUpper().Equals("NA")) { spb = 1; }
+                    else { spb = int.Parse(splitted[5].Trim()); }
+                }
+                catch
+                {
+                    logBoth(log, "Shot Per Burst could not be parsed. Expected int, got: " + splitted[5].Trim());
+                    continue;
+                }
+
+                // Parsing Damage Type
+                switch (splitted[6].Trim())
+                {
+                    case ("N"):
+                    dt = DamageTypes.N;
+                    break;
+
+                    case ("LA"):
+                    dt = DamageTypes.LA;
+                    break;
+                    
+                    case ("PL"):
+                    dt = DamageTypes.PL;
+                    break;
+                    
+                    case ("EL"):
+                    dt = DamageTypes.EL;
+                    break;
+
+                    case ("FR"):
+                    dt = DamageTypes.FR;
+                    break;
+
+                    case ("EX"):
+                    dt = DamageTypes.EX;
+                    break;
+                    
+                    default:
+                    logBoth(log, "DamageType could not be parsed. Expected N|LA|PL|EL|FR|EX, got: " + splitted[6].Trim());
+                    continue;
+                }
+
+                // Creating Weapon Object and adding to Dictionary
+                this.weapons.Add(new Weapon(name, id, singleRange, burstRange, c, bd, ad, spb, dt));
+            }
+
+            this.comboWeapon.DataSource = this.weapons;
+            this.comboWeapon.ValueMember = "ID";
+            this.comboWeapon.DisplayMember = "Name";
+        }
+
+        public void dumpWeapons(object sender, EventArgs e)
+        {
+            logBoth(log, "Dumping");
+            foreach (Weapon w in this.weapons)
+            {
+                logBoth(log, w.toString());
+            }
         }
 
         public void writeLog(string filename, string message)
@@ -87,17 +279,136 @@ namespace FRPGC
             string timestamp = string.Format("[{0:HH:mm:ss}]: ", DateTime.Now);
 
             // Writing to Log
-            writer.Write(timestamp + message);
+            writer.Write(timestamp + message + "\n");
             writer.Close();
             return;
         }
 
-        private void calculate(object sender, EventArgs e)
+        public void updateLog(string message)
         {
-
+            string timestamp = string.Format("[{0:HH:mm:ss}]: ", DateTime.Now);
+            this.textLog.AppendText(timestamp + message + "\n");
+            return;
         }
 
-        private double singleShotHitChance()
+        public void logBoth(string filename, string message)
+        {
+            writeLog(filename, message);
+            updateLog(message);
+        }
+
+        private void calculate(object sender, EventArgs e)
+        {
+            switch (this.comboFireType.SelectedIndex)
+            {
+                case (-1): // ComboBox not touched
+                    MessageBox.Show("It'd be nice if you chose a Firing Mode.");
+                    break;
+
+                case (0): // Single Shot
+                    textCurrentHealth.Text = (int.Parse(textInitialHealth.Text) - singleShot(int.Parse(textShotCount.Text))).ToString();
+                    break;
+
+                case (1): // Burst Shot
+                    textCurrentHealth.Text = (int.Parse(textInitialHealth.Text) - singleShot(int.Parse(textShotCount.Text))).ToString();
+                    break;
+
+                case (2): // Melee
+                    break;
+
+                default:
+                    writeLog(log, "ComboBox Firing Type Error, Index: " + this.comboFireType.SelectedIndex);
+                    MessageBox.Show("Fire Type Drop Down List says wut: " + this.comboFireType.SelectedIndex);
+                    break;
+            }
+        }
+
+        private int singleShot(int shotsFired)
+        {
+            int chance = singleShotHitChance();
+            int[] damages = singleShotDamage(shotsFired);
+            int totalDamage = 0;
+            Dice dice = new Dice(1, Math.Max(100, chance), this.logBoth, log);
+            int rolled = -1;
+
+            foreach (int shot in damages)
+            {
+                rolled = dice.getRoll();
+
+                if (rolled < 5) // Critical Hit
+                {
+                    logBoth(log, "Critical Hit: " + rolled.ToString() + " < 5");
+                    logBoth(log, "Damage Taken: " + (shot * 2).ToString());
+                    totalDamage += shot * 2;
+                    continue;
+                }
+                if (rolled < chance) // Hit
+                {
+                    logBoth(log, "Hit: " + rolled.ToString() + " < " + chance.ToString());
+                    logBoth(log, "Damage Taken: " + shot.ToString());
+                    totalDamage += shot;
+                    continue;
+                }
+                else if (rolled > chance /*- (10 - LUCK)*/) // Miss
+                {
+                    logBoth(log, "Miss: " + rolled.ToString() + " > " + chance.ToString());
+                    continue;
+                }
+                else // Critical Failure TODO Set correct log
+                    // TODO set CRITICAL FAIL BEFORE NORMAL HIT CHECK
+                {
+                    logBoth(log, "Critical Failure: " + rolled.ToString() + " > 95");
+                    logBoth(log, "Ending Calculations.");
+                    return totalDamage;
+                }
+            }
+
+            return totalDamage;
+        }
+
+        private int burstShot(int shotsFired)
+        {
+            int chance = burstShotHitChance();
+            int[] damages = burstShotDamage(chance, shotsFired);
+            int totalDamage = 0;
+            Dice dice = new Dice(1, Math.Max(100, chance), this.logBoth, log);
+            int rolled = -1;
+
+            foreach (int shot in damages)
+            {
+                rolled = dice.getRoll();
+
+                if (rolled < 5) // Critical Hit
+                {
+                    logBoth(log, "Critical Hit: " + rolled.ToString() + " < 5");
+                    logBoth(log, "Damage Taken: " + (shot * 2).ToString());
+                    totalDamage += shot * 2;
+                    continue;
+                }
+                if (rolled < chance) // Hit
+                {
+                    logBoth(log, "Hit: " + rolled.ToString() + " < " + chance.ToString());
+                    logBoth(log, "Damage Taken: " + shot.ToString());
+                    totalDamage += shot;
+                    continue;
+                }
+                else if (rolled > chance /*- (10 - LUCK)*/) // Miss
+                {
+                    logBoth(log, "Miss: " + rolled.ToString() + " > " + chance.ToString());
+                    continue;
+                }
+                else // Critical Failure TODO Set correct log
+                {
+                    logBoth(log, "Critical Failure: " + rolled.ToString() + " > 95");
+                    logBoth(log, "Ending Calculations.");
+                    return totalDamage;
+                }
+            }
+
+            return totalDamage;
+        }
+
+        private int singleShotHitChance()
         {
             int skill;
             int weaponRange;
@@ -105,29 +416,33 @@ namespace FRPGC
             int distance = int.Parse(textDistance.Text);
             int oac;
             int hitBonuses;
-            return skill + weaponRange + Math.Floor(perception / 2.0) - distance - oac + hitBonuses;
+            return 75;
+            return (int) Math.Floor(skill + weaponRange + Math.Floor(perception / 2.0) - distance - oac + hitBonuses);
         }
 
-        private double burstShotHitChance()
+        private int burstShotHitChance()
         {
-            return 0;
+            return 75;
             // % = Ceil(1d100 + 15 * (Skill / 4) + 4 * Luck - OAC)
         }
 
         private int[] singleShotDamage(int shots)
         {
-            writeLog(log, "Beginning Single Shot Calculation");
+            writeLog(log, "Beginning Single Shot Damage Calculation");
             writeLog(log, "Number of shots: " + shots);
 
+            int flatDamage;
             int baseDamage;
             int baseDamageDie;
             int additionalDamage;
             int additionalDamageDie;
 
+            return new int[]{12, 8, 4};
+
             int[] damages = new int[shots];
             for (int i = 0; i < shots; i++)
             {
-                damages[i] = roll(baseDamage, baseDamageDie) + roll(additionalDamage, additionalDamageDie);
+                damages[i] = roll(baseDamage, baseDamageDie) + roll(additionalDamage, additionalDamageDie) + flatDamage;
                 writeLog(log, "Combined Damage: " + damages[i].ToString());
             }
 
@@ -135,19 +450,26 @@ namespace FRPGC
             return damages;
         }
 
-        private int[] burstShotDamage(double hitChance, int shotsFired)
+        //??? Ignoring rolls for now
+        public int roll(int i, int j) { return 0; }
+        //???
+
+        private int[] burstShotDamage(int hitChance, int shotsFired)
         {
+            int flatDamage;
             int baseDamage;
             int baseDamageDie;
             int additionalDamage;
             int additionalDamageDie;
+
+            return new int[]{12, 8, 4};
 
             int[] damages = new int[shotsFired];
             for (int i = 0; i < shotsFired; i++)
             {
                 if (roll(1, 100) < hitChance)
                 {
-                    damages[i] = roll(baseDamage, baseDamageDie) + roll(additionalDamage, additionalDamageDie);
+                    damages[i] = roll(baseDamage, baseDamageDie) + roll(additionalDamage, additionalDamageDie) + flatDamage;
                 }
                 else
                 {
@@ -158,14 +480,28 @@ namespace FRPGC
             return damages;
         }
 
-        private int roll(int multiplier, int maxRoll)
+        private void radioPlayerChecked(object sender, EventArgs e)
         {
-            Random die = new Random();
-            int roll = die.Next(1, maxRoll);
-            int result = multiplier * roll;
+            this.comboUnitLabel.Text = "Player Name";
+            // Clear comboUnit and populate with Player Name List
+            this.comboDifficultyLabel.Visible = false;
+            this.comboDifficulty.Visible = false;
+            this.checkDefaultEquipment.Visible = false;
+        }
 
-            writeLog(log, "Rolling " + multiplier.ToString() + "d" + maxRoll.ToString() + ": " + result.ToString());
-            return result;
+        private void radioEnemyChecked(object sender, EventArgs e)
+        {
+            this.comboUnitLabel.Text = "Unit Name";
+            // Clear comboUnit and populate with Enemy Name List
+            this.comboDifficultyLabel.Visible = true;
+            this.comboDifficulty.Visible = true;
+            this.checkDefaultEquipment.Visible = true;
+        }
+
+        private void buttonSetHP_Click(object sender, EventArgs e)
+        {
+            logBoth(log, "Setting Initial HP to " + this.textCurrentHealth.Text);
+            this.textInitialHealth.Text = this.textCurrentHealth.Text;
         }
     }
 }

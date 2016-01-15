@@ -32,7 +32,7 @@
             this.radioTargetLabel = new System.Windows.Forms.Label();
             this.radioEnemy = new System.Windows.Forms.RadioButton();
             this.comboUnit = new System.Windows.Forms.ComboBox();
-            this.comboSkill = new System.Windows.Forms.ComboBox();
+            this.comboDifficulty = new System.Windows.Forms.ComboBox();
             this.comboUnitLabel = new System.Windows.Forms.Label();
             this.comboDifficultyLabel = new System.Windows.Forms.Label();
             this.checkDefaultEquipment = new System.Windows.Forms.CheckBox();
@@ -75,6 +75,7 @@
             this.radioPlayer.TabStop = true;
             this.radioPlayer.Text = "Player";
             this.radioPlayer.UseVisualStyleBackColor = true;
+            this.radioPlayer.CheckedChanged += new System.EventHandler(this.radioPlayerChecked);
             // 
             // radioTargetLabel
             // 
@@ -94,6 +95,7 @@
             this.radioEnemy.TabIndex = 3;
             this.radioEnemy.Text = "Enemy";
             this.radioEnemy.UseVisualStyleBackColor = true;
+            this.radioEnemy.CheckedChanged += new System.EventHandler(this.radioEnemyChecked);
             // 
             // comboUnit
             // 
@@ -103,22 +105,23 @@
             this.comboUnit.Size = new System.Drawing.Size(121, 21);
             this.comboUnit.TabIndex = 4;
             // 
-            // comboSkill
+            // comboDifficulty
             // 
-            this.comboSkill.FormattingEnabled = true;
-            this.comboSkill.Location = new System.Drawing.Point(12, 124);
-            this.comboSkill.Name = "comboSkill";
-            this.comboSkill.Size = new System.Drawing.Size(121, 21);
-            this.comboSkill.TabIndex = 5;
+            this.comboDifficulty.FormattingEnabled = true;
+            this.comboDifficulty.Location = new System.Drawing.Point(12, 124);
+            this.comboDifficulty.Name = "comboDifficulty";
+            this.comboDifficulty.Size = new System.Drawing.Size(121, 21);
+            this.comboDifficulty.TabIndex = 5;
+            this.comboDifficulty.Visible = false;
             // 
             // comboUnitLabel
             // 
             this.comboUnitLabel.AutoSize = true;
             this.comboUnitLabel.Location = new System.Drawing.Point(12, 68);
             this.comboUnitLabel.Name = "comboUnitLabel";
-            this.comboUnitLabel.Size = new System.Drawing.Size(26, 13);
+            this.comboUnitLabel.Size = new System.Drawing.Size(67, 13);
             this.comboUnitLabel.TabIndex = 6;
-            this.comboUnitLabel.Text = "Unit";
+            this.comboUnitLabel.Text = "Player Name";
             // 
             // comboDifficultyLabel
             // 
@@ -128,19 +131,20 @@
             this.comboDifficultyLabel.Size = new System.Drawing.Size(47, 13);
             this.comboDifficultyLabel.TabIndex = 7;
             this.comboDifficultyLabel.Text = "Difficulty";
+            this.comboDifficultyLabel.Visible = false;
             // 
             // checkDefaultEquipment
             // 
             this.checkDefaultEquipment.AutoSize = true;
             this.checkDefaultEquipment.Checked = true;
             this.checkDefaultEquipment.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkDefaultEquipment.Enabled = false;
             this.checkDefaultEquipment.Location = new System.Drawing.Point(12, 151);
             this.checkDefaultEquipment.Name = "checkDefaultEquipment";
             this.checkDefaultEquipment.Size = new System.Drawing.Size(113, 17);
             this.checkDefaultEquipment.TabIndex = 8;
             this.checkDefaultEquipment.Text = "Default Equipment";
             this.checkDefaultEquipment.UseVisualStyleBackColor = true;
+            this.checkDefaultEquipment.Visible = false;
             // 
             // comboWeapon
             // 
@@ -155,18 +159,18 @@
             this.comboWeaponLabel.AutoSize = true;
             this.comboWeaponLabel.Location = new System.Drawing.Point(12, 171);
             this.comboWeaponLabel.Name = "comboWeaponLabel";
-            this.comboWeaponLabel.Size = new System.Drawing.Size(205, 13);
+            this.comboWeaponLabel.Size = new System.Drawing.Size(48, 13);
             this.comboWeaponLabel.TabIndex = 10;
-            this.comboWeaponLabel.Text = "Placeholder - Do not touch controls below";
+            this.comboWeaponLabel.Text = "Weapon";
             // 
             // comboHelmetLabel
             // 
             this.comboHelmetLabel.AutoSize = true;
             this.comboHelmetLabel.Location = new System.Drawing.Point(12, 211);
             this.comboHelmetLabel.Name = "comboHelmetLabel";
-            this.comboHelmetLabel.Size = new System.Drawing.Size(205, 13);
+            this.comboHelmetLabel.Size = new System.Drawing.Size(40, 13);
             this.comboHelmetLabel.TabIndex = 11;
-            this.comboHelmetLabel.Text = "Placeholder - Do not touch controls below";
+            this.comboHelmetLabel.Text = "Helmet";
             // 
             // comboHelmet
             // 
@@ -181,9 +185,9 @@
             this.comboArmourLabel.AutoSize = true;
             this.comboArmourLabel.Location = new System.Drawing.Point(12, 251);
             this.comboArmourLabel.Name = "comboArmourLabel";
-            this.comboArmourLabel.Size = new System.Drawing.Size(205, 13);
+            this.comboArmourLabel.Size = new System.Drawing.Size(40, 13);
             this.comboArmourLabel.TabIndex = 13;
-            this.comboArmourLabel.Text = "Placeholder - Do not touch controls below";
+            this.comboArmourLabel.Text = "Armour";
             // 
             // comboArmour
             // 
@@ -198,7 +202,6 @@
             this.textSkill.Location = new System.Drawing.Point(12, 307);
             this.textSkill.Multiline = true;
             this.textSkill.Name = "textSkill";
-            this.textSkill.ReadOnly = true;
             this.textSkill.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textSkill.Size = new System.Drawing.Size(121, 223);
             this.textSkill.TabIndex = 15;
@@ -208,9 +211,9 @@
             this.textSkillLabel.AutoSize = true;
             this.textSkillLabel.Location = new System.Drawing.Point(12, 291);
             this.textSkillLabel.Name = "textSkillLabel";
-            this.textSkillLabel.Size = new System.Drawing.Size(205, 13);
+            this.textSkillLabel.Size = new System.Drawing.Size(31, 13);
             this.textSkillLabel.TabIndex = 16;
-            this.textSkillLabel.Text = "Placeholder - Do not touch controls below";
+            this.textSkillLabel.Text = "Skills";
             // 
             // scenarioLabel
             // 
@@ -249,6 +252,10 @@
             // comboFireType
             // 
             this.comboFireType.FormattingEnabled = true;
+            this.comboFireType.Items.AddRange(new object[] {
+            "Single Shot",
+            "Burst Shot",
+            "Melee"});
             this.comboFireType.Location = new System.Drawing.Point(275, 124);
             this.comboFireType.Name = "comboFireType";
             this.comboFireType.Size = new System.Drawing.Size(121, 21);
@@ -338,6 +345,7 @@
             this.buttonSetHP.TabIndex = 31;
             this.buttonSetHP.Text = "Set Init = Curr HP";
             this.buttonSetHP.UseVisualStyleBackColor = true;
+            this.buttonSetHP.Click += new System.EventHandler(this.buttonSetHP_Click);
             // 
             // textLog
             // 
@@ -366,7 +374,7 @@
             this.buttonCalculate.TabIndex = 34;
             this.buttonCalculate.Text = "Calculate";
             this.buttonCalculate.UseVisualStyleBackColor = true;
-            this.buttonCalculate.Click += new System.EventHandler(this.calculate);
+            this.buttonCalculate.Click += new System.EventHandler(this.dumpWeapons);//this.calculate);
             // 
             // mainForm
             // 
@@ -402,7 +410,7 @@
             this.Controls.Add(this.checkDefaultEquipment);
             this.Controls.Add(this.comboDifficultyLabel);
             this.Controls.Add(this.comboUnitLabel);
-            this.Controls.Add(this.comboSkill);
+            this.Controls.Add(this.comboDifficulty);
             this.Controls.Add(this.comboUnit);
             this.Controls.Add(this.radioEnemy);
             this.Controls.Add(this.radioTargetLabel);
@@ -420,7 +428,7 @@
         private System.Windows.Forms.Label radioTargetLabel;
         private System.Windows.Forms.RadioButton radioEnemy;
         private System.Windows.Forms.ComboBox comboUnit;
-        private System.Windows.Forms.ComboBox comboSkill;
+        private System.Windows.Forms.ComboBox comboDifficulty;
         private System.Windows.Forms.Label comboUnitLabel;
         private System.Windows.Forms.Label comboDifficultyLabel;
         private System.Windows.Forms.CheckBox checkDefaultEquipment;

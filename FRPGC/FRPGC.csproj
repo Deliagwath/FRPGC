@@ -44,6 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DamageTypes.cs" />
+    <Compile Include="Dice.cs" />
+    <Compile Include="Weapon.cs" />
     <Compile Include="mainForm.cs">
       <SubType>Form</SubType>
     </Compile>
