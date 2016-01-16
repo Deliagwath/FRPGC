@@ -450,13 +450,13 @@ namespace FRPGC
 
         private int singleShotHitChance()
         {
-            int skill;
-            int weaponRange;
-            int perception;
+            // TODO Fix Skill & Perception & Hit Bonuses
+            int skill = 75;
+            int weaponRange = ((Weapon) this.comboWeapon.SelectedItem).SingleRange;
+            int perception = 7;
             int distance = int.Parse(textDistance.Text);
-            int oac;
-            int hitBonuses;
-            return 75;
+            int oac = ((Armour) this.comboArmour.SelectedItem).AC;
+            int hitBonuses = 0;
             return (int) Math.Floor(skill + weaponRange + Math.Floor(perception / 2.0) - distance - oac + hitBonuses);
         }
 
@@ -471,19 +471,18 @@ namespace FRPGC
             writeLog(log, "Beginning Single Shot Damage Calculation");
             writeLog(log, "Number of shots: " + shots);
 
-            int flatDamage;
-            int baseDamage;
-            int baseDamageDie;
-            int additionalDamage;
-            int additionalDamageDie;
-
-            return new int[]{12, 8, 4};
+            int flatDamage = ((Weapon) this.comboWeapon.SelectedItem).FD;
+            Dice BD = ((Weapon) this.comboWeapon.SelectedItem).BD;
+            Dice AD = ((Weapon) this.comboWeapon.SelectedItem).AD;
+            int ad, bd = -1;
 
             int[] damages = new int[shots];
             for (int i = 0; i < shots; i++)
             {
-                damages[i] = roll(baseDamage, baseDamageDie) + roll(additionalDamage, additionalDamageDie) + flatDamage;
-                writeLog(log, "Combined Damage: " + damages[i].ToString());
+                bd = BD.getRoll();
+                ad = AD.getRoll();
+                damages[i] = bd + ad + flatDamage;
+                writeLog(log, "Base Damage: " + bd.ToString() + " Additional Damage: " + ad.ToString() + " Flat Damage: " + flatDamage.ToString());
             }
 
             writeLog(log, "Ending Single Shot Calculation");
@@ -496,11 +495,10 @@ namespace FRPGC
 
         private int[] burstShotDamage(int hitChance, int shotsFired)
         {
-            int flatDamage;
-            int baseDamage;
-            int baseDamageDie;
-            int additionalDamage;
-            int additionalDamageDie;
+            int flatDamage = ((Weapon) this.comboWeapon.SelectedItem).FD;
+            Dice BD = ((Weapon) this.comboWeapon.SelectedItem).BD;
+            Dice AD = ((Weapon) this.comboWeapon.SelectedItem).AD;
+            int ad, bd = -1;
 
             return new int[]{12, 8, 4};
 
@@ -509,7 +507,9 @@ namespace FRPGC
             {
                 if (roll(1, 100) < hitChance)
                 {
-                    damages[i] = roll(baseDamage, baseDamageDie) + roll(additionalDamage, additionalDamageDie) + flatDamage;
+                    bd = BD.getRoll();
+                    ad = AD.getRoll();
+                    damages[i] = bd + ad + flatDamage;
                 }
                 else
                 {
