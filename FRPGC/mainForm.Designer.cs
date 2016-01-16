@@ -38,8 +38,6 @@
             this.checkDefaultEquipment = new System.Windows.Forms.CheckBox();
             this.comboWeapon = new System.Windows.Forms.ComboBox();
             this.comboWeaponLabel = new System.Windows.Forms.Label();
-            this.comboHelmetLabel = new System.Windows.Forms.Label();
-            this.comboHelmet = new System.Windows.Forms.ComboBox();
             this.comboArmourLabel = new System.Windows.Forms.Label();
             this.comboArmour = new System.Windows.Forms.ComboBox();
             this.textSkill = new System.Windows.Forms.TextBox();
@@ -138,7 +136,7 @@
             this.checkDefaultEquipment.AutoSize = true;
             this.checkDefaultEquipment.Checked = true;
             this.checkDefaultEquipment.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkDefaultEquipment.Location = new System.Drawing.Point(12, 151);
+            this.checkDefaultEquipment.Location = new System.Drawing.Point(12, 164);
             this.checkDefaultEquipment.Name = "checkDefaultEquipment";
             this.checkDefaultEquipment.Size = new System.Drawing.Size(113, 17);
             this.checkDefaultEquipment.TabIndex = 8;
@@ -149,7 +147,7 @@
             // comboWeapon
             // 
             this.comboWeapon.FormattingEnabled = true;
-            this.comboWeapon.Location = new System.Drawing.Point(12, 187);
+            this.comboWeapon.Location = new System.Drawing.Point(234, 45);
             this.comboWeapon.Name = "comboWeapon";
             this.comboWeapon.Size = new System.Drawing.Size(121, 21);
             this.comboWeapon.TabIndex = 9;
@@ -157,59 +155,42 @@
             // comboWeaponLabel
             // 
             this.comboWeaponLabel.AutoSize = true;
-            this.comboWeaponLabel.Location = new System.Drawing.Point(12, 171);
+            this.comboWeaponLabel.Location = new System.Drawing.Point(231, 29);
             this.comboWeaponLabel.Name = "comboWeaponLabel";
-            this.comboWeaponLabel.Size = new System.Drawing.Size(48, 13);
+            this.comboWeaponLabel.Size = new System.Drawing.Size(96, 13);
             this.comboWeaponLabel.TabIndex = 10;
-            this.comboWeaponLabel.Text = "Weapon";
-            // 
-            // comboHelmetLabel
-            // 
-            this.comboHelmetLabel.AutoSize = true;
-            this.comboHelmetLabel.Location = new System.Drawing.Point(12, 211);
-            this.comboHelmetLabel.Name = "comboHelmetLabel";
-            this.comboHelmetLabel.Size = new System.Drawing.Size(40, 13);
-            this.comboHelmetLabel.TabIndex = 11;
-            this.comboHelmetLabel.Text = "Helmet";
-            // 
-            // comboHelmet
-            // 
-            this.comboHelmet.FormattingEnabled = true;
-            this.comboHelmet.Location = new System.Drawing.Point(12, 227);
-            this.comboHelmet.Name = "comboHelmet";
-            this.comboHelmet.Size = new System.Drawing.Size(121, 21);
-            this.comboHelmet.TabIndex = 12;
+            this.comboWeaponLabel.Text = "Attacking Weapon";
             // 
             // comboArmourLabel
             // 
             this.comboArmourLabel.AutoSize = true;
-            this.comboArmourLabel.Location = new System.Drawing.Point(12, 251);
+            this.comboArmourLabel.Location = new System.Drawing.Point(12, 187);
             this.comboArmourLabel.Name = "comboArmourLabel";
-            this.comboArmourLabel.Size = new System.Drawing.Size(40, 13);
+            this.comboArmourLabel.Size = new System.Drawing.Size(92, 13);
             this.comboArmourLabel.TabIndex = 13;
-            this.comboArmourLabel.Text = "Armour";
+            this.comboArmourLabel.Text = "Defending Armour";
             // 
             // comboArmour
             // 
             this.comboArmour.FormattingEnabled = true;
-            this.comboArmour.Location = new System.Drawing.Point(12, 267);
+            this.comboArmour.Location = new System.Drawing.Point(12, 203);
             this.comboArmour.Name = "comboArmour";
             this.comboArmour.Size = new System.Drawing.Size(121, 21);
             this.comboArmour.TabIndex = 14;
             // 
             // textSkill
             // 
-            this.textSkill.Location = new System.Drawing.Point(12, 307);
+            this.textSkill.Location = new System.Drawing.Point(12, 248);
             this.textSkill.Multiline = true;
             this.textSkill.Name = "textSkill";
             this.textSkill.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textSkill.Size = new System.Drawing.Size(121, 223);
+            this.textSkill.Size = new System.Drawing.Size(121, 282);
             this.textSkill.TabIndex = 15;
             // 
             // textSkillLabel
             // 
             this.textSkillLabel.AutoSize = true;
-            this.textSkillLabel.Location = new System.Drawing.Point(12, 291);
+            this.textSkillLabel.Location = new System.Drawing.Point(12, 230);
             this.textSkillLabel.Name = "textSkillLabel";
             this.textSkillLabel.Size = new System.Drawing.Size(31, 13);
             this.textSkillLabel.TabIndex = 16;
@@ -218,7 +199,7 @@
             // scenarioLabel
             // 
             this.scenarioLabel.AutoSize = true;
-            this.scenarioLabel.Location = new System.Drawing.Point(272, 9);
+            this.scenarioLabel.Location = new System.Drawing.Point(231, 9);
             this.scenarioLabel.Name = "scenarioLabel";
             this.scenarioLabel.Size = new System.Drawing.Size(49, 13);
             this.scenarioLabel.TabIndex = 17;
@@ -226,7 +207,7 @@
             // 
             // textShotCount
             // 
-            this.textShotCount.Location = new System.Drawing.Point(275, 85);
+            this.textShotCount.Location = new System.Drawing.Point(234, 85);
             this.textShotCount.Name = "textShotCount";
             this.textShotCount.Size = new System.Drawing.Size(100, 20);
             this.textShotCount.TabIndex = 18;
@@ -234,7 +215,7 @@
             // textShotCountLabel
             // 
             this.textShotCountLabel.AutoSize = true;
-            this.textShotCountLabel.Location = new System.Drawing.Point(272, 68);
+            this.textShotCountLabel.Location = new System.Drawing.Point(231, 69);
             this.textShotCountLabel.Name = "textShotCountLabel";
             this.textShotCountLabel.Size = new System.Drawing.Size(112, 13);
             this.textShotCountLabel.TabIndex = 19;
@@ -243,7 +224,7 @@
             // comboFireTypeLabel
             // 
             this.comboFireTypeLabel.AutoSize = true;
-            this.comboFireTypeLabel.Location = new System.Drawing.Point(272, 108);
+            this.comboFireTypeLabel.Location = new System.Drawing.Point(231, 108);
             this.comboFireTypeLabel.Name = "comboFireTypeLabel";
             this.comboFireTypeLabel.Size = new System.Drawing.Size(62, 13);
             this.comboFireTypeLabel.TabIndex = 20;
@@ -256,7 +237,7 @@
             "Single Shot",
             "Burst Shot",
             "Melee"});
-            this.comboFireType.Location = new System.Drawing.Point(275, 124);
+            this.comboFireType.Location = new System.Drawing.Point(234, 124);
             this.comboFireType.Name = "comboFireType";
             this.comboFireType.Size = new System.Drawing.Size(121, 21);
             this.comboFireType.TabIndex = 21;
@@ -264,7 +245,7 @@
             // textInitialHealthLabel
             // 
             this.textInitialHealthLabel.AutoSize = true;
-            this.textInitialHealthLabel.Location = new System.Drawing.Point(272, 191);
+            this.textInitialHealthLabel.Location = new System.Drawing.Point(231, 187);
             this.textInitialHealthLabel.Name = "textInitialHealthLabel";
             this.textInitialHealthLabel.Size = new System.Drawing.Size(65, 13);
             this.textInitialHealthLabel.TabIndex = 22;
@@ -272,7 +253,7 @@
             // 
             // textInitialHealth
             // 
-            this.textInitialHealth.Location = new System.Drawing.Point(275, 207);
+            this.textInitialHealth.Location = new System.Drawing.Point(234, 203);
             this.textInitialHealth.Name = "textInitialHealth";
             this.textInitialHealth.Size = new System.Drawing.Size(100, 20);
             this.textInitialHealth.TabIndex = 23;
@@ -281,7 +262,7 @@
             // textDistanceLabel
             // 
             this.textDistanceLabel.AutoSize = true;
-            this.textDistanceLabel.Location = new System.Drawing.Point(272, 152);
+            this.textDistanceLabel.Location = new System.Drawing.Point(231, 148);
             this.textDistanceLabel.Name = "textDistanceLabel";
             this.textDistanceLabel.Size = new System.Drawing.Size(39, 13);
             this.textDistanceLabel.TabIndex = 24;
@@ -289,7 +270,7 @@
             // 
             // textDistance
             // 
-            this.textDistance.Location = new System.Drawing.Point(275, 168);
+            this.textDistance.Location = new System.Drawing.Point(234, 164);
             this.textDistance.Name = "textDistance";
             this.textDistance.Size = new System.Drawing.Size(100, 20);
             this.textDistance.TabIndex = 25;
@@ -297,7 +278,7 @@
             // resultsLabel
             // 
             this.resultsLabel.AutoSize = true;
-            this.resultsLabel.Location = new System.Drawing.Point(439, 9);
+            this.resultsLabel.Location = new System.Drawing.Point(436, 8);
             this.resultsLabel.Name = "resultsLabel";
             this.resultsLabel.Size = new System.Drawing.Size(42, 13);
             this.resultsLabel.TabIndex = 26;
@@ -306,7 +287,7 @@
             // textDamageDealtLabel
             // 
             this.textDamageDealtLabel.AutoSize = true;
-            this.textDamageDealtLabel.Location = new System.Drawing.Point(439, 68);
+            this.textDamageDealtLabel.Location = new System.Drawing.Point(436, 68);
             this.textDamageDealtLabel.Name = "textDamageDealtLabel";
             this.textDamageDealtLabel.Size = new System.Drawing.Size(75, 13);
             this.textDamageDealtLabel.TabIndex = 27;
@@ -314,7 +295,7 @@
             // 
             // textDamageDealt
             // 
-            this.textDamageDealt.Location = new System.Drawing.Point(442, 84);
+            this.textDamageDealt.Location = new System.Drawing.Point(439, 84);
             this.textDamageDealt.Name = "textDamageDealt";
             this.textDamageDealt.ReadOnly = true;
             this.textDamageDealt.Size = new System.Drawing.Size(100, 20);
@@ -323,7 +304,7 @@
             // textCurrentHealthLabel
             // 
             this.textCurrentHealthLabel.AutoSize = true;
-            this.textCurrentHealthLabel.Location = new System.Drawing.Point(439, 108);
+            this.textCurrentHealthLabel.Location = new System.Drawing.Point(436, 108);
             this.textCurrentHealthLabel.Name = "textCurrentHealthLabel";
             this.textCurrentHealthLabel.Size = new System.Drawing.Size(75, 13);
             this.textCurrentHealthLabel.TabIndex = 29;
@@ -331,7 +312,7 @@
             // 
             // textCurrentHealth
             // 
-            this.textCurrentHealth.Location = new System.Drawing.Point(442, 125);
+            this.textCurrentHealth.Location = new System.Drawing.Point(439, 125);
             this.textCurrentHealth.Name = "textCurrentHealth";
             this.textCurrentHealth.ReadOnly = true;
             this.textCurrentHealth.Size = new System.Drawing.Size(100, 20);
@@ -339,7 +320,7 @@
             // 
             // buttonSetHP
             // 
-            this.buttonSetHP.Location = new System.Drawing.Point(442, 180);
+            this.buttonSetHP.Location = new System.Drawing.Point(439, 200);
             this.buttonSetHP.Name = "buttonSetHP";
             this.buttonSetHP.Size = new System.Drawing.Size(100, 23);
             this.buttonSetHP.TabIndex = 31;
@@ -349,18 +330,18 @@
             // 
             // textLog
             // 
-            this.textLog.Location = new System.Drawing.Point(275, 248);
+            this.textLog.Location = new System.Drawing.Point(139, 248);
             this.textLog.Multiline = true;
             this.textLog.Name = "textLog";
             this.textLog.ReadOnly = true;
             this.textLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textLog.Size = new System.Drawing.Size(267, 282);
+            this.textLog.Size = new System.Drawing.Size(400, 282);
             this.textLog.TabIndex = 32;
             // 
             // textLogLabel
             // 
             this.textLogLabel.AutoSize = true;
-            this.textLogLabel.Location = new System.Drawing.Point(272, 230);
+            this.textLogLabel.Location = new System.Drawing.Point(136, 230);
             this.textLogLabel.Name = "textLogLabel";
             this.textLogLabel.Size = new System.Drawing.Size(25, 13);
             this.textLogLabel.TabIndex = 33;
@@ -368,13 +349,13 @@
             // 
             // buttonCalculate
             // 
-            this.buttonCalculate.Location = new System.Drawing.Point(442, 151);
+            this.buttonCalculate.Location = new System.Drawing.Point(439, 161);
             this.buttonCalculate.Name = "buttonCalculate";
             this.buttonCalculate.Size = new System.Drawing.Size(100, 23);
             this.buttonCalculate.TabIndex = 34;
             this.buttonCalculate.Text = "Calculate";
             this.buttonCalculate.UseVisualStyleBackColor = true;
-            this.buttonCalculate.Click += new System.EventHandler(this.dumpArmours);//this.calculate);
+            this.buttonCalculate.Click += new System.EventHandler(this.dumpArmours);
             // 
             // mainForm
             // 
@@ -403,8 +384,6 @@
             this.Controls.Add(this.textSkill);
             this.Controls.Add(this.comboArmour);
             this.Controls.Add(this.comboArmourLabel);
-            this.Controls.Add(this.comboHelmet);
-            this.Controls.Add(this.comboHelmetLabel);
             this.Controls.Add(this.comboWeaponLabel);
             this.Controls.Add(this.comboWeapon);
             this.Controls.Add(this.checkDefaultEquipment);
@@ -434,8 +413,6 @@
         private System.Windows.Forms.CheckBox checkDefaultEquipment;
         private System.Windows.Forms.ComboBox comboWeapon;
         private System.Windows.Forms.Label comboWeaponLabel;
-        private System.Windows.Forms.Label comboHelmetLabel;
-        private System.Windows.Forms.ComboBox comboHelmet;
         private System.Windows.Forms.Label comboArmourLabel;
         private System.Windows.Forms.ComboBox comboArmour;
         private System.Windows.Forms.TextBox textSkill;
