@@ -374,7 +374,7 @@
             this.buttonCalculate.TabIndex = 34;
             this.buttonCalculate.Text = "Calculate";
             this.buttonCalculate.UseVisualStyleBackColor = true;
-            this.buttonCalculate.Click += new System.EventHandler(this.dumpWeapons);//this.calculate);
+            this.buttonCalculate.Click += new System.EventHandler(this.dumpArmours);//this.calculate);
             // 
             // mainForm
             // 

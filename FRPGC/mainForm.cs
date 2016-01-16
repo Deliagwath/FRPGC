@@ -26,8 +26,7 @@ namespace FRPGC
 
         
         private BindingList<Weapon> weapons = new BindingList<Weapon>();
-        // Armour {"Name", "ID", "AC", "DR", "DRLA", "DRPL", "DREL", "DRFR", "DREX"}
-        private Dictionary<string, string> armour = new Dictionary<string, string>();
+        private BindingList<Armour> armours = new BindingList<Armour>();
         //private Dictionary<string, string> playerEquip = new Dictionary<string, string>();
         //private Dictionary<string, string> playerStats = new Dictionary<string, string>();
         //private Dictionary<string, string> enemyEquip = new Dictionary<string, string>();
@@ -65,6 +64,7 @@ namespace FRPGC
                         break;
 
                         case ("Armour.csv"):
+                        getArmours(reader);
                         break;
                     }
                 }
@@ -250,10 +250,11 @@ namespace FRPGC
                     continue;
                 }
 
-                // Creating Weapon Object and adding to Dictionary
+                // Creating Weapon Object and adding to List
                 this.weapons.Add(new Weapon(name, id, singleRange, burstRange, c, bd, ad, spb, dt));
             }
 
+            // Binding to ComboBox
             this.comboWeapon.DataSource = this.weapons;
             this.comboWeapon.ValueMember = "ID";
             this.comboWeapon.DisplayMember = "Name";
@@ -265,6 +266,45 @@ namespace FRPGC
             foreach (Weapon w in this.weapons)
             {
                 logBoth(log, w.toString());
+            }
+        }
+
+        public void getArmours(StreamReader reader)
+        {
+            string line, name, id = null;
+            string[] splitted = null;
+
+            while ((line = reader.ReadLine()) != null)
+            {
+                // Weapons {"Name":0, "ID":1, "Range":2, "BD":3, "AD":4, "SPB"(Shots per burst):5, "DamageType":6}
+                splitted = line.Trim().Split(',');
+
+                name = splitted[0].Trim();
+                logBoth(log, "Parsing " + name);
+                id = splitted[1].Trim();
+
+                // Creating Armour Object and adding to List
+                this.armours.Add(new Armour(name, id,
+                    int.Parse(splitted[2].Trim()),
+                    int.Parse(splitted[3].Trim()),
+                    int.Parse(splitted[4].Trim()),
+                    int.Parse(splitted[5].Trim()),
+                    int.Parse(splitted[6].Trim()),
+                    int.Parse(splitted[7].Trim()),
+                    int.Parse(splitted[8].Trim())));
+            }
+
+            this.comboArmour.DataSource = this.armours;
+            this.comboArmour.ValueMember = "ID";
+            this.comboArmour.DisplayMember = "Name";
+        }
+
+        public void dumpArmours(object sender, EventArgs e)
+        {
+            logBoth(log, "Dumping");
+            foreach (Armour a in this.armours)
+            {
+                logBoth(log, a.toString());
             }
         }
 
