@@ -409,7 +409,7 @@ namespace FRPGC
         private int burstShot(int shotsFired)
         {
             int chance = burstShotHitChance();
-            int[] damages = burstShotDamage(chance, shotsFired);
+            int[] damages = burstShotDamage(shotsFired);
             int totalDamage = 0;
             Dice dice = new Dice(1, Math.Max(100, chance), this.logBoth, log);
             int rolled = -1;
@@ -493,7 +493,7 @@ namespace FRPGC
         public int roll(int i, int j) { return 0; }
         //???
 
-        private int[] burstShotDamage(int hitChance, int shotsFired)
+        private int[] burstShotDamage(int shotsFired)
         {
             int flatDamage = ((Weapon) this.comboWeapon.SelectedItem).FD;
             Dice BD = ((Weapon) this.comboWeapon.SelectedItem).BD;
@@ -505,43 +505,64 @@ namespace FRPGC
             int[] damages = new int[shotsFired];
             for (int i = 0; i < shotsFired; i++)
             {
-                if (roll(1, 100) < hitChance)
-                {
-                    bd = BD.getRoll();
-                    ad = AD.getRoll();
-                    damages[i] = bd + ad + flatDamage;
-                }
-                else
-                {
-                    damages[i] = 0;
-                }
+                bd = BD.getRoll();
+                ad = AD.getRoll();
+                damages[i] = bd + ad + flatDamage;
+                writeLog(log, "Base Damage: " + bd.ToString() + " Additional Damage: " + ad.ToString() + " Flat Damage: " + flatDamage.ToString());
             }
-
             return damages;
         }
 
-        private void radioPlayerChecked(object sender, EventArgs e)
+        private void radioAttackerPlayerChecked(object sender, EventArgs e)
         {
-            this.comboUnitLabel.Text = "Player Name";
+            this.comboAttackerUnitLabel.Text = "Player Name";
             // Clear comboUnit and populate with Player Name List
-            this.comboDifficultyLabel.Visible = false;
-            this.comboDifficulty.Visible = false;
-            this.checkDefaultEquipment.Visible = false;
+            this.comboAttackerDifficultyLabel.Visible = false;
+            this.comboAttackerDifficulty.Visible = false;
+            this.checkAttackerDefaultEquipment.Visible = false;
         }
 
-        private void radioEnemyChecked(object sender, EventArgs e)
+        private void radioAttackerEnemyChecked(object sender, EventArgs e)
         {
-            this.comboUnitLabel.Text = "Unit Name";
+            this.comboAttackerUnitLabel.Text = "Unit Name";
             // Clear comboUnit and populate with Enemy Name List
-            this.comboDifficultyLabel.Visible = true;
-            this.comboDifficulty.Visible = true;
-            this.checkDefaultEquipment.Visible = true;
+            this.comboAttackerDifficultyLabel.Visible = true;
+            this.comboAttackerDifficulty.Visible = true;
+            this.checkAttackerDefaultEquipment.Visible = true;
+        }
+
+        private void radioDefenderPlayerChecked(object sender, EventArgs e)
+        {
+            this.comboDefenderUnitLabel.Text = "Player Name";
+            // Clear comboUnit and populate with Player Name List
+            this.comboDefenderDifficultyLabel.Visible = false;
+            this.comboDefenderDifficulty.Visible = false;
+            this.checkDefenderDefaultEquipment.Visible = false;
+        }
+
+        private void radioDefenderEnemyChecked(object sender, EventArgs e)
+        {
+            this.comboDefenderUnitLabel.Text = "Unit Name";
+            // Clear comboUnit and populate with Enemy Name List
+            this.comboDefenderDifficultyLabel.Visible = true;
+            this.comboDefenderDifficulty.Visible = true;
+            this.checkDefenderDefaultEquipment.Visible = true;
         }
 
         private void buttonSetHP_Click(object sender, EventArgs e)
         {
             logBoth(log, "Setting Initial HP to " + this.textCurrentHealth.Text);
             this.textInitialHealth.Text = this.textCurrentHealth.Text;
+        }
+
+        private void comboAttackerUnitChanged(object sender, EventArgs e)
+        {
+            // TODO After Unit Equip CSV is formed
+        }
+
+        private void comboDefenderUnitChanged(object sender, EventArgs e)
+        {
+            // TODO After Unit Equip CSV is formed
         }
     }
 }

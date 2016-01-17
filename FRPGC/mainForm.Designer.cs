@@ -28,14 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.radioPlayer = new System.Windows.Forms.RadioButton();
-            this.radioTargetLabel = new System.Windows.Forms.Label();
-            this.radioEnemy = new System.Windows.Forms.RadioButton();
-            this.comboUnit = new System.Windows.Forms.ComboBox();
-            this.comboDifficulty = new System.Windows.Forms.ComboBox();
-            this.comboUnitLabel = new System.Windows.Forms.Label();
-            this.comboDifficultyLabel = new System.Windows.Forms.Label();
-            this.checkDefaultEquipment = new System.Windows.Forms.CheckBox();
+            this.radioAttackerPlayer = new System.Windows.Forms.RadioButton();
+            this.radioAttackerEnemy = new System.Windows.Forms.RadioButton();
+            this.comboAttackingUnit = new System.Windows.Forms.ComboBox();
+            this.comboAttackerDifficulty = new System.Windows.Forms.ComboBox();
+            this.comboAttackerUnitLabel = new System.Windows.Forms.Label();
+            this.comboAttackerDifficultyLabel = new System.Windows.Forms.Label();
+            this.checkAttackerDefaultEquipment = new System.Windows.Forms.CheckBox();
             this.comboWeapon = new System.Windows.Forms.ComboBox();
             this.comboWeaponLabel = new System.Windows.Forms.Label();
             this.comboArmourLabel = new System.Windows.Forms.Label();
@@ -60,94 +59,97 @@
             this.textLog = new System.Windows.Forms.TextBox();
             this.textLogLabel = new System.Windows.Forms.Label();
             this.buttonCalculate = new System.Windows.Forms.Button();
+            this.checkDefenderDefaultEquipment = new System.Windows.Forms.CheckBox();
+            this.comboDefenderDifficultyLabel = new System.Windows.Forms.Label();
+            this.comboDefenderDifficulty = new System.Windows.Forms.ComboBox();
+            this.comboDefenderUnitLabel = new System.Windows.Forms.Label();
+            this.comboDefenderUnit = new System.Windows.Forms.ComboBox();
+            this.radioDefenderEnemy = new System.Windows.Forms.RadioButton();
+            this.radioDefenderPlayer = new System.Windows.Forms.RadioButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // radioPlayer
+            // radioAttackerPlayer
             // 
-            this.radioPlayer.AutoSize = true;
-            this.radioPlayer.Checked = true;
-            this.radioPlayer.Location = new System.Drawing.Point(12, 25);
-            this.radioPlayer.Name = "radioPlayer";
-            this.radioPlayer.Size = new System.Drawing.Size(54, 17);
-            this.radioPlayer.TabIndex = 1;
-            this.radioPlayer.TabStop = true;
-            this.radioPlayer.Text = "Player";
-            this.radioPlayer.UseVisualStyleBackColor = true;
-            this.radioPlayer.CheckedChanged += new System.EventHandler(this.radioPlayerChecked);
+            this.radioAttackerPlayer.AutoSize = true;
+            this.radioAttackerPlayer.Checked = true;
+            this.radioAttackerPlayer.Location = new System.Drawing.Point(6, 12);
+            this.radioAttackerPlayer.Name = "radioAttackerPlayer";
+            this.radioAttackerPlayer.Size = new System.Drawing.Size(54, 17);
+            this.radioAttackerPlayer.TabIndex = 1;
+            this.radioAttackerPlayer.TabStop = true;
+            this.radioAttackerPlayer.Text = "Player";
+            this.radioAttackerPlayer.UseVisualStyleBackColor = true;
+            this.radioAttackerPlayer.CheckedChanged += new System.EventHandler(this.radioAttackerPlayerChecked);
             // 
-            // radioTargetLabel
+            // radioAttackerEnemy
             // 
-            this.radioTargetLabel.AutoSize = true;
-            this.radioTargetLabel.Location = new System.Drawing.Point(12, 9);
-            this.radioTargetLabel.Name = "radioTargetLabel";
-            this.radioTargetLabel.Size = new System.Drawing.Size(38, 13);
-            this.radioTargetLabel.TabIndex = 2;
-            this.radioTargetLabel.Text = "Target";
+            this.radioAttackerEnemy.AutoSize = true;
+            this.radioAttackerEnemy.Location = new System.Drawing.Point(6, 32);
+            this.radioAttackerEnemy.Name = "radioAttackerEnemy";
+            this.radioAttackerEnemy.Size = new System.Drawing.Size(57, 17);
+            this.radioAttackerEnemy.TabIndex = 3;
+            this.radioAttackerEnemy.Text = "Enemy";
+            this.radioAttackerEnemy.UseVisualStyleBackColor = true;
+            this.radioAttackerEnemy.CheckedChanged += new System.EventHandler(this.radioAttackerEnemyChecked);
             // 
-            // radioEnemy
+            // comboAttackingUnit
             // 
-            this.radioEnemy.AutoSize = true;
-            this.radioEnemy.Location = new System.Drawing.Point(12, 48);
-            this.radioEnemy.Name = "radioEnemy";
-            this.radioEnemy.Size = new System.Drawing.Size(57, 17);
-            this.radioEnemy.TabIndex = 3;
-            this.radioEnemy.Text = "Enemy";
-            this.radioEnemy.UseVisualStyleBackColor = true;
-            this.radioEnemy.CheckedChanged += new System.EventHandler(this.radioEnemyChecked);
+            this.comboAttackingUnit.FormattingEnabled = true;
+            this.comboAttackingUnit.Location = new System.Drawing.Point(12, 84);
+            this.comboAttackingUnit.Name = "comboAttackingUnit";
+            this.comboAttackingUnit.Size = new System.Drawing.Size(121, 21);
+            this.comboAttackingUnit.TabIndex = 4;
+            this.comboAttackingUnit.SelectedIndexChanged += new System.EventHandler(this.comboAttackerUnitChanged);
             // 
-            // comboUnit
+            // comboAttackerDifficulty
             // 
-            this.comboUnit.FormattingEnabled = true;
-            this.comboUnit.Location = new System.Drawing.Point(12, 84);
-            this.comboUnit.Name = "comboUnit";
-            this.comboUnit.Size = new System.Drawing.Size(121, 21);
-            this.comboUnit.TabIndex = 4;
+            this.comboAttackerDifficulty.FormattingEnabled = true;
+            this.comboAttackerDifficulty.Location = new System.Drawing.Point(12, 124);
+            this.comboAttackerDifficulty.Name = "comboAttackerDifficulty";
+            this.comboAttackerDifficulty.Size = new System.Drawing.Size(121, 21);
+            this.comboAttackerDifficulty.TabIndex = 5;
+            this.comboAttackerDifficulty.Visible = false;
             // 
-            // comboDifficulty
+            // comboAttackerUnitLabel
             // 
-            this.comboDifficulty.FormattingEnabled = true;
-            this.comboDifficulty.Location = new System.Drawing.Point(12, 124);
-            this.comboDifficulty.Name = "comboDifficulty";
-            this.comboDifficulty.Size = new System.Drawing.Size(121, 21);
-            this.comboDifficulty.TabIndex = 5;
-            this.comboDifficulty.Visible = false;
+            this.comboAttackerUnitLabel.AutoSize = true;
+            this.comboAttackerUnitLabel.Location = new System.Drawing.Point(12, 68);
+            this.comboAttackerUnitLabel.Name = "comboAttackerUnitLabel";
+            this.comboAttackerUnitLabel.Size = new System.Drawing.Size(67, 13);
+            this.comboAttackerUnitLabel.TabIndex = 6;
+            this.comboAttackerUnitLabel.Text = "Player Name";
             // 
-            // comboUnitLabel
+            // comboAttackerDifficultyLabel
             // 
-            this.comboUnitLabel.AutoSize = true;
-            this.comboUnitLabel.Location = new System.Drawing.Point(12, 68);
-            this.comboUnitLabel.Name = "comboUnitLabel";
-            this.comboUnitLabel.Size = new System.Drawing.Size(67, 13);
-            this.comboUnitLabel.TabIndex = 6;
-            this.comboUnitLabel.Text = "Player Name";
+            this.comboAttackerDifficultyLabel.AutoSize = true;
+            this.comboAttackerDifficultyLabel.Location = new System.Drawing.Point(12, 108);
+            this.comboAttackerDifficultyLabel.Name = "comboAttackerDifficultyLabel";
+            this.comboAttackerDifficultyLabel.Size = new System.Drawing.Size(47, 13);
+            this.comboAttackerDifficultyLabel.TabIndex = 7;
+            this.comboAttackerDifficultyLabel.Text = "Difficulty";
+            this.comboAttackerDifficultyLabel.Visible = false;
             // 
-            // comboDifficultyLabel
+            // checkAttackerDefaultEquipment
             // 
-            this.comboDifficultyLabel.AutoSize = true;
-            this.comboDifficultyLabel.Location = new System.Drawing.Point(12, 108);
-            this.comboDifficultyLabel.Name = "comboDifficultyLabel";
-            this.comboDifficultyLabel.Size = new System.Drawing.Size(47, 13);
-            this.comboDifficultyLabel.TabIndex = 7;
-            this.comboDifficultyLabel.Text = "Difficulty";
-            this.comboDifficultyLabel.Visible = false;
-            // 
-            // checkDefaultEquipment
-            // 
-            this.checkDefaultEquipment.AutoSize = true;
-            this.checkDefaultEquipment.Checked = true;
-            this.checkDefaultEquipment.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkDefaultEquipment.Location = new System.Drawing.Point(12, 164);
-            this.checkDefaultEquipment.Name = "checkDefaultEquipment";
-            this.checkDefaultEquipment.Size = new System.Drawing.Size(113, 17);
-            this.checkDefaultEquipment.TabIndex = 8;
-            this.checkDefaultEquipment.Text = "Default Equipment";
-            this.checkDefaultEquipment.UseVisualStyleBackColor = true;
-            this.checkDefaultEquipment.Visible = false;
+            this.checkAttackerDefaultEquipment.AutoSize = true;
+            this.checkAttackerDefaultEquipment.Checked = true;
+            this.checkAttackerDefaultEquipment.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkAttackerDefaultEquipment.Location = new System.Drawing.Point(12, 151);
+            this.checkAttackerDefaultEquipment.Name = "checkAttackerDefaultEquipment";
+            this.checkAttackerDefaultEquipment.Size = new System.Drawing.Size(113, 17);
+            this.checkAttackerDefaultEquipment.TabIndex = 8;
+            this.checkAttackerDefaultEquipment.Text = "Default Equipment";
+            this.checkAttackerDefaultEquipment.UseVisualStyleBackColor = true;
+            this.checkAttackerDefaultEquipment.Visible = false;
             // 
             // comboWeapon
             // 
             this.comboWeapon.FormattingEnabled = true;
-            this.comboWeapon.Location = new System.Drawing.Point(234, 45);
+            this.comboWeapon.Location = new System.Drawing.Point(12, 187);
             this.comboWeapon.Name = "comboWeapon";
             this.comboWeapon.Size = new System.Drawing.Size(121, 21);
             this.comboWeapon.TabIndex = 9;
@@ -155,7 +157,7 @@
             // comboWeaponLabel
             // 
             this.comboWeaponLabel.AutoSize = true;
-            this.comboWeaponLabel.Location = new System.Drawing.Point(231, 29);
+            this.comboWeaponLabel.Location = new System.Drawing.Point(9, 171);
             this.comboWeaponLabel.Name = "comboWeaponLabel";
             this.comboWeaponLabel.Size = new System.Drawing.Size(96, 13);
             this.comboWeaponLabel.TabIndex = 10;
@@ -164,7 +166,7 @@
             // comboArmourLabel
             // 
             this.comboArmourLabel.AutoSize = true;
-            this.comboArmourLabel.Location = new System.Drawing.Point(12, 187);
+            this.comboArmourLabel.Location = new System.Drawing.Point(139, 171);
             this.comboArmourLabel.Name = "comboArmourLabel";
             this.comboArmourLabel.Size = new System.Drawing.Size(92, 13);
             this.comboArmourLabel.TabIndex = 13;
@@ -173,24 +175,24 @@
             // comboArmour
             // 
             this.comboArmour.FormattingEnabled = true;
-            this.comboArmour.Location = new System.Drawing.Point(12, 203);
+            this.comboArmour.Location = new System.Drawing.Point(139, 187);
             this.comboArmour.Name = "comboArmour";
             this.comboArmour.Size = new System.Drawing.Size(121, 21);
             this.comboArmour.TabIndex = 14;
             // 
             // textSkill
             // 
-            this.textSkill.Location = new System.Drawing.Point(12, 248);
+            this.textSkill.Location = new System.Drawing.Point(12, 227);
             this.textSkill.Multiline = true;
             this.textSkill.Name = "textSkill";
             this.textSkill.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textSkill.Size = new System.Drawing.Size(121, 282);
+            this.textSkill.Size = new System.Drawing.Size(121, 303);
             this.textSkill.TabIndex = 15;
             // 
             // textSkillLabel
             // 
             this.textSkillLabel.AutoSize = true;
-            this.textSkillLabel.Location = new System.Drawing.Point(12, 230);
+            this.textSkillLabel.Location = new System.Drawing.Point(12, 211);
             this.textSkillLabel.Name = "textSkillLabel";
             this.textSkillLabel.Size = new System.Drawing.Size(31, 13);
             this.textSkillLabel.TabIndex = 16;
@@ -199,7 +201,7 @@
             // scenarioLabel
             // 
             this.scenarioLabel.AutoSize = true;
-            this.scenarioLabel.Location = new System.Drawing.Point(231, 9);
+            this.scenarioLabel.Location = new System.Drawing.Point(263, 9);
             this.scenarioLabel.Name = "scenarioLabel";
             this.scenarioLabel.Size = new System.Drawing.Size(49, 13);
             this.scenarioLabel.TabIndex = 17;
@@ -207,15 +209,15 @@
             // 
             // textShotCount
             // 
-            this.textShotCount.Location = new System.Drawing.Point(234, 85);
+            this.textShotCount.Location = new System.Drawing.Point(266, 84);
             this.textShotCount.Name = "textShotCount";
-            this.textShotCount.Size = new System.Drawing.Size(100, 20);
+            this.textShotCount.Size = new System.Drawing.Size(109, 20);
             this.textShotCount.TabIndex = 18;
             // 
             // textShotCountLabel
             // 
             this.textShotCountLabel.AutoSize = true;
-            this.textShotCountLabel.Location = new System.Drawing.Point(231, 69);
+            this.textShotCountLabel.Location = new System.Drawing.Point(263, 68);
             this.textShotCountLabel.Name = "textShotCountLabel";
             this.textShotCountLabel.Size = new System.Drawing.Size(112, 13);
             this.textShotCountLabel.TabIndex = 19;
@@ -224,7 +226,7 @@
             // comboFireTypeLabel
             // 
             this.comboFireTypeLabel.AutoSize = true;
-            this.comboFireTypeLabel.Location = new System.Drawing.Point(231, 108);
+            this.comboFireTypeLabel.Location = new System.Drawing.Point(263, 107);
             this.comboFireTypeLabel.Name = "comboFireTypeLabel";
             this.comboFireTypeLabel.Size = new System.Drawing.Size(62, 13);
             this.comboFireTypeLabel.TabIndex = 20;
@@ -237,15 +239,15 @@
             "Single Shot",
             "Burst Shot",
             "Melee"});
-            this.comboFireType.Location = new System.Drawing.Point(234, 124);
+            this.comboFireType.Location = new System.Drawing.Point(266, 123);
             this.comboFireType.Name = "comboFireType";
-            this.comboFireType.Size = new System.Drawing.Size(121, 21);
+            this.comboFireType.Size = new System.Drawing.Size(109, 21);
             this.comboFireType.TabIndex = 21;
             // 
             // textInitialHealthLabel
             // 
             this.textInitialHealthLabel.AutoSize = true;
-            this.textInitialHealthLabel.Location = new System.Drawing.Point(231, 187);
+            this.textInitialHealthLabel.Location = new System.Drawing.Point(263, 186);
             this.textInitialHealthLabel.Name = "textInitialHealthLabel";
             this.textInitialHealthLabel.Size = new System.Drawing.Size(65, 13);
             this.textInitialHealthLabel.TabIndex = 22;
@@ -253,16 +255,16 @@
             // 
             // textInitialHealth
             // 
-            this.textInitialHealth.Location = new System.Drawing.Point(234, 203);
+            this.textInitialHealth.Location = new System.Drawing.Point(266, 202);
             this.textInitialHealth.Name = "textInitialHealth";
-            this.textInitialHealth.Size = new System.Drawing.Size(100, 20);
+            this.textInitialHealth.Size = new System.Drawing.Size(109, 20);
             this.textInitialHealth.TabIndex = 23;
             this.textInitialHealth.Text = "0";
             // 
             // textDistanceLabel
             // 
             this.textDistanceLabel.AutoSize = true;
-            this.textDistanceLabel.Location = new System.Drawing.Point(231, 148);
+            this.textDistanceLabel.Location = new System.Drawing.Point(263, 147);
             this.textDistanceLabel.Name = "textDistanceLabel";
             this.textDistanceLabel.Size = new System.Drawing.Size(39, 13);
             this.textDistanceLabel.TabIndex = 24;
@@ -270,15 +272,15 @@
             // 
             // textDistance
             // 
-            this.textDistance.Location = new System.Drawing.Point(234, 164);
+            this.textDistance.Location = new System.Drawing.Point(266, 163);
             this.textDistance.Name = "textDistance";
-            this.textDistance.Size = new System.Drawing.Size(100, 20);
+            this.textDistance.Size = new System.Drawing.Size(109, 20);
             this.textDistance.TabIndex = 25;
             // 
             // resultsLabel
             // 
             this.resultsLabel.AutoSize = true;
-            this.resultsLabel.Location = new System.Drawing.Point(436, 8);
+            this.resultsLabel.Location = new System.Drawing.Point(378, 11);
             this.resultsLabel.Name = "resultsLabel";
             this.resultsLabel.Size = new System.Drawing.Size(42, 13);
             this.resultsLabel.TabIndex = 26;
@@ -287,7 +289,7 @@
             // textDamageDealtLabel
             // 
             this.textDamageDealtLabel.AutoSize = true;
-            this.textDamageDealtLabel.Location = new System.Drawing.Point(436, 68);
+            this.textDamageDealtLabel.Location = new System.Drawing.Point(378, 68);
             this.textDamageDealtLabel.Name = "textDamageDealtLabel";
             this.textDamageDealtLabel.Size = new System.Drawing.Size(75, 13);
             this.textDamageDealtLabel.TabIndex = 27;
@@ -295,7 +297,7 @@
             // 
             // textDamageDealt
             // 
-            this.textDamageDealt.Location = new System.Drawing.Point(439, 84);
+            this.textDamageDealt.Location = new System.Drawing.Point(381, 84);
             this.textDamageDealt.Name = "textDamageDealt";
             this.textDamageDealt.ReadOnly = true;
             this.textDamageDealt.Size = new System.Drawing.Size(100, 20);
@@ -304,7 +306,7 @@
             // textCurrentHealthLabel
             // 
             this.textCurrentHealthLabel.AutoSize = true;
-            this.textCurrentHealthLabel.Location = new System.Drawing.Point(436, 108);
+            this.textCurrentHealthLabel.Location = new System.Drawing.Point(378, 108);
             this.textCurrentHealthLabel.Name = "textCurrentHealthLabel";
             this.textCurrentHealthLabel.Size = new System.Drawing.Size(75, 13);
             this.textCurrentHealthLabel.TabIndex = 29;
@@ -312,7 +314,7 @@
             // 
             // textCurrentHealth
             // 
-            this.textCurrentHealth.Location = new System.Drawing.Point(439, 125);
+            this.textCurrentHealth.Location = new System.Drawing.Point(381, 125);
             this.textCurrentHealth.Name = "textCurrentHealth";
             this.textCurrentHealth.ReadOnly = true;
             this.textCurrentHealth.Size = new System.Drawing.Size(100, 20);
@@ -320,7 +322,7 @@
             // 
             // buttonSetHP
             // 
-            this.buttonSetHP.Location = new System.Drawing.Point(439, 200);
+            this.buttonSetHP.Location = new System.Drawing.Point(381, 200);
             this.buttonSetHP.Name = "buttonSetHP";
             this.buttonSetHP.Size = new System.Drawing.Size(100, 23);
             this.buttonSetHP.TabIndex = 31;
@@ -330,18 +332,18 @@
             // 
             // textLog
             // 
-            this.textLog.Location = new System.Drawing.Point(139, 248);
+            this.textLog.Location = new System.Drawing.Point(139, 227);
             this.textLog.Multiline = true;
             this.textLog.Name = "textLog";
             this.textLog.ReadOnly = true;
             this.textLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textLog.Size = new System.Drawing.Size(400, 282);
+            this.textLog.Size = new System.Drawing.Size(342, 303);
             this.textLog.TabIndex = 32;
             // 
             // textLogLabel
             // 
             this.textLogLabel.AutoSize = true;
-            this.textLogLabel.Location = new System.Drawing.Point(136, 230);
+            this.textLogLabel.Location = new System.Drawing.Point(136, 211);
             this.textLogLabel.Name = "textLogLabel";
             this.textLogLabel.Size = new System.Drawing.Size(25, 13);
             this.textLogLabel.TabIndex = 33;
@@ -349,7 +351,7 @@
             // 
             // buttonCalculate
             // 
-            this.buttonCalculate.Location = new System.Drawing.Point(439, 161);
+            this.buttonCalculate.Location = new System.Drawing.Point(381, 161);
             this.buttonCalculate.Name = "buttonCalculate";
             this.buttonCalculate.Size = new System.Drawing.Size(100, 23);
             this.buttonCalculate.TabIndex = 34;
@@ -357,11 +359,114 @@
             this.buttonCalculate.UseVisualStyleBackColor = true;
             this.buttonCalculate.Click += new System.EventHandler(this.dumpArmours);
             // 
+            // checkDefenderDefaultEquipment
+            // 
+            this.checkDefenderDefaultEquipment.AutoSize = true;
+            this.checkDefenderDefaultEquipment.Checked = true;
+            this.checkDefenderDefaultEquipment.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkDefenderDefaultEquipment.Location = new System.Drawing.Point(139, 151);
+            this.checkDefenderDefaultEquipment.Name = "checkDefenderDefaultEquipment";
+            this.checkDefenderDefaultEquipment.Size = new System.Drawing.Size(113, 17);
+            this.checkDefenderDefaultEquipment.TabIndex = 36;
+            this.checkDefenderDefaultEquipment.Text = "Default Equipment";
+            this.checkDefenderDefaultEquipment.UseVisualStyleBackColor = true;
+            this.checkDefenderDefaultEquipment.Visible = false;
+            // 
+            // comboDefenderDifficultyLabel
+            // 
+            this.comboDefenderDifficultyLabel.AutoSize = true;
+            this.comboDefenderDifficultyLabel.Location = new System.Drawing.Point(139, 108);
+            this.comboDefenderDifficultyLabel.Name = "comboDefenderDifficultyLabel";
+            this.comboDefenderDifficultyLabel.Size = new System.Drawing.Size(47, 13);
+            this.comboDefenderDifficultyLabel.TabIndex = 38;
+            this.comboDefenderDifficultyLabel.Text = "Difficulty";
+            this.comboDefenderDifficultyLabel.Visible = false;
+            // 
+            // comboDefenderDifficulty
+            // 
+            this.comboDefenderDifficulty.FormattingEnabled = true;
+            this.comboDefenderDifficulty.Location = new System.Drawing.Point(139, 124);
+            this.comboDefenderDifficulty.Name = "comboDefenderDifficulty";
+            this.comboDefenderDifficulty.Size = new System.Drawing.Size(121, 21);
+            this.comboDefenderDifficulty.TabIndex = 37;
+            this.comboDefenderDifficulty.Visible = false;
+            // 
+            // comboDefenderUnitLabel
+            // 
+            this.comboDefenderUnitLabel.AutoSize = true;
+            this.comboDefenderUnitLabel.Location = new System.Drawing.Point(139, 69);
+            this.comboDefenderUnitLabel.Name = "comboDefenderUnitLabel";
+            this.comboDefenderUnitLabel.Size = new System.Drawing.Size(67, 13);
+            this.comboDefenderUnitLabel.TabIndex = 42;
+            this.comboDefenderUnitLabel.Text = "Player Name";
+            // 
+            // comboDefenderUnit
+            // 
+            this.comboDefenderUnit.FormattingEnabled = true;
+            this.comboDefenderUnit.Location = new System.Drawing.Point(139, 84);
+            this.comboDefenderUnit.Name = "comboDefenderUnit";
+            this.comboDefenderUnit.Size = new System.Drawing.Size(121, 21);
+            this.comboDefenderUnit.TabIndex = 41;
+            this.comboDefenderUnit.SelectedIndexChanged += new System.EventHandler(this.comboDefenderUnitChanged);
+            // 
+            // radioDefenderEnemy
+            // 
+            this.radioDefenderEnemy.AutoSize = true;
+            this.radioDefenderEnemy.Location = new System.Drawing.Point(6, 32);
+            this.radioDefenderEnemy.Name = "radioDefenderEnemy";
+            this.radioDefenderEnemy.Size = new System.Drawing.Size(57, 17);
+            this.radioDefenderEnemy.TabIndex = 40;
+            this.radioDefenderEnemy.Text = "Enemy";
+            this.radioDefenderEnemy.UseVisualStyleBackColor = true;
+            this.radioDefenderEnemy.CheckedChanged += new System.EventHandler(this.radioDefenderEnemyChecked);
+            // 
+            // radioDefenderPlayer
+            // 
+            this.radioDefenderPlayer.AutoSize = true;
+            this.radioDefenderPlayer.Checked = true;
+            this.radioDefenderPlayer.Location = new System.Drawing.Point(6, 12);
+            this.radioDefenderPlayer.Name = "radioDefenderPlayer";
+            this.radioDefenderPlayer.Size = new System.Drawing.Size(54, 17);
+            this.radioDefenderPlayer.TabIndex = 39;
+            this.radioDefenderPlayer.TabStop = true;
+            this.radioDefenderPlayer.Text = "Player";
+            this.radioDefenderPlayer.UseVisualStyleBackColor = true;
+            this.radioDefenderPlayer.CheckedChanged += new System.EventHandler(this.radioDefenderPlayerChecked);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.radioAttackerPlayer);
+            this.groupBox1.Controls.Add(this.radioAttackerEnemy);
+            this.groupBox1.Location = new System.Drawing.Point(12, 9);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(121, 56);
+            this.groupBox1.TabIndex = 43;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Attacker";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.radioDefenderPlayer);
+            this.groupBox2.Controls.Add(this.radioDefenderEnemy);
+            this.groupBox2.Location = new System.Drawing.Point(139, 9);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(121, 57);
+            this.groupBox2.TabIndex = 44;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Defender";
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(551, 542);
+            this.ClientSize = new System.Drawing.Size(494, 542);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.comboDefenderUnitLabel);
+            this.Controls.Add(this.comboDefenderUnit);
+            this.Controls.Add(this.comboDefenderDifficultyLabel);
+            this.Controls.Add(this.comboDefenderDifficulty);
+            this.Controls.Add(this.checkDefenderDefaultEquipment);
             this.Controls.Add(this.buttonCalculate);
             this.Controls.Add(this.textLogLabel);
             this.Controls.Add(this.textLog);
@@ -386,16 +491,17 @@
             this.Controls.Add(this.comboArmourLabel);
             this.Controls.Add(this.comboWeaponLabel);
             this.Controls.Add(this.comboWeapon);
-            this.Controls.Add(this.checkDefaultEquipment);
-            this.Controls.Add(this.comboDifficultyLabel);
-            this.Controls.Add(this.comboUnitLabel);
-            this.Controls.Add(this.comboDifficulty);
-            this.Controls.Add(this.comboUnit);
-            this.Controls.Add(this.radioEnemy);
-            this.Controls.Add(this.radioTargetLabel);
-            this.Controls.Add(this.radioPlayer);
+            this.Controls.Add(this.checkAttackerDefaultEquipment);
+            this.Controls.Add(this.comboAttackerDifficultyLabel);
+            this.Controls.Add(this.comboAttackerUnitLabel);
+            this.Controls.Add(this.comboAttackerDifficulty);
+            this.Controls.Add(this.comboAttackingUnit);
             this.Name = "mainForm";
             this.Text = "Fallout RPG Calculator";
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -403,14 +509,13 @@
 
         #endregion
 
-        private System.Windows.Forms.RadioButton radioPlayer;
-        private System.Windows.Forms.Label radioTargetLabel;
-        private System.Windows.Forms.RadioButton radioEnemy;
-        private System.Windows.Forms.ComboBox comboUnit;
-        private System.Windows.Forms.ComboBox comboDifficulty;
-        private System.Windows.Forms.Label comboUnitLabel;
-        private System.Windows.Forms.Label comboDifficultyLabel;
-        private System.Windows.Forms.CheckBox checkDefaultEquipment;
+        private System.Windows.Forms.RadioButton radioAttackerPlayer;
+        private System.Windows.Forms.RadioButton radioAttackerEnemy;
+        private System.Windows.Forms.ComboBox comboAttackingUnit;
+        private System.Windows.Forms.ComboBox comboAttackerDifficulty;
+        private System.Windows.Forms.Label comboAttackerUnitLabel;
+        private System.Windows.Forms.Label comboAttackerDifficultyLabel;
+        private System.Windows.Forms.CheckBox checkAttackerDefaultEquipment;
         private System.Windows.Forms.ComboBox comboWeapon;
         private System.Windows.Forms.Label comboWeaponLabel;
         private System.Windows.Forms.Label comboArmourLabel;
@@ -435,6 +540,15 @@
         private System.Windows.Forms.TextBox textLog;
         private System.Windows.Forms.Label textLogLabel;
         private System.Windows.Forms.Button buttonCalculate;
+        private System.Windows.Forms.CheckBox checkDefenderDefaultEquipment;
+        private System.Windows.Forms.Label comboDefenderDifficultyLabel;
+        private System.Windows.Forms.ComboBox comboDefenderDifficulty;
+        private System.Windows.Forms.Label comboDefenderUnitLabel;
+        private System.Windows.Forms.ComboBox comboDefenderUnit;
+        private System.Windows.Forms.RadioButton radioDefenderEnemy;
+        private System.Windows.Forms.RadioButton radioDefenderPlayer;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
     }
 }
 

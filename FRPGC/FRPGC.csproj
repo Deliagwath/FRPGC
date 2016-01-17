@@ -47,6 +47,8 @@
     <Compile Include="Armour.cs" />
     <Compile Include="DamageTypes.cs" />
     <Compile Include="Dice.cs" />
+    <Compile Include="Stats.cs" />
+    <Compile Include="Unit.cs" />
     <Compile Include="Weapon.cs" />
     <Compile Include="mainForm.cs">
       <SubType>Form</SubType>
