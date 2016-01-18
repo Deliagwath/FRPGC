@@ -93,7 +93,7 @@ namespace FRPGC
         public void getWeapons(StreamReader reader)
         {
             string line, name, id = null;
-            int singleRange, burstRange, c, m, r, spb = 0;
+            int singleRange, c, m, r, spb = 0;
             Dice bd, ad = null;
             DamageTypes dt;
             string[] splitted, constantSplit, diceSplit = null;
@@ -108,19 +108,20 @@ namespace FRPGC
                 id = splitted[1].Trim();
 
                 // Parse Range X\Y or X Format
+                // Range X\Y is obsolete, new Range system uses one Optimal Range.
                 try
                 {
                     // Parsing X\Y Format
+                    // Left to support legacy information
+                    // Ignores second part
                     constantSplit = splitted[2].Trim().Split('\\');
                     singleRange = int.Parse(constantSplit[0].Trim());
-                    burstRange = int.Parse(constantSplit[1].Trim());
                 }
                 catch
                 {
                     try
                     {
                         singleRange = int.Parse(splitted[2].Trim());
-                        burstRange = -1;
                     }
                     catch
                     {
@@ -222,36 +223,36 @@ namespace FRPGC
                 switch (splitted[6].Trim())
                 {
                     case ("N"):
-                    dt = DamageTypes.N;
-                    break;
+                        dt = DamageTypes.N;
+                        break;
 
                     case ("LA"):
-                    dt = DamageTypes.LA;
-                    break;
+                        dt = DamageTypes.LA;
+                        break;
                     
                     case ("PL"):
-                    dt = DamageTypes.PL;
-                    break;
+                        dt = DamageTypes.PL;
+                        break;
                     
                     case ("EL"):
-                    dt = DamageTypes.EL;
-                    break;
+                        dt = DamageTypes.EL;
+                        break;
 
                     case ("FR"):
-                    dt = DamageTypes.FR;
-                    break;
+                        dt = DamageTypes.FR;
+                        break;
 
                     case ("EX"):
-                    dt = DamageTypes.EX;
-                    break;
+                        dt = DamageTypes.EX;
+                        break;
                     
                     default:
-                    logBoth(log, "DamageType could not be parsed. Expected N|LA|PL|EL|FR|EX, got: " + splitted[6].Trim());
-                    continue;
+                        logBoth(log, "DamageType could not be parsed. Expected N|LA|PL|EL|FR|EX, got: " + splitted[6].Trim());
+                        continue;
                 }
 
                 // Creating Weapon Object and adding to List
-                this.weapons.Add(new Weapon(name, id, singleRange, burstRange, c, bd, ad, spb, dt));
+                this.weapons.Add(new Weapon(name, id, singleRange, c, bd, ad, spb, dt));
             }
 
             // Binding to ComboBox
@@ -346,11 +347,11 @@ namespace FRPGC
                     break;
 
                 case (0): // Single Shot
-                    textCurrentHealth.Text = (int.Parse(textInitialHealth.Text) - singleShot(int.Parse(textShotCount.Text))).ToString();
+                    textCurrentHealth.Text = (int.Parse(textInitialHealth.Text) - shoot(int.Parse(textShotCount.Text), ShotTypes.SRS)).ToString();
                     break;
 
                 case (1): // Burst Shot
-                    textCurrentHealth.Text = (int.Parse(textInitialHealth.Text) - singleShot(int.Parse(textShotCount.Text))).ToString();
+                    textCurrentHealth.Text = (int.Parse(textInitialHealth.Text) - shoot(int.Parse(textShotCount.Text), ShotTypes.SRB)).ToString();
                     break;
 
                 case (2): // Melee
@@ -363,24 +364,47 @@ namespace FRPGC
             }
         }
 
-        private int singleShot(int shotsFired)
+        private int shoot(int shotsFired, ShotTypes shotType)
         {
-            int chance = singleShotHitChance();
-            int[] damages = singleShotDamage(shotsFired);
+            int chance = -1;
+
+            switch (shotType)
+            {
+                case (ShotTypes.SRS):
+                    chance = shortRangeShotChance(true);
+                    break;
+
+                case (ShotTypes.SRB):
+                    chance = shortRangeShotChance(false);
+                    break;
+
+                case (ShotTypes.LR):
+                    chance = longRangeShotChance();
+                    break;
+            }
+            logBoth(log, "Hit Chance: " + chance.ToString());
+            int[] damages = shotDamage(shotsFired);
             int totalDamage = 0;
             Dice dice = new Dice(1, Math.Max(100, chance), this.logBoth, log);
+            Unit attacker = (Unit) this.comboAttackingUnit.SelectedItem;
             int rolled = -1;
 
             foreach (int shot in damages)
             {
                 rolled = dice.getRoll();
 
-                if (rolled < 5) // Critical Hit
+                if (rolled < attacker.StatID.CriticalChance) // Critical Hit
                 {
                     logBoth(log, "Critical Hit: " + rolled.ToString() + " < 5");
                     logBoth(log, "Damage Taken: " + (shot * 2).ToString());
                     totalDamage += shot * 2;
                     continue;
+                }
+                if (rolled > Math.Max(100, chance) - (10 - attacker.StatID.Luck)) // Critical Failure
+                {
+                    logBoth(log, "Critical Failure: " + rolled.ToString() + " > " + (Math.Max(100, chance) - (10 - attacker.StatID.Luck)).ToString());
+                    logBoth(log, "Ending Calculations.");
+                    return totalDamage;
                 }
                 if (rolled < chance) // Hit
                 {
@@ -389,86 +413,95 @@ namespace FRPGC
                     totalDamage += shot;
                     continue;
                 }
-                else if (rolled > chance /*- (10 - LUCK)*/) // Miss
+                else if (rolled > chance) // Miss
                 {
                     logBoth(log, "Miss: " + rolled.ToString() + " > " + chance.ToString());
                     continue;
                 }
-                else // Critical Failure TODO Set correct log
-                    // TODO set CRITICAL FAIL BEFORE NORMAL HIT CHECK
+                else
                 {
-                    logBoth(log, "Critical Failure: " + rolled.ToString() + " > 95");
-                    logBoth(log, "Ending Calculations.");
-                    return totalDamage;
+                    logBoth(log, "There's a problem, contact Peak and send the log file (It's in the same directory)");
+                    return 0;
                 }
             }
 
             return totalDamage;
         }
 
-        private int burstShot(int shotsFired)
+        private int shortRangeShotChance(bool singleShot)
         {
-            int chance = burstShotHitChance();
-            int[] damages = burstShotDamage(shotsFired);
-            int totalDamage = 0;
-            Dice dice = new Dice(1, Math.Max(100, chance), this.logBoth, log);
-            int rolled = -1;
-
-            foreach (int shot in damages)
+            // TODO Implement Hit Bonuses
+            // =(Skill / (Range / Multiplier / Divisor |If singleShot != true|)) * Multiplier + (Optimal Range ^ 2) / (Range - (2 * Optimal Range)) + (Luck - 10)
+            int skill = -1;
+            switch (((Weapon) this.comboWeapon.SelectedItem).DamageType)
             {
-                rolled = dice.getRoll();
+                // Electrical (Energy Weapons)
+                case (DamageTypes.EL):
+                    skill = ((Unit) this.comboAttackingUnit.SelectedItem).StatID.EnergyWeapons;
+                    break;
 
-                if (rolled < 5) // Critical Hit
-                {
-                    logBoth(log, "Critical Hit: " + rolled.ToString() + " < 5");
-                    logBoth(log, "Damage Taken: " + (shot * 2).ToString());
-                    totalDamage += shot * 2;
-                    continue;
-                }
-                if (rolled < chance) // Hit
-                {
-                    logBoth(log, "Hit: " + rolled.ToString() + " < " + chance.ToString());
-                    logBoth(log, "Damage Taken: " + shot.ToString());
-                    totalDamage += shot;
-                    continue;
-                }
-                else if (rolled > chance /*- (10 - LUCK)*/) // Miss
-                {
-                    logBoth(log, "Miss: " + rolled.ToString() + " > " + chance.ToString());
-                    continue;
-                }
-                else // Critical Failure TODO Set correct log
-                {
-                    logBoth(log, "Critical Failure: " + rolled.ToString() + " > 95");
-                    logBoth(log, "Ending Calculations.");
-                    return totalDamage;
-                }
+                // Explosive (Explosives)
+                case (DamageTypes.EX):
+                    skill = ((Unit) this.comboAttackingUnit.SelectedItem).StatID.Explosives;
+                    break;
+
+                // Normal (Small Guns) or Big?
+                case (DamageTypes.N):
+                    skill = ((Unit) this.comboAttackingUnit.SelectedItem).StatID.SmallGuns;
+                    break;
+
+                default:
+                    return 0;
             }
-
-            return totalDamage;
-        }
-
-        private int singleShotHitChance()
-        {
-            // TODO Fix Skill & Perception & Hit Bonuses
-            int skill = 75;
-            int weaponRange = ((Weapon) this.comboWeapon.SelectedItem).SingleRange;
-            int perception = 7;
+            int multiplier = 7;
+            double divisor = singleShot ? 1 : .5;
+            int weaponRange = ((Weapon) this.comboWeapon.SelectedItem).Range;
+            int perception = ((Unit) this.comboAttackingUnit.SelectedItem).StatID.Perception;
+            int luck = ((Unit) this.comboAttackingUnit.SelectedItem).StatID.Luck;
             int distance = int.Parse(textDistance.Text);
             int oac = ((Armour) this.comboArmour.SelectedItem).AC;
             int hitBonuses = 0;
-            return (int) Math.Floor(skill + weaponRange + Math.Floor(perception / 2.0) - distance - oac + hitBonuses);
+
+            return (int) Math.Floor((skill / ((distance / multiplier) / divisor)) * multiplier + (Math.Pow(weaponRange, 2)) / (distance - (2 * weaponRange)) + (luck - 10) + hitBonuses);
         }
 
-        private int burstShotHitChance()
+        private int longRangeShotChance()
         {
-            return 75;
-            // % = Ceil(1d100 + 15 * (Skill / 4) + 4 * Luck - OAC)
+            // TODO Implement Hit Bonuses
+            // Skill * e ^ (-(x - OptimalRange) ^ 2 / (2 * (Skill / 4) ^ 2))
+            int skill = -1;
+            switch (((Weapon)this.comboWeapon.SelectedItem).DamageType)
+            {
+                // Electrical (Energy Weapons)
+                case (DamageTypes.EL):
+                    skill = ((Unit)this.comboAttackingUnit.SelectedItem).StatID.EnergyWeapons;
+                    break;
+
+                // Explosive (Explosives)
+                case (DamageTypes.EX):
+                    skill = ((Unit)this.comboAttackingUnit.SelectedItem).StatID.Explosives;
+                    break;
+
+                // Normal (Small Guns) or Big?
+                case (DamageTypes.N):
+                    skill = ((Unit)this.comboAttackingUnit.SelectedItem).StatID.SmallGuns;
+                    break;
+
+                default:
+                    return 0;
+            }
+            int weaponRange = ((Weapon)this.comboWeapon.SelectedItem).Range;
+            int luck = ((Unit)this.comboAttackingUnit.SelectedItem).StatID.Luck;
+            int distance = int.Parse(textDistance.Text);
+            int hitBonuses = 0;
+            // Skill*e^(-(x - OptimalRange)^2/(2 * (Skill / 4)^2))
+
+            return (int) Math.Floor(skill * Math.Exp(-Math.Pow(distance - weaponRange, 2) / (2 * Math.Pow(skill / 4, 2))) + hitBonuses - (luck - 10));
         }
 
-        private int[] singleShotDamage(int shots)
+        private int[] shotDamage(int shots)
         {
-            writeLog(log, "Beginning Single Shot Damage Calculation");
+            writeLog(log, "Beginning Shot Damage Calculation");
             writeLog(log, "Number of shots: " + shots);
 
             int flatDamage = ((Weapon) this.comboWeapon.SelectedItem).FD;
@@ -485,31 +518,7 @@ namespace FRPGC
                 writeLog(log, "Base Damage: " + bd.ToString() + " Additional Damage: " + ad.ToString() + " Flat Damage: " + flatDamage.ToString());
             }
 
-            writeLog(log, "Ending Single Shot Calculation");
-            return damages;
-        }
-
-        //??? Ignoring rolls for now
-        public int roll(int i, int j) { return 0; }
-        //???
-
-        private int[] burstShotDamage(int shotsFired)
-        {
-            int flatDamage = ((Weapon) this.comboWeapon.SelectedItem).FD;
-            Dice BD = ((Weapon) this.comboWeapon.SelectedItem).BD;
-            Dice AD = ((Weapon) this.comboWeapon.SelectedItem).AD;
-            int ad, bd = -1;
-
-            return new int[]{12, 8, 4};
-
-            int[] damages = new int[shotsFired];
-            for (int i = 0; i < shotsFired; i++)
-            {
-                bd = BD.getRoll();
-                ad = AD.getRoll();
-                damages[i] = bd + ad + flatDamage;
-                writeLog(log, "Base Damage: " + bd.ToString() + " Additional Damage: " + ad.ToString() + " Flat Damage: " + flatDamage.ToString());
-            }
+            writeLog(log, "Ending Shot Calculation");
             return damages;
         }
 
