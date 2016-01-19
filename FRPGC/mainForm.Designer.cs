@@ -63,7 +63,7 @@
             this.comboDefenderDifficultyLabel = new System.Windows.Forms.Label();
             this.comboDefenderDifficulty = new System.Windows.Forms.ComboBox();
             this.comboDefenderUnitLabel = new System.Windows.Forms.Label();
-            this.comboDefenderUnit = new System.Windows.Forms.ComboBox();
+            this.comboDefendingUnit = new System.Windows.Forms.ComboBox();
             this.radioDefenderEnemy = new System.Windows.Forms.RadioButton();
             this.radioDefenderPlayer = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -402,12 +402,12 @@
             // 
             // comboDefenderUnit
             // 
-            this.comboDefenderUnit.FormattingEnabled = true;
-            this.comboDefenderUnit.Location = new System.Drawing.Point(139, 84);
-            this.comboDefenderUnit.Name = "comboDefenderUnit";
-            this.comboDefenderUnit.Size = new System.Drawing.Size(121, 21);
-            this.comboDefenderUnit.TabIndex = 41;
-            this.comboDefenderUnit.SelectedIndexChanged += new System.EventHandler(this.comboDefenderUnitChanged);
+            this.comboDefendingUnit.FormattingEnabled = true;
+            this.comboDefendingUnit.Location = new System.Drawing.Point(139, 84);
+            this.comboDefendingUnit.Name = "comboDefenderUnit";
+            this.comboDefendingUnit.Size = new System.Drawing.Size(121, 21);
+            this.comboDefendingUnit.TabIndex = 41;
+            this.comboDefendingUnit.SelectedIndexChanged += new System.EventHandler(this.comboDefenderUnitChanged);
             // 
             // radioDefenderEnemy
             // 
@@ -463,7 +463,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.comboDefenderUnitLabel);
-            this.Controls.Add(this.comboDefenderUnit);
+            this.Controls.Add(this.comboDefendingUnit);
             this.Controls.Add(this.comboDefenderDifficultyLabel);
             this.Controls.Add(this.comboDefenderDifficulty);
             this.Controls.Add(this.checkDefenderDefaultEquipment);
@@ -544,7 +544,7 @@
         private System.Windows.Forms.Label comboDefenderDifficultyLabel;
         private System.Windows.Forms.ComboBox comboDefenderDifficulty;
         private System.Windows.Forms.Label comboDefenderUnitLabel;
-        private System.Windows.Forms.ComboBox comboDefenderUnit;
+        private System.Windows.Forms.ComboBox comboDefendingUnit;
         private System.Windows.Forms.RadioButton radioDefenderEnemy;
         private System.Windows.Forms.RadioButton radioDefenderPlayer;
         private System.Windows.Forms.GroupBox groupBox1;

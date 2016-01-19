@@ -95,7 +95,9 @@ namespace FRPGC
             string line, name, id = null;
             int singleRange, c, m, r, spb = 0;
             Dice bd, ad = null;
+            WeaponRange wr;
             DamageTypes dt;
+            WeaponType wt;
             string[] splitted, constantSplit, diceSplit = null;
 
             while ((line = reader.ReadLine()) != null)
@@ -219,8 +221,28 @@ namespace FRPGC
                     continue;
                 }
 
+                // Parsing Classification
+                switch (splitted[6].Trim().ToUpper())
+                {
+                    case ("M"):
+                        wr = WeaponRange.M;
+                        break;
+                    
+                    case ("SR"):
+                        wr = WeaponRange.SR;
+                        break;
+
+                    case ("LR"):
+                        wr = WeaponRange.LR;
+                        break;
+
+                    default:
+                        logBoth(log, "Classification could not be parsed. Expected M|SR|LR, got: " + splitted[6].Trim().ToUpper());
+                        continue;
+                }
+
                 // Parsing Damage Type
-                switch (splitted[6].Trim())
+                switch (splitted[7].Trim().ToUpper())
                 {
                     case ("N"):
                         dt = DamageTypes.N;
@@ -247,12 +269,45 @@ namespace FRPGC
                         break;
                     
                     default:
-                        logBoth(log, "DamageType could not be parsed. Expected N|LA|PL|EL|FR|EX, got: " + splitted[6].Trim());
+                        logBoth(log, "DamageType could not be parsed. Expected N|LA|PL|EL|FR|EX, got: " + splitted[7].Trim().ToUpper());
+                        continue;
+                }
+
+                // Parsing Weapon Type (Which Skill it is dependant upon)
+                switch (splitted[8].Trim().ToUpper())
+                {
+                    case ("BIGGUNS"):
+                    case ("BG"):
+                        wt = WeaponType.BigGuns;
+                        break;
+
+                    case ("ENERGYWEAPONS"):
+                    case ("EW"):
+                        wt = WeaponType.EnergyWeapons;
+                        break;
+
+                    case ("EXPLOSIVES"):
+                    case ("E"):
+                        wt = WeaponType.Explosives;
+                        break;
+
+                    case ("SMALLGUNS"):
+                    case ("SG"):
+                        wt = WeaponType.SmallGuns;
+                        break;
+
+                    case ("UNARMED"):
+                    case ("U"):
+                        wt = WeaponType.Unarmed;
+                        break;
+
+                    default:
+                        logBoth(log, "WeaponType could not be parsed. Expected BigGuns|BG|EnergyWeapons|EW|Explosives|E|SmallGuns|SG|Unarmed|U, got: " + splitted[8].Trim().ToUpper());
                         continue;
                 }
 
                 // Creating Weapon Object and adding to List
-                this.weapons.Add(new Weapon(name, id, singleRange, c, bd, ad, spb, dt));
+                this.weapons.Add(new Weapon(name, id, singleRange, c, bd, ad, spb, wr, dt, wt));
             }
 
             // Binding to ComboBox
@@ -347,7 +402,14 @@ namespace FRPGC
                     break;
 
                 case (0): // Single Shot
-                    textCurrentHealth.Text = (int.Parse(textInitialHealth.Text) - shoot(int.Parse(textShotCount.Text), ShotTypes.SRS)).ToString();
+                    if (((Weapon)this.comboWeapon.SelectedItem).Classification == WeaponRange.LR)
+                    {
+                        textCurrentHealth.Text = (int.Parse(textInitialHealth.Text) - shoot(int.Parse(textShotCount.Text), ShotTypes.LR)).ToString();
+                    }
+                    else
+                    {
+                        textCurrentHealth.Text = (int.Parse(textInitialHealth.Text) - shoot(int.Parse(textShotCount.Text), ShotTypes.SRS)).ToString();
+                    }
                     break;
 
                 case (1): // Burst Shot
@@ -381,6 +443,10 @@ namespace FRPGC
                 case (ShotTypes.LR):
                     chance = longRangeShotChance();
                     break;
+
+                default:
+                    logBoth(log, "A weird error occured at the shoot() function. The shotType is: " + shotType.ToString());
+                    return 0;
             }
             logBoth(log, "Hit Chance: " + chance.ToString());
             int[] damages = shotDamage(shotsFired);
@@ -420,7 +486,7 @@ namespace FRPGC
                 }
                 else
                 {
-                    logBoth(log, "There's a problem, contact Peak and send the log file (It's in the same directory)");
+                    logBoth(log, "There's a problem, contact the product owner and send the log file (It's in the same directory)");
                     return 0;
                 }
             }
@@ -566,12 +632,12 @@ namespace FRPGC
 
         private void comboAttackerUnitChanged(object sender, EventArgs e)
         {
-            // TODO After Unit Equip CSV is formed
+            this.comboWeapon.SelectedItem = ((Unit) this.comboAttackingUnit.SelectedItem).WeaponID;
         }
 
         private void comboDefenderUnitChanged(object sender, EventArgs e)
         {
-            // TODO After Unit Equip CSV is formed
+            this.comboArmour.SelectedItem = ((Unit) this.comboDefendingUnit.SelectedItem).ArmourID;
         }
     }
 }

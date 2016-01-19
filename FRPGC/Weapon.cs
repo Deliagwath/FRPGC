@@ -9,16 +9,18 @@ namespace FRPGC
     class Weapon
     {
         // Weapons {"Name", "ID", "Range", "BD", "AD", "SPB"(Shots per burst), "DamageType"}
-        public string Name              { get; set; }
-        public string ID                { get; set; }
-        public int Range                { get; set; }
-        public int FD                   { get; set; }
-        public Dice BD                  { get; set; }
-        public Dice AD                  { get; set; }
-        public int SPB                  { get; set; }
-        public DamageTypes DamageType   { get; set; }
+        public string Name                  { get; set; }
+        public string ID                    { get; set; }
+        public int Range                    { get; set; }
+        public int FD                       { get; set; }
+        public Dice BD                      { get; set; }
+        public Dice AD                      { get; set; }
+        public int SPB                      { get; set; }
+        public WeaponRange Classification   { get; set; }
+        public DamageTypes DamageType       { get; set; }
+        public WeaponType WeaponType        { get; set; }
 
-        public Weapon(string name, string id, int singleRange, int fd, Dice bd, Dice ad, int spb, DamageTypes damageType)
+        public Weapon(string name, string id, int singleRange, int fd, Dice bd, Dice ad, int spb, WeaponRange classification, DamageTypes damageType, WeaponType weaponType)
         {
             this.Name = name;
             this.ID = id;
@@ -27,7 +29,9 @@ namespace FRPGC
             this.BD = bd;
             this.AD = ad;
             this.SPB = spb;
+            this.Classification = classification;
             this.DamageType = damageType;
+            this.WeaponType = weaponType;
         }
 
         public string toString()
@@ -40,7 +44,9 @@ namespace FRPGC
                 this.BD.toString() + comma +
                 this.AD.toString() + comma +
                 this.SPB.ToString() + comma +
-                this.DamageType.ToString() + "]";
+                this.Classification.ToString() + comma + 
+                this.DamageType.ToString() + comma +
+                this.WeaponType.ToString() + "]";
         }
     }
 }
