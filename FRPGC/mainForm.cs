@@ -458,7 +458,7 @@ namespace FRPGC
             int weaponRange = ((Weapon) this.comboWeapon.SelectedItem).Range;
             int perception = ((Unit) this.comboAttackingUnit.SelectedItem).StatID.Perception;
             int luck = ((Unit) this.comboAttackingUnit.SelectedItem).StatID.Luck;
-            int distance = int.Parse(textDistance.Text);
+            int distance = int.Parse(textDistance.Text.Trim());
             int oac = ((Armour) this.comboArmour.SelectedItem).AC;
             int hitBonuses = 0;
 
@@ -492,7 +492,7 @@ namespace FRPGC
             }
             int weaponRange = ((Weapon)this.comboWeapon.SelectedItem).Range;
             int luck = ((Unit)this.comboAttackingUnit.SelectedItem).StatID.Luck;
-            int distance = int.Parse(textDistance.Text);
+            int distance = int.Parse(textDistance.Text.Trim());
             int hitBonuses = 0;
             // Skill*e^(-(x - OptimalRange)^2/(2 * (Skill / 4)^2))
 
