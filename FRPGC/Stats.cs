@@ -31,7 +31,7 @@ namespace FRPGC
         public int SmallGuns { get; set; }
         public int Unarmed { get; set; }
 
-        public Stats(string id, int level, int str, int per, int end, int agi, int luck, int bg, int ew, int ex, int sg, int ua)
+        public Stats(string id, int level, int str, int per, int end, int agi, int luck, int bigGuns, int energyWeapons, int explosives, int smallGuns, int unarmed)
         {
             this.ID = id;
 
@@ -50,11 +50,11 @@ namespace FRPGC
             this.Sequence = per * 2;
             this.AC = agi;
 
-            this.BigGuns = bg;
-            this.EnergyWeapons = ew;
-            this.Explosives = ex;
-            this.SmallGuns = sg;
-            this.Unarmed = ua;
+            this.BigGuns = bigGuns;
+            this.EnergyWeapons = energyWeapons;
+            this.Explosives = explosives;
+            this.SmallGuns = smallGuns;
+            this.Unarmed = unarmed;
         }
     }
 }

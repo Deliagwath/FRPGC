@@ -104,7 +104,6 @@ namespace FRPGC
             {
                 // Weapons {"Name":0, "ID":1, "Range":2, "BD":3, "AD":4, "SPB"(Shots per burst):5, "DamageType":6}
                 splitted = line.Trim().Split(',');
-
                 name = splitted[0].Trim();
                 logBoth(log, "Parsing " + name);
                 id = splitted[1].Trim();
@@ -135,12 +134,22 @@ namespace FRPGC
                 // Parse Base Damage X+YdZ or XdY or X Format
                 try
                 {
-                    // Parsing X+YdZ Format
+                    // Parsing X+YdZ || XdY+Z Format
                     constantSplit = splitted[3].Trim().Split('+');
-                    diceSplit = constantSplit[1].Trim().ToLower().Split('d');
-                    c = int.Parse(constantSplit[0].Trim());
-                    m = int.Parse(diceSplit[0].Trim());
-                    r = int.Parse(diceSplit[1].Trim());
+                    if (constantSplit[0].Length > constantSplit[1].Length)
+                    {
+                        diceSplit = constantSplit[0].Trim().ToLower().Split('d');
+                        c = int.Parse(constantSplit[1].Trim());
+                        m = int.Parse(diceSplit[0].Trim());
+                        r = int.Parse(diceSplit[1].Trim());
+                    }
+                    else
+                    {
+                        diceSplit = constantSplit[1].Trim().ToLower().Split('d');
+                        c = int.Parse(constantSplit[0].Trim());
+                        m = int.Parse(diceSplit[0].Trim());
+                        r = int.Parse(diceSplit[1].Trim());
+                    }
                     bd = new Dice(m, r, this.logBoth, this.log);
                 }
                 catch
@@ -174,12 +183,20 @@ namespace FRPGC
                 // Parse Additional Damage X+YdZ or XdY or X Format
                 try
                 {
-                    // Parsing X+YdZ Format
+                    // Parsing X+YdZ || XdY+Z Format
                     constantSplit = splitted[4].Trim().Split('+');
-                    diceSplit = constantSplit[1].Trim().ToLower().Split('d');
-                    c = int.Parse(constantSplit[0].Trim());
-                    m = int.Parse(diceSplit[0].Trim());
-                    r = int.Parse(diceSplit[1].Trim());
+                    if (constantSplit[0].Length > constantSplit[1].Length) {
+                        diceSplit = constantSplit[0].Trim().ToLower().Split('d');
+                        c = int.Parse(constantSplit[1].Trim());
+                        m = int.Parse(diceSplit[0].Trim());
+                        r = int.Parse(diceSplit[1].Trim());
+                    }
+                    else {
+                        diceSplit = constantSplit[1].Trim().ToLower().Split('d');
+                        c = int.Parse(constantSplit[0].Trim());
+                        m = int.Parse(diceSplit[0].Trim());
+                        r = int.Parse(diceSplit[1].Trim());
+                    }
                     bd = new Dice(m, r, this.logBoth, this.log);
                 }
                 catch
