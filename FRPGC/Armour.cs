@@ -9,41 +9,41 @@ namespace FRPGC
     class Armour
     {
         //Armour {"Name", "ID", "AC", "DR", "LA", "PL", "EL", "FR", "EX"}
-        public string Name  { get; set; }
-        public string ID    { get; set; }
-        public int AC       { get; set; }
-        public int DR       { get; set; }
-        public int LA       { get; set; }
-        public int PL       { get; set; }
-        public int EL       { get; set; }
-        public int FR       { get; set; }
-        public int EX       { get; set; }
+        public string Name              { get; set; }
+        public string ID                { get; set; }
+        public int ArmourClass          { get; set; }
+        public int DamageReduction      { get; set; }
+        public int LaserResistance      { get; set; }
+        public int PlasmaResistance     { get; set; }
+        public int ElectricalResistance { get; set; }
+        public int FireResistance       { get; set; }
+        public int ExplosiveResistance  { get; set; }
 
-        public Armour(string name, string id, int ac, int dr, int la, int pl, int el, int fr, int ex)
+        public Armour(string name, string id, int armourClass, int damageResistance, int laserResistance, int plasmaResistance, int electricalResistance, int fireResistance, int explosiveResistance)
         {
             this.Name = name;
             this.ID = id;
-            this.AC = ac;
-            this.DR = dr;
-            this.LA = la;
-            this.PL = pl;
-            this.EL = el;
-            this.FR = fr;
-            this.EX = ex;
+            this.ArmourClass = armourClass;
+            this.DamageReduction = damageResistance;
+            this.LaserResistance = laserResistance;
+            this.PlasmaResistance = plasmaResistance;
+            this.ElectricalResistance = electricalResistance;
+            this.FireResistance = fireResistance;
+            this.ExplosiveResistance = explosiveResistance;
         }
-
+        // Normal damage, fire damage, laser damage, plasma damage, electrical damage, explosive damage. 
         public string toString()
         {
             string comma = ", ";
             return "[" + this.Name + comma +
                 this.ID + comma +
-                this.AC.ToString() + comma +
-                this.DR.ToString() + comma +
-                this.LA.ToString() + comma +
-                this.PL.ToString() + comma +
-                this.EL.ToString() + comma +
-                this.FR.ToString() + comma +
-                this.EX.ToString() + "]";
+                this.ArmourClass.ToString() + comma +
+                this.DamageReduction.ToString() + comma +
+                this.LaserResistance.ToString() + comma +
+                this.PlasmaResistance.ToString() + comma +
+                this.ElectricalResistance.ToString() + comma +
+                this.FireResistance.ToString() + comma +
+                this.ExplosiveResistance.ToString() + "]";
         }
     }
 }
