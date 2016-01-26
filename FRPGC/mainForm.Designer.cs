@@ -42,10 +42,10 @@
             this.textSkill = new System.Windows.Forms.TextBox();
             this.textSkillLabel = new System.Windows.Forms.Label();
             this.scenarioLabel = new System.Windows.Forms.Label();
-            this.textShotCount = new System.Windows.Forms.TextBox();
-            this.textShotCountLabel = new System.Windows.Forms.Label();
-            this.comboFireTypeLabel = new System.Windows.Forms.Label();
-            this.comboFireType = new System.Windows.Forms.ComboBox();
+            this.textAttacksLaunched = new System.Windows.Forms.TextBox();
+            this.textAttacksLaunchedLabel = new System.Windows.Forms.Label();
+            this.comboAttackingMethodLabel = new System.Windows.Forms.Label();
+            this.comboAttackingMethod = new System.Windows.Forms.ComboBox();
             this.textInitialHealthLabel = new System.Windows.Forms.Label();
             this.textInitialHealth = new System.Windows.Forms.TextBox();
             this.textDistanceLabel = new System.Windows.Forms.Label();
@@ -153,6 +153,7 @@
             this.comboWeapon.Name = "comboWeapon";
             this.comboWeapon.Size = new System.Drawing.Size(121, 21);
             this.comboWeapon.TabIndex = 9;
+            this.comboWeapon.SelectedIndexChanged += new System.EventHandler(this.comboWeaponChanged);
             // 
             // comboWeaponLabel
             // 
@@ -207,42 +208,42 @@
             this.scenarioLabel.TabIndex = 17;
             this.scenarioLabel.Text = "Scenario";
             // 
-            // textShotCount
+            // textAttacksLaunched
             // 
-            this.textShotCount.Location = new System.Drawing.Point(266, 84);
-            this.textShotCount.Name = "textShotCount";
-            this.textShotCount.Size = new System.Drawing.Size(109, 20);
-            this.textShotCount.TabIndex = 18;
+            this.textAttacksLaunched.Location = new System.Drawing.Point(266, 84);
+            this.textAttacksLaunched.Name = "textAttacksLaunched";
+            this.textAttacksLaunched.Size = new System.Drawing.Size(109, 20);
+            this.textAttacksLaunched.TabIndex = 18;
             // 
-            // textShotCountLabel
+            // textAttacksLaunchedLabel
             // 
-            this.textShotCountLabel.AutoSize = true;
-            this.textShotCountLabel.Location = new System.Drawing.Point(263, 68);
-            this.textShotCountLabel.Name = "textShotCountLabel";
-            this.textShotCountLabel.Size = new System.Drawing.Size(112, 13);
-            this.textShotCountLabel.TabIndex = 19;
-            this.textShotCountLabel.Text = "Number of Shots Fired";
+            this.textAttacksLaunchedLabel.AutoSize = true;
+            this.textAttacksLaunchedLabel.Location = new System.Drawing.Point(263, 68);
+            this.textAttacksLaunchedLabel.Name = "textAttacksLaunchedLabel";
+            this.textAttacksLaunchedLabel.Size = new System.Drawing.Size(95, 13);
+            this.textAttacksLaunchedLabel.TabIndex = 19;
+            this.textAttacksLaunchedLabel.Text = "Number of Attacks";
             // 
-            // comboFireTypeLabel
+            // comboAttackingMethodLabel
             // 
-            this.comboFireTypeLabel.AutoSize = true;
-            this.comboFireTypeLabel.Location = new System.Drawing.Point(263, 107);
-            this.comboFireTypeLabel.Name = "comboFireTypeLabel";
-            this.comboFireTypeLabel.Size = new System.Drawing.Size(62, 13);
-            this.comboFireTypeLabel.TabIndex = 20;
-            this.comboFireTypeLabel.Text = "Firing Mode";
+            this.comboAttackingMethodLabel.AutoSize = true;
+            this.comboAttackingMethodLabel.Location = new System.Drawing.Point(263, 107);
+            this.comboAttackingMethodLabel.Name = "comboAttackingMethodLabel";
+            this.comboAttackingMethodLabel.Size = new System.Drawing.Size(91, 13);
+            this.comboAttackingMethodLabel.TabIndex = 20;
+            this.comboAttackingMethodLabel.Text = "Attacking Method";
             // 
-            // comboFireType
+            // comboAttackingMethod
             // 
-            this.comboFireType.FormattingEnabled = true;
-            this.comboFireType.Items.AddRange(new object[] {
+            this.comboAttackingMethod.FormattingEnabled = true;
+            this.comboAttackingMethod.Items.AddRange(new object[] {
             "Single Shot",
             "Burst Shot",
             "Melee"});
-            this.comboFireType.Location = new System.Drawing.Point(266, 123);
-            this.comboFireType.Name = "comboFireType";
-            this.comboFireType.Size = new System.Drawing.Size(109, 21);
-            this.comboFireType.TabIndex = 21;
+            this.comboAttackingMethod.Location = new System.Drawing.Point(266, 123);
+            this.comboAttackingMethod.Name = "comboAttackingMethod";
+            this.comboAttackingMethod.Size = new System.Drawing.Size(109, 21);
+            this.comboAttackingMethod.TabIndex = 21;
             // 
             // textInitialHealthLabel
             // 
@@ -400,11 +401,11 @@
             this.comboDefenderUnitLabel.TabIndex = 42;
             this.comboDefenderUnitLabel.Text = "Player Name";
             // 
-            // comboDefenderUnit
+            // comboDefendingUnit
             // 
             this.comboDefendingUnit.FormattingEnabled = true;
             this.comboDefendingUnit.Location = new System.Drawing.Point(139, 84);
-            this.comboDefendingUnit.Name = "comboDefenderUnit";
+            this.comboDefendingUnit.Name = "comboDefendingUnit";
             this.comboDefendingUnit.Size = new System.Drawing.Size(121, 21);
             this.comboDefendingUnit.TabIndex = 41;
             this.comboDefendingUnit.SelectedIndexChanged += new System.EventHandler(this.comboDefenderUnitChanged);
@@ -480,10 +481,10 @@
             this.Controls.Add(this.textDistanceLabel);
             this.Controls.Add(this.textInitialHealth);
             this.Controls.Add(this.textInitialHealthLabel);
-            this.Controls.Add(this.comboFireType);
-            this.Controls.Add(this.comboFireTypeLabel);
-            this.Controls.Add(this.textShotCountLabel);
-            this.Controls.Add(this.textShotCount);
+            this.Controls.Add(this.comboAttackingMethod);
+            this.Controls.Add(this.comboAttackingMethodLabel);
+            this.Controls.Add(this.textAttacksLaunchedLabel);
+            this.Controls.Add(this.textAttacksLaunched);
             this.Controls.Add(this.scenarioLabel);
             this.Controls.Add(this.textSkillLabel);
             this.Controls.Add(this.textSkill);
@@ -523,10 +524,10 @@
         private System.Windows.Forms.TextBox textSkill;
         private System.Windows.Forms.Label textSkillLabel;
         private System.Windows.Forms.Label scenarioLabel;
-        private System.Windows.Forms.TextBox textShotCount;
-        private System.Windows.Forms.Label textShotCountLabel;
-        private System.Windows.Forms.Label comboFireTypeLabel;
-        private System.Windows.Forms.ComboBox comboFireType;
+        private System.Windows.Forms.TextBox textAttacksLaunched;
+        private System.Windows.Forms.Label textAttacksLaunchedLabel;
+        private System.Windows.Forms.Label comboAttackingMethodLabel;
+        private System.Windows.Forms.ComboBox comboAttackingMethod;
         private System.Windows.Forms.Label textInitialHealthLabel;
         private System.Windows.Forms.TextBox textInitialHealth;
         private System.Windows.Forms.Label textDistanceLabel;

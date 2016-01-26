@@ -10,11 +10,11 @@ namespace FRPGC
     enum DamageTypes { N, LA, PL, EL, FR, EX }
 
     // Melee, Short Range Single, Short Range Burst, Long Range
-    enum ShotTypes { M, SRS, SRB, LR }
+    enum AttackTypes { M, SRS, SRB, LR }
 
     // Melee, Short Range, Long Range
     enum WeaponRange { M, SR, LR }
 
     // The Five Combat Skills
-    enum WeaponType { BigGuns, EnergyWeapons, Explosives, SmallGuns, Unarmed }
+    enum WeaponType { BigGuns, EnergyWeapons, Explosives, SmallGuns, Unarmed, Melee }
 }

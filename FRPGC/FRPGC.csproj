@@ -47,6 +47,7 @@
     <Compile Include="Armour.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Dice.cs" />
+    <Compile Include="Log.cs" />
     <Compile Include="Stats.cs" />
     <Compile Include="Unit.cs" />
     <Compile Include="Weapon.cs" />

@@ -319,8 +319,13 @@ namespace FRPGC
                         weaponType = WeaponType.Unarmed;
                         break;
 
+                    case ("MELEE"):
+                    case ("M"):
+                        weaponType = WeaponType.Melee;
+                        break;
+
                     default:
-                        this.logger.logBoth(String.Format("WeaponType could not be parsed. Expected BigGuns|BG|EnergyWeapons|EW|Explosives|E|SmallGuns|SG|Unarmed|U, got: {0}", splitted[8].Trim().ToUpper()));
+                        this.logger.logBoth(String.Format("WeaponType could not be parsed. Expected BigGuns|BG|EnergyWeapons|EW|Explosives|E|SmallGuns|SG|Unarmed|U|Melee|M, got: {0}", splitted[8].Trim().ToUpper()));
                         continue;
                 }
 
@@ -384,7 +389,7 @@ namespace FRPGC
 
         private void calculate(object sender, EventArgs e)
         {
-            switch (this.comboFireType.SelectedIndex)
+            switch (this.comboAttackingMethod.SelectedIndex)
             {
                 case (-1): // ComboBox not touched
                     MessageBox.Show("It'd be nice if you chose a Firing Mode.");
@@ -393,67 +398,71 @@ namespace FRPGC
                 case (0): // Single Shot
                     if (((Weapon) this.comboWeapon.SelectedItem).Classification == WeaponRange.LR)
                     {
-                        textCurrentHealth.Text = (int.Parse(textInitialHealth.Text) - shoot(int.Parse(textShotCount.Text), ShotTypes.LR)).ToString();
+                        textCurrentHealth.Text = (int.Parse(textInitialHealth.Text) - attack(int.Parse(textAttacksLaunched.Text), AttackTypes.LR)).ToString();
                     }
                     else
                     {
-                        textCurrentHealth.Text = (int.Parse(textInitialHealth.Text) - shoot(int.Parse(textShotCount.Text), ShotTypes.SRS)).ToString();
+                        textCurrentHealth.Text = (int.Parse(textInitialHealth.Text) - attack(int.Parse(textAttacksLaunched.Text), AttackTypes.SRS)).ToString();
                     }
                     break;
 
                 case (1): // Burst Shot
-                    textCurrentHealth.Text = (int.Parse(textInitialHealth.Text) - shoot(int.Parse(textShotCount.Text), ShotTypes.SRB)).ToString();
+                    textCurrentHealth.Text = (int.Parse(textInitialHealth.Text) - attack(int.Parse(textAttacksLaunched.Text), AttackTypes.SRB)).ToString();
                     break;
 
                 case (2): // Melee
                     break;
 
                 default:
-                    this.logger.writeLog(String.Format("ComboBox Firing Type Error, Index: {0}", this.comboFireType.SelectedIndex));
-                    MessageBox.Show(String.Format("Fire Type Drop Down List says wut: ", this.comboFireType.SelectedIndex));
+                    this.logger.writeLog(String.Format("ComboBox Firing Type Error, Index: {0}", this.comboAttackingMethod.SelectedIndex));
+                    MessageBox.Show(String.Format("Fire Type Drop Down List says wut: ", this.comboAttackingMethod.SelectedIndex));
                     break;
             }
         }
 
-        private int shoot(int shotsFired, ShotTypes shotType)
+        private int attack(int attacksLaunched, AttackTypes attackType)
         {
             int chance = -1;
 
-            switch (shotType)
+            switch (attackType)
             {
-                case (ShotTypes.SRS):
+                case (AttackTypes.M):
+                    chance = meleeHitChance();
+                    break;
+
+                case (AttackTypes.SRS):
                     chance = shortRangeShotChance(true);
                     break;
 
-                case (ShotTypes.SRB):
+                case (AttackTypes.SRB):
                     chance = shortRangeShotChance(false);
                     break;
 
-                case (ShotTypes.LR):
+                case (AttackTypes.LR):
                     chance = longRangeShotChance();
                     break;
 
                 default:
-                    this.logger.logBoth(String.Format("A weird error occured at the shoot() function. The shotType is: {0}", shotType.ToString()));
+                    this.logger.logBoth(String.Format("A weird error occured at the attack() function. The attackType is: {0}", attackType.ToString()));
                     return 0;
             }
 
             this.logger.logBoth(String.Format("Hit Chance: {0}", chance.ToString()));
-            int[] damages = shotDamage(shotsFired);
+            int[] damages = attackDamage(attacksLaunched);
             int totalDamage = 0;
             Dice dice = new Dice(1, Math.Max(100, chance), this.logger);
             Unit attacker = (Unit) this.comboAttackingUnit.SelectedItem;
             int rolled = -1;
 
-            foreach (int shot in damages)
+            foreach (int damage in damages)
             {
                 rolled = dice.getRoll();
 
                 if (rolled < attacker.StatID.CriticalChance) // Critical Hit
                 {
                     this.logger.logBoth(String.Format("Critical Hit: {0} < 5", rolled.ToString()));
-                    this.logger.logBoth(String.Format("Damage Taken: {0}", (shot * 2).ToString()));
-                    totalDamage += shot * 2;
+                    this.logger.logBoth(String.Format("Damage Taken: {0}", (damage * 2).ToString()));
+                    totalDamage += damage * 2;
                     continue;
                 }
                 if (rolled > Math.Max(100, chance) - (10 - attacker.StatID.Luck)) // Critical Failure
@@ -465,8 +474,8 @@ namespace FRPGC
                 if (rolled < chance) // Hit
                 {
                     this.logger.logBoth(String.Format("Hit: {0} < {1}", rolled.ToString(), chance.ToString()));
-                    this.logger.logBoth(String.Format("Damage Taken: {0}", shot.ToString()));
-                    totalDamage += shot;
+                    this.logger.logBoth(String.Format("Damage Taken: {0}", damage.ToString()));
+                    totalDamage += damage;
                     continue;
                 }
                 else if (rolled > chance) // Miss
@@ -482,6 +491,11 @@ namespace FRPGC
             }
 
             return totalDamage;
+        }
+
+        private int meleeHitChance()
+        {
+            return ((Unit) this.comboAttackingUnit.SelectedItem).StatID.Melee - ((Unit) this.comboDefendingUnit.SelectedItem).StatID.AC;
         }
 
         private int shortRangeShotChance(bool singleShot)
@@ -555,18 +569,19 @@ namespace FRPGC
             return (int) Math.Floor(skill * Math.Exp(-Math.Pow(distance - weaponRange, 2) / (2 * Math.Pow(skill / 4, 2))) + hitBonuses - (luck - 10));
         }
 
-        private int[] shotDamage(int shots)
+        private int[] attackDamage(int attacks)
         {
-            this.logger.writeLog("Beginning Shot Damage Calculation");
-            this.logger.writeLog(String.Format("Number of shots: {0}", shots));
+            this.logger.writeLog("Beginning Attack Damage Calculation");
+            this.logger.writeLog(String.Format("Number of attacks: {0}", attacks));
 
             int flatDamage = ((Weapon) this.comboWeapon.SelectedItem).FlatDamage;
+            flatDamage = ((Weapon) this.comboWeapon.SelectedItem).WeaponType == WeaponType.Melee ? flatDamage + ((Unit) this.comboAttackingUnit.SelectedItem).StatID.Melee : flatDamage;
             Dice BD = ((Weapon) this.comboWeapon.SelectedItem).BaseDamage;
             Dice AD = ((Weapon) this.comboWeapon.SelectedItem).AdditionalDamage;
             int ad, bd = -1;
 
-            int[] damages = new int[shots];
-            for (int i = 0; i < shots; i++)
+            int[] damages = new int[attacks];
+            for (int i = 0; i < attacks; i++)
             {
                 bd = BD.getRoll();
                 ad = AD.getRoll();
@@ -574,7 +589,7 @@ namespace FRPGC
                 this.logger.writeLog(String.Format("Base Damage: {0} Additional Damage: {1} Flat Damage: {2}", bd.ToString(), ad.ToString(), flatDamage.ToString()));
             }
 
-            this.logger.writeLog("Ending Shot Calculation");
+            this.logger.writeLog("Ending Attack Calculation");
             return damages;
         }
 
@@ -628,6 +643,30 @@ namespace FRPGC
         private void comboDefenderUnitChanged(object sender, EventArgs e)
         {
             this.comboArmour.SelectedItem = ((Unit) this.comboDefendingUnit.SelectedItem).ArmourID;
+        }
+
+        private BindingList<AttackTypes> cWCMelee = new BindingList<AttackTypes>(){ AttackTypes.M };
+        private BindingList<AttackTypes> cWCSR = new BindingList<AttackTypes>() { AttackTypes.SRS, AttackTypes.SRB };
+        private BindingList<AttackTypes> cWCLR = new BindingList<AttackTypes>() { AttackTypes.LR };
+
+        private void comboWeaponChanged(object sender, EventArgs e)
+        {
+            WeaponRange classification = ((Weapon) this.comboWeapon.SelectedItem).Classification;
+            
+            switch (classification)
+            {
+                case (WeaponRange.M):
+                    this.comboAttackingMethod.DataSource = this.cWCMelee;
+                    break;
+
+                case (WeaponRange.SR):
+                    this.comboAttackingMethod.DataSource = this.cWCSR;
+                    break;
+
+                case (WeaponRange.LR):
+                    this.comboAttackingMethod.DataSource = this.cWCLR;
+                    break;
+            }
         }
     }
 }
