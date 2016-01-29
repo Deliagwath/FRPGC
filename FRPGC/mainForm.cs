@@ -37,7 +37,6 @@ namespace FRPGC
         {
             InitializeComponent();
             logger = new Log(log, this.textLog);
-            getData();
         }
 
         public void getData()
@@ -96,9 +95,9 @@ namespace FRPGC
             string line = null, name = null, id = null;
             int singleRange = 0, constant = 0, multiplier = 0, roll = 0, shotPerBurst = 0;
             Dice baseDamage = null, additionalDamage = null;
-            WeaponRange weaponRange;
+            AttackRange weaponRange;
             DamageTypes damageType;
-            WeaponType weaponType;
+            WeaponSkillType weaponType;
             string[] splitted = null, constantSplit = null, diceSplit = null;
 
             while ((line = reader.ReadLine()) != null)
@@ -243,15 +242,15 @@ namespace FRPGC
                 switch (splitted[6].Trim().ToUpper())
                 {
                     case ("M"):
-                        weaponRange = WeaponRange.M;
+                        weaponRange = AttackRange.M;
                         break;
                     
                     case ("SR"):
-                        weaponRange = WeaponRange.SR;
+                        weaponRange = AttackRange.SR;
                         break;
 
                     case ("LR"):
-                        weaponRange = WeaponRange.LR;
+                        weaponRange = AttackRange.LR;
                         break;
 
                     default:
@@ -296,32 +295,32 @@ namespace FRPGC
                 {
                     case ("BIGGUNS"):
                     case ("BG"):
-                        weaponType = WeaponType.BigGuns;
+                        weaponType = WeaponSkillType.BigGuns;
                         break;
 
                     case ("ENERGYWEAPONS"):
                     case ("EW"):
-                        weaponType = WeaponType.EnergyWeapons;
+                        weaponType = WeaponSkillType.EnergyWeapons;
                         break;
 
                     case ("EXPLOSIVES"):
                     case ("E"):
-                        weaponType = WeaponType.Explosives;
+                        weaponType = WeaponSkillType.Explosives;
                         break;
 
                     case ("SMALLGUNS"):
                     case ("SG"):
-                        weaponType = WeaponType.SmallGuns;
+                        weaponType = WeaponSkillType.SmallGuns;
                         break;
 
                     case ("UNARMED"):
                     case ("U"):
-                        weaponType = WeaponType.Unarmed;
+                        weaponType = WeaponSkillType.Unarmed;
                         break;
 
                     case ("MELEE"):
                     case ("M"):
-                        weaponType = WeaponType.Melee;
+                        weaponType = WeaponSkillType.Melee;
                         break;
 
                     default:
@@ -396,7 +395,7 @@ namespace FRPGC
                     break;
 
                 case (0): // Single Shot
-                    if (((Weapon) this.comboWeapon.SelectedItem).Classification == WeaponRange.LR)
+                    if (((Weapon) this.comboWeapon.SelectedItem).Classification == AttackRange.LR)
                     {
                         textCurrentHealth.Text = (int.Parse(textInitialHealth.Text) - attack(int.Parse(textAttacksLaunched.Text), AttackTypes.LR)).ToString();
                     }
@@ -575,7 +574,7 @@ namespace FRPGC
             this.logger.writeLog(String.Format("Number of attacks: {0}", attacks));
 
             int flatDamage = ((Weapon) this.comboWeapon.SelectedItem).FlatDamage;
-            flatDamage = ((Weapon) this.comboWeapon.SelectedItem).WeaponType == WeaponType.Melee ? flatDamage + ((Unit) this.comboAttackingUnit.SelectedItem).StatID.Melee : flatDamage;
+            flatDamage = (((Weapon) this.comboWeapon.SelectedItem).WeaponType == WeaponSkillType.Melee || ((Weapon) this.comboWeapon.SelectedItem).WeaponType == WeaponSkillType.Unarmed) ? flatDamage + ((Unit) this.comboAttackingUnit.SelectedItem).StatID.Melee : flatDamage;
             Dice BD = ((Weapon) this.comboWeapon.SelectedItem).BaseDamage;
             Dice AD = ((Weapon) this.comboWeapon.SelectedItem).AdditionalDamage;
             int ad, bd = -1;
@@ -645,28 +644,33 @@ namespace FRPGC
             this.comboArmour.SelectedItem = ((Unit) this.comboDefendingUnit.SelectedItem).ArmourID;
         }
 
-        private BindingList<AttackTypes> cWCMelee = new BindingList<AttackTypes>(){ AttackTypes.M };
+        private BindingList<AttackTypes> cWCMelee = new BindingList<AttackTypes>() { AttackTypes.M };
         private BindingList<AttackTypes> cWCSR = new BindingList<AttackTypes>() { AttackTypes.SRS, AttackTypes.SRB };
         private BindingList<AttackTypes> cWCLR = new BindingList<AttackTypes>() { AttackTypes.LR };
 
         private void comboWeaponChanged(object sender, EventArgs e)
         {
-            WeaponRange classification = ((Weapon) this.comboWeapon.SelectedItem).Classification;
+            AttackRange classification = ((Weapon) this.comboWeapon.SelectedItem).Classification;
             
             switch (classification)
             {
-                case (WeaponRange.M):
+                case (AttackRange.M):
                     this.comboAttackingMethod.DataSource = this.cWCMelee;
                     break;
 
-                case (WeaponRange.SR):
+                case (AttackRange.SR):
                     this.comboAttackingMethod.DataSource = this.cWCSR;
                     break;
 
-                case (WeaponRange.LR):
+                case (AttackRange.LR):
                     this.comboAttackingMethod.DataSource = this.cWCLR;
                     break;
             }
+        }
+
+        private void onLoad(object sender, EventArgs e)
+        {
+            getData();
         }
     }
 }

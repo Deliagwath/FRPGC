@@ -16,11 +16,11 @@ namespace FRPGC
         public Dice BaseDamage              { get; set; }
         public Dice AdditionalDamage        { get; set; }
         public int ShotsPerBurst            { get; set; }
-        public WeaponRange Classification   { get; set; }
+        public AttackRange Classification   { get; set; }
         public DamageTypes DamageType       { get; set; }
-        public WeaponType WeaponType        { get; set; }
+        public WeaponSkillType WeaponType   { get; set; }
 
-        public Weapon(string name, string id, int singleRange, int flatDamage, Dice baseDamage, Dice additionalDamage, int shotsPerBurst, WeaponRange classification, DamageTypes damageType, WeaponType weaponType)
+        public Weapon(string name, string id, int singleRange, int flatDamage, Dice baseDamage, Dice additionalDamage, int shotsPerBurst, AttackRange classification, DamageTypes damageType, WeaponSkillType weaponType)
         {
             this.Name = name;
             this.ID = id;

@@ -499,6 +499,7 @@
             this.Controls.Add(this.comboAttackingUnit);
             this.Name = "mainForm";
             this.Text = "Fallout RPG Calculator";
+            this.Load += new System.EventHandler(this.onLoad);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
