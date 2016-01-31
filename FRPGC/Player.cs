@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace FRPGC
 {
-    class Unit
+    class Player
     {
         public string Name { get; set; }
         public string ID { get; set; }
         public Weapon WeaponID { get; set; }
         public Armour ArmourID { get; set; }
-        public Stat StatID { get; set; }
+        public PlayerStat StatID { get; set; }
 
-        public Unit(string name, string id, Weapon wid, Armour aid, Stat sid)
+        public Player(string name, string id, Weapon wid, Armour aid, PlayerStat sid)
         {
             this.Name = name;
             this.ID = id;

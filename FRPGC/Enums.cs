@@ -9,6 +9,9 @@ namespace FRPGC
     // Normal, LA?, PL?, Electrical, Fire, Explosive
     enum DamageTypes { N, LA, PL, EL, FR, EX }
 
+    // List Types for searching
+    enum ListTypes { Weapons, Armours, Units, Stats }
+
     // Melee, Short Range Single, Short Range Burst, Long Range
     enum AttackTypes { M, SRS, SRB, LR }
 
@@ -19,5 +22,5 @@ namespace FRPGC
     enum WeaponSkillType { BigGuns, EnergyWeapons, Explosives, SmallGuns, Unarmed, Melee }
 
     // The four difficulty levels
-    enum Difficulty { Easy, Medium, Hard, wut }
+    enum Difficulty { Easy, Medium, Hard, ScottIsBeingADick }
 }

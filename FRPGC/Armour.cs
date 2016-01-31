@@ -32,7 +32,7 @@ namespace FRPGC
             this.ExplosiveResistance = explosiveResistance;
         }
         // Normal damage, fire damage, laser damage, plasma damage, electrical damage, explosive damage. 
-        public string toString()
+        public string ToString()
         {
             string comma = ", ";
             return "[" + this.Name + comma +

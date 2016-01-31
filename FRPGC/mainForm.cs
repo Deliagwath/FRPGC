@@ -19,19 +19,19 @@ namespace FRPGC
         private string[] files = new string[]
         {
             "Weapons.csv",
-            "Armour.csv"
-            //"PlayerEquip.csv",
-            //"PlayerStats.csv",
-            //"EnemyEquip.csv",
-            //"EnemyStats.csv"
+            "Armours.csv",
+            "Stats.csv",
+            "Units.csv",
+            "PlayerStats.csv",
+            "Players.csv"
         };
 
-        private BindingList<Weapon> weapons = new BindingList<Weapon>();
-        private BindingList<Armour> armours = new BindingList<Armour>();
-        //private Dictionary<string, string> playerEquip = new Dictionary<string, string>();
-        //private Dictionary<string, string> playerStats = new Dictionary<string, string>();
-        //private Dictionary<string, string> enemyEquip = new Dictionary<string, string>();
-        //private Dictionary<string, string> enemyStats = new Dictionary<string, string>();
+        private BindingList<Weapon>         weapons = new BindingList<Weapon>();
+        private BindingList<Armour>         armours = new BindingList<Armour>();
+        private BindingList<Unit>           units   = new BindingList<Unit>();
+        private BindingList<Stat>          stats   = new BindingList<Stat>();
+        private BindingList<Player>         players = new BindingList<Player>();
+        private BindingList<PlayerStat>    pstats  = new BindingList<PlayerStat>();
 
         public mainForm()
         {
@@ -63,8 +63,28 @@ namespace FRPGC
                             getWeapons(reader);
                             break;
 
-                        case ("Armour.csv"):
+                        case ("Armours.csv"):
                             getArmours(reader);
+                            break;
+
+                        case ("Stats.csv"):
+                            getStats(reader);
+                            break;
+
+                        case ("Units.csv"):
+                            getUnits(reader);
+                            break;
+
+                        case ("PlayerStats.csv"):
+                            getPlayerStats(reader);
+                            break;
+
+                        case ("Players.csv"):
+                            getPlayers(reader);
+                            break;
+                        
+                        default:
+                            this.logger.logBoth("This parsing shit gone wrong yo");
                             break;
                     }
                 }
@@ -88,6 +108,58 @@ namespace FRPGC
             this.logger.writeLog("Data Retrieval Completed.");
             this.logger.writeLog(String.Format("{0} of {1} logs retrieved", pass.ToString(), (pass + fail).ToString()));
             return;
+        }
+
+        public Object searchListByID(string id, ListTypes lt)
+        {
+            switch (lt)
+            {
+                case (ListTypes.Weapons):
+                    foreach (Weapon weapon in this.weapons)
+                    {
+                        if (weapon.ID.Equals(id))
+                        {
+                            return weapon;
+                        }
+                    }
+                    break;
+
+                case (ListTypes.Armours):
+                    foreach (Armour armour in this.armours)
+                    {
+                        if (armour.ID.Equals(id))
+                        {
+                            return armour;
+                        }
+                    }
+                    break;
+
+                case (ListTypes.Units):
+                    foreach (Unit unit in this.units)
+                    {
+                        if (unit.ID.Equals(id))
+                        {
+                            return unit;
+                        }
+                    }
+                    break;
+
+                case (ListTypes.Stats):
+                    foreach (Stat stat in this.stats)
+                    {
+                        if (stat.ID.Equals(id))
+                        {
+                            return stat;
+                        }
+                    }
+                    break;
+
+                default:
+                    this.logger.logBoth(String.Format("Searching for id: {0}, type: {1}", id, lt.ToString()));
+                    break;
+            }
+
+            return null;
         }
 
         public void getWeapons(StreamReader reader)
@@ -343,7 +415,7 @@ namespace FRPGC
             this.logger.logBoth("Dumping");
             foreach (Weapon w in this.weapons)
             {
-                this.logger.logBoth(w.toString());
+                this.logger.logBoth(w.ToString());
             }
         }
 
@@ -382,11 +454,85 @@ namespace FRPGC
             this.logger.logBoth("Dumping");
             foreach (Armour a in this.armours)
             {
-                this.logger.logBoth(a.toString());
+                this.logger.logBoth(a.ToString());
+            }
+        }
+
+        public void getStats(StreamReader reader)
+        {
+            string line, id = null;
+            string[] splitted = null;
+            Difficulty diff;
+
+            while ((line = reader.ReadLine()) != null)
+            {
+                splitted = line.Trim().Split(',');
+
+                switch (int.Parse(splitted[13]))
+                {
+                    case (1):
+                        diff = Difficulty.Easy;
+                        break;
+
+                    case (2):
+                        diff = Difficulty.Medium;
+                        break;
+
+                    case (3):
+                        diff = Difficulty.Hard;
+                        break;
+
+                    case (4):
+                        diff = Difficulty.ScottIsBeingADick;
+                        break;
+
+                    default:
+                        this.logger.logBoth(String.Format("Difficulty cannot be parsed: {0}", int.Parse(splitted[13])));
+                        continue;
+                }
+
+                id = splitted[0].Trim();
+                this.logger.writeLog(String.Format("Parsing {0}", id));
+                this.stats.Add(new Stat(id, int.Parse(splitted[1]), int.Parse(splitted[2]), int.Parse(splitted[3]), int.Parse(splitted[4]), int.Parse(splitted[5]), int.Parse(splitted[6]),
+                    int.Parse(splitted[7]), int.Parse(splitted[8]), int.Parse(splitted[9]), int.Parse(splitted[10]), int.Parse(splitted[11]), int.Parse(splitted[12]), diff));
+            }
+        }
+
+        public void dumpStats(object sender, EventArgs e)
+        {
+            this.logger.logBoth("Dumping");
+            foreach (Stat s in this.stats)
+            {
+                this.logger.logBoth(s.ToString());
             }
         }
 
         public void getUnits(StreamReader reader)
+        {
+            string line, name, id = null;
+            string[] splitted = null;
+
+            while ((line = reader.ReadLine()) != null)
+            {
+                splitted = line.Trim().Split(',');
+
+                name = splitted[0].Trim();
+                id = splitted[1].Trim();
+                this.logger.writeLog(String.Format("Parsing {0}", name));
+                this.units.Add(new Unit(name, splitted[1], (Weapon) searchListByID(id, ListTypes.Weapons), (Armour) searchListByID(id, ListTypes.Armours), (Stat) searchListByID(id, ListTypes.Stats)));
+            }
+        }
+
+        public void dumpUnits(object sender, EventArgs e)
+        {
+            this.logger.logBoth("Dumping");
+            foreach (Unit u in this.units)
+            {
+                this.logger.logBoth(u.ToString());
+            }
+        }
+
+        public void getPlayerStats(StreamReader reader)
         {
             string line, id = null;
             string[] splitted = null;
@@ -397,6 +543,42 @@ namespace FRPGC
 
                 id = splitted[0].Trim();
                 this.logger.writeLog(String.Format("Parsing {0}", id));
+                this.pstats.Add(new PlayerStat(id, int.Parse(splitted[1]), int.Parse(splitted[2]), int.Parse(splitted[3]), int.Parse(splitted[4]), int.Parse(splitted[5]), int.Parse(splitted[6]),
+                    int.Parse(splitted[7]), int.Parse(splitted[8]), int.Parse(splitted[9]), int.Parse(splitted[10]), int.Parse(splitted[11]), int.Parse(splitted[12]), int.Parse(splitted[13])));
+            }
+        }
+
+        public void dumpPlayerStats(object sender, EventArgs e)
+        {
+            this.logger.logBoth("Dumping");
+            foreach (Stat s in this.stats)
+            {
+                this.logger.logBoth(s.ToString());
+            }
+        }
+
+        public void getPlayers(StreamReader reader)
+        {
+            string line, name, id = null;
+            string[] splitted = null;
+
+            while ((line = reader.ReadLine()) != null)
+            {
+                splitted = line.Trim().Split(',');
+
+                name = splitted[0].Trim();
+                id = splitted[1].Trim();
+                this.logger.writeLog(String.Format("Parsing {0}", name));
+                this.units.Add(new Unit(name, splitted[1], (Weapon)searchListByID(id, ListTypes.Weapons), (Armour)searchListByID(id, ListTypes.Armours), (Stat)searchListByID(id, ListTypes.Stats)));
+            }
+        }
+
+        public void dumpPlayers(object sender, EventArgs e)
+        {
+            this.logger.logBoth("Dumping");
+            foreach (Player p in this.players)
+            {
+                this.logger.logBoth(p.ToString());
             }
         }
 

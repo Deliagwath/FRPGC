@@ -34,7 +34,7 @@ namespace FRPGC
             this.WeaponType = weaponType;
         }
 
-        public string toString()
+        public string ToString()
         {
             string comma = ", ";
             return "[" + this.Name + comma +

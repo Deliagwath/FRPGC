@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FRPGC
 {
-    class Stats
+    class Stat
     {
         public string ID                { get; set; }
 
@@ -34,7 +34,7 @@ namespace FRPGC
 
         public Difficulty Diff          { get; set; }
 
-        public Stats(string id, int level, int str, int per, int end, int agi, int luck, int bigGuns, int energyWeapons, int explosives, int smallGuns, int unarmed, int melee, Difficulty diff)
+        public Stat(string id, int level, int str, int per, int end, int agi, int luck, int bigGuns, int energyWeapons, int explosives, int smallGuns, int unarmed, int melee, Difficulty diff)
         {
             this.ID = id;
 
@@ -61,6 +61,32 @@ namespace FRPGC
             this.MeleeDamage = melee;
 
             this.Diff = diff;
+        }
+
+        public string ToString()
+        {
+            string comma = ", ";
+            return "[" + this.ID + comma +
+                this.Strength.ToString() + comma +
+                this.Perception.ToString() + comma +
+                this.Endurance.ToString() + comma +
+                this.Agility.ToString() + comma +
+                this.Luck.ToString() + comma +
+                this.HP.ToString() + comma +
+                this.ActionPoints.ToString() + comma +
+                this.CriticalChance.ToString() + comma +
+                this.PoisonResistance.ToString() + comma +
+                this.RadiationResistance.ToString() + comma +
+                this.MeleeDamage.ToString() + comma +
+                this.Sequence.ToString() + comma +
+                this.AC.ToString() + comma +
+                this.BigGuns.ToString() + comma +
+                this.EnergyWeapons.ToString() + comma +
+                this.Explosives.ToString() + comma +
+                this.SmallGuns.ToString() + comma +
+                this.Unarmed.ToString() + comma +
+                this.MeleeDamage.ToString() + comma +
+                this.Diff.ToString() + "]";
         }
     }
 }
