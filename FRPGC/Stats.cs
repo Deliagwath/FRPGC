@@ -30,10 +30,11 @@ namespace FRPGC
         public int Explosives           { get; set; }
         public int SmallGuns            { get; set; }
         public int Unarmed              { get; set; }
+        public int Melee                { get; set; }
 
         public Difficulty Diff          { get; set; }
 
-        public Stats(string id, int level, int str, int per, int end, int agi, int luck, int bigGuns, int energyWeapons, int explosives, int smallGuns, int unarmed, Difficulty diff)
+        public Stats(string id, int level, int str, int per, int end, int agi, int luck, int bigGuns, int energyWeapons, int explosives, int smallGuns, int unarmed, int melee, Difficulty diff)
         {
             this.ID = id;
 
@@ -57,6 +58,7 @@ namespace FRPGC
             this.Explosives = explosives;
             this.SmallGuns = smallGuns;
             this.Unarmed = unarmed;
+            this.Melee = melee;
 
             this.Diff = diff;
         }
