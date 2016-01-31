@@ -376,7 +376,7 @@ namespace FRPGC
                         break;
 
                     case ("EXPLOSIVES"):
-                    case ("E"):
+                    case ("EX"):
                         weaponType = WeaponSkillType.Explosives;
                         break;
 
@@ -770,7 +770,8 @@ namespace FRPGC
             this.logger.writeLog(String.Format("Number of attacks: {0}", attacks));
 
             int flatDamage = ((Weapon) this.comboWeapon.SelectedItem).FlatDamage;
-            flatDamage = (((Weapon) this.comboWeapon.SelectedItem).WeaponType == WeaponSkillType.Melee || ((Weapon) this.comboWeapon.SelectedItem).WeaponType == WeaponSkillType.Unarmed) ? flatDamage + ((Unit) this.comboAttackingUnit.SelectedItem).StatID.MeleeDamage : flatDamage;
+            bool melee = (((Weapon) this.comboWeapon.SelectedItem).WeaponType == WeaponSkillType.Melee || ((Weapon) this.comboWeapon.SelectedItem).WeaponType == WeaponSkillType.Unarmed);
+            flatDamage = (melee ? flatDamage + ((Unit) this.comboAttackingUnit.SelectedItem).StatID.MeleeDamage : flatDamage);
             Dice BD = ((Weapon) this.comboWeapon.SelectedItem).BaseDamage;
             Dice AD = ((Weapon) this.comboWeapon.SelectedItem).AdditionalDamage;
             int ad, bd = -1;

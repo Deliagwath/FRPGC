@@ -23,7 +23,7 @@ namespace FRPGC
             this.StatID = sid;
         }
 
-        public string ToString()
+        public override string ToString()
         {
             string comma = ", ";
             return "[" + this.Name + comma +

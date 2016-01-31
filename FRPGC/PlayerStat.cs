@@ -59,7 +59,7 @@ namespace FRPGC
             this.MeleeDamage = melee;
         }
 
-        public string ToString()
+        public override string ToString()
         {
             string comma = ", ";
             return "[" + this.ID + comma +

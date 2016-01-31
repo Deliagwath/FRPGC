@@ -63,7 +63,7 @@ namespace FRPGC
             this.Diff = diff;
         }
 
-        public string ToString()
+        public override string ToString()
         {
             string comma = ", ";
             return "[" + this.ID + comma +

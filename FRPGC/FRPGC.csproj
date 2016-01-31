@@ -48,7 +48,9 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Dice.cs" />
     <Compile Include="Log.cs" />
-    <Compile Include="Stats.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="PlayerStat.cs" />
+    <Compile Include="Stat.cs" />
     <Compile Include="Unit.cs" />
     <Compile Include="Weapon.cs" />
     <Compile Include="mainForm.cs">
