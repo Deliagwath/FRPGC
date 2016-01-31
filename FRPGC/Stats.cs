@@ -8,30 +8,32 @@ namespace FRPGC
 {
     class Stats
     {
-        public string ID { get; set; }
+        public string ID                { get; set; }
 
-        public int Strength { get; set; }
-        public int Perception { get; set; }
-        public int Endurance { get; set; }
-        public int Agility { get; set; }
-        public int Luck { get; set; }
+        public int Strength             { get; set; }
+        public int Perception           { get; set; }
+        public int Endurance            { get; set; }
+        public int Agility              { get; set; }
+        public int Luck                 { get; set; }
 
-        public double HP { get; set; }
-        public double ActionPoints { get; set; }
-        public int CriticalChance { get; set; }
-        public int PoisonResistance { get; set; }
-        public int RadiationResistance { get; set; }
-        public int Melee { get; set; }
-        public int Sequence { get; set; }
-        public int AC { get; set; }
+        public double HP                { get; set; }
+        public double ActionPoints      { get; set; }
+        public int CriticalChance       { get; set; }
+        public int PoisonResistance     { get; set; }
+        public int RadiationResistance  { get; set; }
+        public int Melee                { get; set; }
+        public int Sequence             { get; set; }
+        public int AC                   { get; set; }
 
-        public int BigGuns { get; set; }
-        public int EnergyWeapons { get; set; }
-        public int Explosives { get; set; }
-        public int SmallGuns { get; set; }
-        public int Unarmed { get; set; }
+        public int BigGuns              { get; set; }
+        public int EnergyWeapons        { get; set; }
+        public int Explosives           { get; set; }
+        public int SmallGuns            { get; set; }
+        public int Unarmed              { get; set; }
 
-        public Stats(string id, int level, int str, int per, int end, int agi, int luck, int bigGuns, int energyWeapons, int explosives, int smallGuns, int unarmed)
+        public Difficulty Diff          { get; set; }
+
+        public Stats(string id, int level, int str, int per, int end, int agi, int luck, int bigGuns, int energyWeapons, int explosives, int smallGuns, int unarmed, Difficulty diff)
         {
             this.ID = id;
 
@@ -55,6 +57,8 @@ namespace FRPGC
             this.Explosives = explosives;
             this.SmallGuns = smallGuns;
             this.Unarmed = unarmed;
+
+            this.Diff = diff;
         }
     }
 }

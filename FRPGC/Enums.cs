@@ -17,4 +17,7 @@ namespace FRPGC
 
     // The Five Combat Skills
     enum WeaponSkillType { BigGuns, EnergyWeapons, Explosives, SmallGuns, Unarmed, Melee }
+
+    // The four difficulty levels
+    enum Difficulty { Easy, Medium, Hard, wut }
 }

@@ -354,7 +354,7 @@ namespace FRPGC
 
             while ((line = reader.ReadLine()) != null)
             {
-                // Weapons {"Name":0, "ID":1, "Range":2, "BD":3, "AD":4, "SPB"(Shots per burst):5, "DamageType":6}
+                // Armours {"Name":0, "ID":1, "AC":2, "DR":3, "DR LA":4, "DR PL":5, "DR EL":6, "DR FR":7, "DR EX":8}
                 splitted = line.Trim().Split(',');
 
                 name = splitted[0].Trim();
@@ -383,6 +383,20 @@ namespace FRPGC
             foreach (Armour a in this.armours)
             {
                 this.logger.logBoth(a.toString());
+            }
+        }
+
+        public void getUnits(StreamReader reader)
+        {
+            string line, id = null;
+            string[] splitted = null;
+
+            while ((line = reader.ReadLine()) != null)
+            {
+                splitted = line.Trim().Split(',');
+
+                id = splitted[0].Trim();
+                this.logger.writeLog(String.Format("Parsing {0}", id));
             }
         }
 
