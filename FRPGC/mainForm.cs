@@ -508,7 +508,7 @@ namespace FRPGC
 
         private int meleeHitChance()
         {
-            return ((Unit) this.comboAttackingUnit.SelectedItem).StatID.Melee - ((Unit) this.comboDefendingUnit.SelectedItem).StatID.AC;
+            return ((Unit) this.comboAttackingUnit.SelectedItem).StatID.MeleeDamage - ((Unit) this.comboDefendingUnit.SelectedItem).StatID.AC;
         }
 
         private int shortRangeShotChance(bool singleShot)
@@ -588,7 +588,7 @@ namespace FRPGC
             this.logger.writeLog(String.Format("Number of attacks: {0}", attacks));
 
             int flatDamage = ((Weapon) this.comboWeapon.SelectedItem).FlatDamage;
-            flatDamage = (((Weapon) this.comboWeapon.SelectedItem).WeaponType == WeaponSkillType.Melee || ((Weapon) this.comboWeapon.SelectedItem).WeaponType == WeaponSkillType.Unarmed) ? flatDamage + ((Unit) this.comboAttackingUnit.SelectedItem).StatID.Melee : flatDamage;
+            flatDamage = (((Weapon) this.comboWeapon.SelectedItem).WeaponType == WeaponSkillType.Melee || ((Weapon) this.comboWeapon.SelectedItem).WeaponType == WeaponSkillType.Unarmed) ? flatDamage + ((Unit) this.comboAttackingUnit.SelectedItem).StatID.MeleeDamage : flatDamage;
             Dice BD = ((Weapon) this.comboWeapon.SelectedItem).BaseDamage;
             Dice AD = ((Weapon) this.comboWeapon.SelectedItem).AdditionalDamage;
             int ad, bd = -1;

@@ -21,7 +21,7 @@ namespace FRPGC
         public int CriticalChance       { get; set; }
         public int PoisonResistance     { get; set; }
         public int RadiationResistance  { get; set; }
-        public int Melee                { get; set; }
+        public int MeleeDamage          { get; set; }
         public int Sequence             { get; set; }
         public int AC                   { get; set; }
 
@@ -49,7 +49,7 @@ namespace FRPGC
             this.CriticalChance = luck;
             this.PoisonResistance = end * 5;
             this.RadiationResistance = end * 2;
-            this.Melee = Math.Max(str - 5, 0);
+            this.MeleeDamage = Math.Max(str - 5, 0);
             this.Sequence = per * 2;
             this.AC = agi;
 
@@ -58,7 +58,7 @@ namespace FRPGC
             this.Explosives = explosives;
             this.SmallGuns = smallGuns;
             this.Unarmed = unarmed;
-            this.Melee = melee;
+            this.MeleeDamage = melee;
 
             this.Diff = diff;
         }
