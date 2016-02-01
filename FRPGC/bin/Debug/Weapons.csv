@@ -1,0 +1,107 @@
+Baseball Bat,M1,1,0,1d8,NA,M,N,M
+Knife,M2,1,0,1d6,NA,M,N,M
+Wrench,M3,1,2,1d4,NA,M,N,M
+Baton,M4,1,0,1d6,NA,M,N,M
+Rusty Katana,M5,1,0,1d6,NA,M,N,M
+Spear,M6,1,2,1d8,NA,M,N,M
+Crowbar,M7,1,2,1d8,NA,M,N,M
+Switchblade,M8,1,0,1d10,NA,M,N,M
+Sledge Hammer,M9,1,3,1d6,NA,M,N,M
+BullWip,M10,3,2,1d6,NA,SR,N,M
+Sharp Spear,M11,1,4,1d8,NA,M,N,M
+Wakizashi,M12,1,3,2d6,NA,M,N,M
+Machete,M13,1,6,1d8,NA,M,N,M
+Combat Knife,M14,1,2,1d8,NA,M,N,M
+Fire Axe,M15,1,6,1d8,NA,M,N,M
+Shiskebab,M16,1,10,1d8,NA,M,FR,M
+Cattle Prod,M17,1,11,2d4,NA,M,EL,M
+Katana,M18,1,6,2d6,NA,M,N,M
+Proton Axe,M19,1,8,1d10,NA,M,EL,M
+Ripper,M20,1,12,3d6,NA,M,N,M
+Super Sledge,M21,1,15,3d6,NA,M,N,M
+Throwing Knife,MR1,16,2,1d4,NA,SR,N,M
+Short Bow,MR2,25,3,1d6,NA,SR,N,M
+Shurikin,MR3,16,5,1d4,NA,SR,N,M
+Compound Bow,MR4,30,8,1d8,NA,SR,N,M
+Cross Bow,MR5,30,10,1d10,NA,SR,N,M
+Wrist Crossbow,MR6,20,10,1d4,NA,SR,N,SG
+Fist,U1,1,0,0,NA,M,N,U
+Brass Knuckles,U2,1,0,1d6,NA,M,N,U
+Boxing Gloves,U3,1,0,0,NA,M,N,U
+Spiked Knuckles,U4,1,0,1d8,NA,M,N,U
+Plated Boxing Gloves,U5,1,0,1d6,NA,M,N,U
+Zap Glove,U6,1,0,1d12,NA,M,EL,U
+Ballistic Fist,U7,1,0+2D6,1d10,NA,M,N,U
+DeathclawGauntlet,U8,1,10,1d10,NA,M,N,U
+Power Fist,U9,1,15,2d12,NA,M,N,U
+Browning 9mm,SGH1,22,4,1d6,NA,SR,N,SG
+.375 Revolver,SGH2,15,7,1d6,NA,SR,N,SG
+.44 Magnum Revolver,SGH3,15,10,2d4,NA,SR,N,SG
+10mm Pistol,SGH4,25,4,1d8,NA,SR,N,SG
+Desert Eagle,SGH5,25,10,2d4,NA,SR,N,SG
+Silenced Pistol,SGH6,15,2,1d4,NA,SR,N,SG
+Colt 1911,SGH7,20,7,2d8,NA,SR,N,SG
+Chinese Pistol,SGH8,22,4,1d6,NA,SR,N,SG
+14mm Pistol,SGH9,30,10,2d6,NA,SR,N,SG
+.223 Pistol,SGH10,30,16,4d4,NA,SR,N,SG
+PPK12 Gauss Pistol,SGH11,50,20,2d6,NA,SR,N,SG
+Hunting Revolver,SGH12,40,15,5d6,NA,SR,N,SG
+Ranger Sequoia,SGH13,50,15,5d6,NA,SR,N,SG
+9mm Glock,SGSMG1,22\16,4,1d6,6,SR,N,SG
+10mm SMG,SGSMG2,25\20,4,1d8,8,SR,N,SG
+Tommy Gun,SGSMG3,32\16,4,2d8,10,SR,N,SG
+P90,SGSMG4,30\25,9,1d8,12,SR,N,SG
+Sawed-off Shotgun,SGS1,7,11,2d6,NA,SR,N,SG
+Shotgun,SGS2,14,10,2d6,NA,SR,N,SG
+Combat Shotgun,SGS3,22\18,13,2d6,3,SR,N,SG
+H&K CAWS,SGS4,30\20,13,2d6,5,SR,N,SG
+PancorJackhammer,SGS5,23\25,17,2d6,5,SR,N,SG
+Pipe Rifle,SGR1,20,4,1d8,NA,SR,N,SG
+AK-122,SGR2,45\38,8,1d6,8,SR,N,SG
+Hunting Rifle,SGR3,40,4,4d4,NA,LR,N,SG
+Cowboy Repeater,SGR4,35,10,1d6,NA,SR,N,SG
+M14,SGR5,40\35,7,2d6,4,SR,N,SG
+FN FAL,SGR6,35\30,6,2d6,10,SR,N,SG
+Railway Rifle,SGR7,25,8,1d12,NA,SR,N,SG
+FN FAL HPFA,SGR8,35\30,9,2d6,20,SR,N,SG
+Trail Carbine,SGR9,40,13,2d4,NA,SR,N,SG
+Sniper Rifle,SGR10,50,10+2d4,4d4,NA,LR,N,SG
+XL70E3,SGR11,35\30,12,1d6,8,SR,N,SG
+Brush Gun,SGR12,50,20,6d6,NA,SR,N,SG
+M72 Gauss Rifle,SGR13,50,30,2d6,NA,SR,N,SG
+Anti-Material Rifle,SGR14,70,15+4d4,3d10,NA,LR,N,EW
+Wattz Laser Pistol,EWP1,35,10,1d12,NA,SR,LA,EW
+AEP7 Laser Pistol,EWP2,25,20,1d20,NA,SR,LA,EW
+Spasm Gun,EWP3,30,7,4d4,NA,SR,EL,EW
+Glock Plasma Pistol,EWP4,25,15,2d10,NA,SR,PL,EW
+Enclave Plasma Pistol,EWP5,25,15,3d10,NA,SR,PL,EW
+YK32 Pulse Pistol,EWP6,15,32,1d12,NA,SR,EL,EW
+Noisy Cricket,EWP7,15,30,5d15,NA,SR,PL,EW
+Alien Blaster,EWP8,15,30,5d6,NA,SR,EL,EW
+Recharger Rifle,EWR1,20,3,1d6,NA,SR,LA,EW
+AER9 Laser Rifle,EWR2,35,16,4d6,NA,SR,LA,EW
+Wattz Laser Rifle,EWR3,45,20,5d6,NA,SR,LA,EW
+Plasma Rifle,EWR4,25,25,5d8,NA,SR,PL,EW
+Gamma Gun,EWR5,10,20,2d6,NA,SR,PL,EW
+Metal Blaster,EWR6,10,16,10d4,NA,SR,LA,EW
+Turbo Plasma Rifle,EWR7,35,30,5d8,NA,SR,PL,EW
+YK42B Pulse Rifle,EWR8,30,48,5d6,NA,SR,EL,EW
+Gatling Laser,EWR9,40,16,4d6,10,SR,LA,EW
+Flamer,BG1,5,35,5d10,1,SR,FR,BG
+M60,BG2,35,16,2d6,10,SR,N,BG
+Minigun,BG3,35,6,1d6,40,SR,N,BG
+Light Support Weapon,BG4,40,16,4d4,10,SR,N,BG
+Avenger Minigun,BG5,40,9,1d6,40,SR,N,BG
+Flamer Mk2,BG6,5,40,5d10,1,SR,FR,BG
+Claymore Shotgun,BG7,14,25,2d6,NA,SR,N,BG
+Bozar,BG8,35,21,4d4,15,SR,N,BG
+Vidicator Minigun,BG9,30,12,2d6,25,SR,N,BG
+Frag Grenade,EXG1,15,2,3d8,NA,SR,EX,EX
+Plasma Grenade,EXG2,15,10,4d10,NA,SR,PL,EX
+Molotov Cocktail,EXG3,12,6+1d6,3d4,NA,SR,FR,EX
+Pulse Grenade,EXG4,15,10,10d10,NA,SR,EL,EX
+Frag Mine,EXM1,1,2,3d8,NA,SR,EX,EX
+Plasma Mine,EXM2,1,10,4d10,NA,SR,PL,EX
+Pulse Mine,EXM3,1,10,10d10,NA,SR,EL,EX
+Grenade Launcher,EXR1,32,22,3d6,NA,LR,EX,EX
+Missile Launcher,EXR2,40,30,5d15,NA,LR,EX,EX
