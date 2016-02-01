@@ -521,6 +521,15 @@ namespace FRPGC
                 this.logger.writeLog(String.Format("Parsing {0}", name));
                 this.units.Add(new Unit(name, splitted[1], (Weapon) searchListByID(id, ListTypes.Weapons), (Armour) searchListByID(id, ListTypes.Armours), (Stat) searchListByID(id, ListTypes.Stats)));
             }
+
+            // Populate the two drop down combo boxes
+            this.comboAttackingUnit.DataSource = this.units;
+            this.comboAttackingUnit.ValueMember = "ID";
+            this.comboAttackingUnit.DisplayMember = "Name";
+
+            this.comboDefendingUnit.DataSource = this.units;
+            this.comboDefendingUnit.ValueMember = "ID";
+            this.comboDefendingUnit.DisplayMember = "Name";
         }
 
         public void dumpUnits(object sender, EventArgs e)
@@ -792,37 +801,61 @@ namespace FRPGC
         private void radioAttackerPlayerChecked(object sender, EventArgs e)
         {
             this.comboAttackerUnitLabel.Text = "Player Name";
-            // Clear comboUnit and populate with Player Name List
+
+            // Limit Visibility of NPC related functions
             this.comboAttackerDifficultyLabel.Visible = false;
             this.comboAttackerDifficulty.Visible = false;
             this.checkAttackerDefaultEquipment.Visible = false;
+
+            // Clear comboUnit and populate with Player Name List
+            this.comboAttackingUnit.DataSource = this.players;
+            this.comboAttackingUnit.ValueMember = "ID";
+            this.comboAttackingUnit.DisplayMember = "Name";
         }
 
         private void radioAttackerEnemyChecked(object sender, EventArgs e)
         {
             this.comboAttackerUnitLabel.Text = "Unit Name";
-            // Clear comboUnit and populate with Enemy Name List
+
+            // Increase Visibility of NPC related functions
             this.comboAttackerDifficultyLabel.Visible = true;
             this.comboAttackerDifficulty.Visible = true;
             this.checkAttackerDefaultEquipment.Visible = true;
+
+            // Clear comboUnit and populate with Player Name List
+            this.comboAttackingUnit.DataSource = this.units;
+            this.comboAttackingUnit.ValueMember = "ID";
+            this.comboAttackingUnit.DisplayMember = "Name";
         }
 
         private void radioDefenderPlayerChecked(object sender, EventArgs e)
         {
             this.comboDefenderUnitLabel.Text = "Player Name";
-            // Clear comboUnit and populate with Player Name List
+
+            // Limit Visibility of NPC related functions
             this.comboDefenderDifficultyLabel.Visible = false;
             this.comboDefenderDifficulty.Visible = false;
             this.checkDefenderDefaultEquipment.Visible = false;
+
+            // Clear comboUnit and populate with Player Name List
+            this.comboDefendingUnit.DataSource = this.players;
+            this.comboDefendingUnit.ValueMember = "ID";
+            this.comboDefendingUnit.DisplayMember = "Name";
         }
 
         private void radioDefenderEnemyChecked(object sender, EventArgs e)
         {
             this.comboDefenderUnitLabel.Text = "Unit Name";
-            // Clear comboUnit and populate with Enemy Name List
+
+            // Increase Visibility of NPC related functions
             this.comboDefenderDifficultyLabel.Visible = true;
             this.comboDefenderDifficulty.Visible = true;
             this.checkDefenderDefaultEquipment.Visible = true;
+
+            // Clear comboUnit and populate with Player Name List
+            this.comboDefendingUnit.DataSource = this.units;
+            this.comboDefendingUnit.ValueMember = "ID";
+            this.comboDefendingUnit.DisplayMember = "Name";
         }
 
         private void buttonSetHP_Click(object sender, EventArgs e)
