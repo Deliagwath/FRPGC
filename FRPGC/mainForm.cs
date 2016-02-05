@@ -28,9 +28,11 @@ namespace FRPGC
 
         private BindingList<Weapon>         weapons = new BindingList<Weapon>();
         private BindingList<Armour>         armours = new BindingList<Armour>();
-        private BindingList<Unit>           units   = new BindingList<Unit>();
+        private BindingList<Unit>           attackerunits   = new BindingList<Unit>();
+        private BindingList<Unit> defenderunits = new BindingList<Unit>();
         private BindingList<Stat>          stats   = new BindingList<Stat>();
-        private BindingList<Player>         players = new BindingList<Player>();
+        private BindingList<Player>         attackerplayers = new BindingList<Player>();
+        private BindingList<Player> defenderplayers = new BindingList<Player>();
         private BindingList<PlayerStat>    pstats  = new BindingList<PlayerStat>();
 
         public mainForm()
@@ -135,7 +137,7 @@ namespace FRPGC
                     break;
 
                 case (ListTypes.Units):
-                    foreach (Unit unit in this.units)
+                    foreach (Unit unit in this.attackerunits)
                     {
                         if (unit.ID.Equals(id))
                         {
@@ -146,6 +148,16 @@ namespace FRPGC
 
                 case (ListTypes.Stats):
                     foreach (Stat stat in this.stats)
+                    {
+                        if (stat.ID.Equals(id))
+                        {
+                            return stat;
+                        }
+                    }
+                    break;
+
+                case (ListTypes.PlayerStats):
+                    foreach (PlayerStat stat in this.pstats)
                     {
                         if (stat.ID.Equals(id))
                         {
@@ -314,15 +326,15 @@ namespace FRPGC
                 switch (splitted[6].Trim().ToUpper())
                 {
                     case ("M"):
-                        weaponRange = AttackRange.M;
+                        weaponRange = AttackRange.Melee;
                         break;
                     
                     case ("SR"):
-                        weaponRange = AttackRange.SR;
+                        weaponRange = AttackRange.ShortRange;
                         break;
 
                     case ("LR"):
-                        weaponRange = AttackRange.LR;
+                        weaponRange = AttackRange.LongRange;
                         break;
 
                     default:
@@ -334,27 +346,27 @@ namespace FRPGC
                 switch (splitted[7].Trim().ToUpper())
                 {
                     case ("N"):
-                        damageType = DamageTypes.N;
+                        damageType = DamageTypes.Normal;
                         break;
 
                     case ("LA"):
-                        damageType = DamageTypes.LA;
+                        damageType = DamageTypes.Laser;
                         break;
                     
                     case ("PL"):
-                        damageType = DamageTypes.PL;
+                        damageType = DamageTypes.Plasma;
                         break;
                     
                     case ("EL"):
-                        damageType = DamageTypes.EL;
+                        damageType = DamageTypes.Electrical;
                         break;
 
                     case ("FR"):
-                        damageType = DamageTypes.FR;
+                        damageType = DamageTypes.Fire;
                         break;
 
                     case ("EX"):
-                        damageType = DamageTypes.EX;
+                        damageType = DamageTypes.Explosion;
                         break;
                     
                     default:
@@ -426,7 +438,6 @@ namespace FRPGC
 
             while ((line = reader.ReadLine()) != null)
             {
-                // Armours {"Name":0, "ID":1, "AC":2, "DR":3, "DR LA":4, "DR PL":5, "DR EL":6, "DR FR":7, "DR EX":8}
                 splitted = line.Trim().Split(',');
 
                 name = splitted[0].Trim();
@@ -435,13 +446,19 @@ namespace FRPGC
 
                 // Creating Armour Object and adding to List
                 this.armours.Add(new Armour(name, id,
-                    int.Parse(splitted[2].Trim()),
-                    int.Parse(splitted[3].Trim()),
-                    int.Parse(splitted[4].Trim()),
-                    int.Parse(splitted[5].Trim()),
-                    int.Parse(splitted[6].Trim()),
-                    int.Parse(splitted[7].Trim()),
-                    int.Parse(splitted[8].Trim())));
+                    int.Parse(splitted[2].Trim()),       // AC
+                    int.Parse(splitted[3].Trim()),       // DT N
+                    int.Parse(splitted[4].Trim()),       // DR N
+                    int.Parse(splitted[5].Trim()),       // DT L
+                    int.Parse(splitted[6].Trim()),       // DR L
+                    int.Parse(splitted[7].Trim()),       // DT P
+                    int.Parse(splitted[8].Trim()),       // DR P
+                    int.Parse(splitted[9].Trim()),       // DT E
+                    int.Parse(splitted[10].Trim()),      // DR E
+                    int.Parse(splitted[11].Trim()),      // DT F
+                    int.Parse(splitted[12].Trim()),      // DR F
+                    int.Parse(splitted[13].Trim()),      // DT EX
+                    int.Parse(splitted[14].Trim())));    // DR EX
             }
 
             this.comboArmour.DataSource = this.armours;
@@ -519,15 +536,16 @@ namespace FRPGC
                 name = splitted[0].Trim();
                 id = splitted[1].Trim();
                 this.logger.writeLog(String.Format("Parsing {0}", name));
-                this.units.Add(new Unit(name, splitted[1], (Weapon) searchListByID(id, ListTypes.Weapons), (Armour) searchListByID(id, ListTypes.Armours), (Stat) searchListByID(id, ListTypes.Stats)));
+                this.attackerunits.Add(new Unit(name, splitted[1], (Weapon) searchListByID(splitted[2], ListTypes.Weapons), (Armour) searchListByID(splitted[3], ListTypes.Armours), (Stat) searchListByID(splitted[4], ListTypes.Stats)));
             }
 
             // Populate the two drop down combo boxes
-            this.comboAttackingUnit.DataSource = this.units;
+            this.comboAttackingUnit.DataSource = this.attackerunits;
             this.comboAttackingUnit.ValueMember = "ID";
             this.comboAttackingUnit.DisplayMember = "Name";
 
-            this.comboDefendingUnit.DataSource = this.units;
+            this.defenderunits = new BindingList<Unit>(this.attackerunits);
+            this.comboDefendingUnit.DataSource = this.defenderunits;
             this.comboDefendingUnit.ValueMember = "ID";
             this.comboDefendingUnit.DisplayMember = "Name";
         }
@@ -535,7 +553,7 @@ namespace FRPGC
         public void dumpUnits(object sender, EventArgs e)
         {
             this.logger.logBoth("Dumping");
-            foreach (Unit u in this.units)
+            foreach (Unit u in this.attackerunits)
             {
                 this.logger.logBoth(u.ToString());
             }
@@ -578,14 +596,24 @@ namespace FRPGC
                 name = splitted[0].Trim();
                 id = splitted[1].Trim();
                 this.logger.writeLog(String.Format("Parsing {0}", name));
-                this.units.Add(new Unit(name, splitted[1], (Weapon)searchListByID(id, ListTypes.Weapons), (Armour)searchListByID(id, ListTypes.Armours), (Stat)searchListByID(id, ListTypes.Stats)));
+                this.attackerplayers.Add(new Player(name, splitted[1], (Weapon)searchListByID(splitted[2], ListTypes.Weapons), (Armour)searchListByID(splitted[3], ListTypes.Armours), (PlayerStat)searchListByID(splitted[4], ListTypes.PlayerStats)));
             }
+
+            // Populate the two drop down combo boxes
+            this.comboAttackingUnit.DataSource = this.attackerplayers;
+            this.comboAttackingUnit.ValueMember = "ID";
+            this.comboAttackingUnit.DisplayMember = "Name";
+
+            this.defenderplayers = new BindingList<Player>(this.attackerplayers);
+            this.comboDefendingUnit.DataSource = this.defenderplayers;
+            this.comboDefendingUnit.ValueMember = "ID";
+            this.comboDefendingUnit.DisplayMember = "Name";
         }
 
         public void dumpPlayers(object sender, EventArgs e)
         {
             this.logger.logBoth("Dumping");
-            foreach (Player p in this.players)
+            foreach (Player p in this.attackerplayers)
             {
                 this.logger.logBoth(p.ToString());
             }
@@ -600,18 +628,18 @@ namespace FRPGC
                     break;
 
                 case (0): // Single Shot
-                    if (((Weapon) this.comboWeapon.SelectedItem).Classification == AttackRange.LR)
+                    if (((Weapon) this.comboWeapon.SelectedItem).Classification == AttackRange.LongRange)
                     {
-                        textCurrentHealth.Text = (int.Parse(textInitialHealth.Text) - attack(int.Parse(textAttacksLaunched.Text), AttackTypes.LR)).ToString();
+                        textCurrentHealth.Text = (int.Parse(textInitialHealth.Text) - attack(int.Parse(textAttacksLaunched.Text), AttackTypes.LongRange)).ToString();
                     }
                     else
                     {
-                        textCurrentHealth.Text = (int.Parse(textInitialHealth.Text) - attack(int.Parse(textAttacksLaunched.Text), AttackTypes.SRS)).ToString();
+                        textCurrentHealth.Text = (int.Parse(textInitialHealth.Text) - attack(int.Parse(textAttacksLaunched.Text), AttackTypes.ShortRangeSingle)).ToString();
                     }
                     break;
 
                 case (1): // Burst Shot
-                    textCurrentHealth.Text = (int.Parse(textInitialHealth.Text) - attack(int.Parse(textAttacksLaunched.Text), AttackTypes.SRB)).ToString();
+                    textCurrentHealth.Text = (int.Parse(textInitialHealth.Text) - attack(int.Parse(textAttacksLaunched.Text), AttackTypes.ShortRangeBurst)).ToString();
                     break;
 
                 case (2): // Melee
@@ -630,19 +658,19 @@ namespace FRPGC
 
             switch (attackType)
             {
-                case (AttackTypes.M):
+                case (AttackTypes.Melee):
                     chance = meleeHitChance();
                     break;
 
-                case (AttackTypes.SRS):
+                case (AttackTypes.ShortRangeSingle):
                     chance = shortRangeShotChance(true);
                     break;
 
-                case (AttackTypes.SRB):
+                case (AttackTypes.ShortRangeBurst):
                     chance = shortRangeShotChance(false);
                     break;
 
-                case (AttackTypes.LR):
+                case (AttackTypes.LongRange):
                     chance = longRangeShotChance();
                     break;
 
@@ -655,7 +683,7 @@ namespace FRPGC
             int[] damages = attackDamage(attacksLaunched);
             int totalDamage = 0;
             Dice dice = new Dice(1, Math.Max(100, chance), this.logger);
-            Unit attacker = (Unit) this.comboAttackingUnit.SelectedItem;
+            dynamic attacker = (dynamic) this.comboAttackingUnit.SelectedItem;
             int rolled = -1;
 
             foreach (int damage in damages)
@@ -665,8 +693,8 @@ namespace FRPGC
                 if (rolled < attacker.StatID.CriticalChance) // Critical Hit
                 {
                     this.logger.logBoth(String.Format("Critical Hit: {0} < 5", rolled.ToString()));
-                    this.logger.logBoth(String.Format("Damage Taken: {0}", (damage * 2).ToString()));
-                    totalDamage += damage * 2;
+                    this.logger.logBoth(String.Format("Damage Taken: {0}", (damageReduction(damage) * 2).ToString()));
+                    totalDamage += damageReduction(damage) * 2;
                     continue;
                 }
                 if (rolled > Math.Max(100, chance) - (10 - attacker.StatID.Luck)) // Critical Failure
@@ -678,8 +706,8 @@ namespace FRPGC
                 if (rolled < chance) // Hit
                 {
                     this.logger.logBoth(String.Format("Hit: {0} < {1}", rolled.ToString(), chance.ToString()));
-                    this.logger.logBoth(String.Format("Damage Taken: {0}", damage.ToString()));
-                    totalDamage += damage;
+                    this.logger.logBoth(String.Format("Damage Taken: {0}", damageReduction(damage).ToString()));
+                    totalDamage += damageReduction(damage);
                     continue;
                 }
                 else if (rolled > chance) // Miss
@@ -697,9 +725,52 @@ namespace FRPGC
             return totalDamage;
         }
 
+        private int damageReduction(int damage)
+        {
+            DamageTypes dt = ((Weapon) this.comboWeapon.SelectedItem).DamageType;
+            Armour ar = (Armour) this.comboArmour.SelectedItem;
+
+            switch (dt)
+            {
+                case (DamageTypes.Normal):
+                    damage -= ar.DTNormal;
+                    damage = ((Weapon) this.comboWeapon.SelectedItem).Classification == AttackRange.LongRange ? damage : (int) Math.Floor(damage * (ar.DRNormal / 100.0));
+                    return Math.Max(0, damage);
+
+                case (DamageTypes.Laser):
+                    damage -= ar.DTLaser;
+                    damage = (int) Math.Floor(damage * (ar.DRLaser / 100.0));
+                    return Math.Max(0, damage);
+
+                case (DamageTypes.Plasma):
+                    damage -= ar.DTPlasma;
+                    damage = (int)Math.Floor(damage * (ar.DRPlasma / 100.0));
+                    return Math.Max(0, damage);
+
+                case (DamageTypes.Electrical):
+                    damage -= ar.DTElectrical;
+                    damage = (int) Math.Floor(damage * (ar.DRElectrical / 100.0));
+                    return Math.Max(0, damage);
+
+                case (DamageTypes.Fire):
+                    damage -= ar.DTFire;
+                    damage = (int) Math.Floor(damage * (ar.DRFire / 100.0));
+                    return Math.Max(0, damage);
+
+                case (DamageTypes.Explosion):
+                    damage -= ar.DTExplosive;
+                    damage = (int) Math.Floor(damage * (ar.DTExplosive / 100.0));
+                    return Math.Max(0, damage);
+
+                default:
+                    logger.logBoth(String.Format("Damage Reduction Failed, Incorrect DamageType: {0}", dt.ToString()));
+                    return -1;
+            }
+        }
+
         private int meleeHitChance()
         {
-            return ((Unit) this.comboAttackingUnit.SelectedItem).StatID.MeleeDamage - ((Unit) this.comboDefendingUnit.SelectedItem).StatID.AC;
+            return Math.Max(((dynamic) this.comboAttackingUnit.SelectedItem).StatID.MeleeDamage - ((dynamic) this.comboDefendingUnit.SelectedItem).StatID.AC, 0);
         }
 
         private int shortRangeShotChance(bool singleShot)
@@ -707,21 +778,22 @@ namespace FRPGC
             // TODO Implement Hit Bonuses
             // =(Skill / (Range / Multiplier / Divisor |If singleShot != true|)) * Multiplier + (Optimal Range ^ 2) / (Range - (2 * Optimal Range)) + (Luck - 10)
             int skill = -1;
+            if (((Weapon) this.comboWeapon.SelectedItem).Range < 2 * double.Parse(this.textDistance.Text)) { return 0; }
             switch (((Weapon) this.comboWeapon.SelectedItem).DamageType)
             {
                 // Electrical (Energy Weapons)
-                case (DamageTypes.EL):
-                    skill = ((Unit) this.comboAttackingUnit.SelectedItem).StatID.EnergyWeapons;
+                case (DamageTypes.Electrical):
+                    skill = ((dynamic) this.comboAttackingUnit.SelectedItem).StatID.EnergyWeapons;
                     break;
 
                 // Explosive (Explosives)
-                case (DamageTypes.EX):
-                    skill = ((Unit) this.comboAttackingUnit.SelectedItem).StatID.Explosives;
+                case (DamageTypes.Explosion):
+                    skill = ((dynamic) this.comboAttackingUnit.SelectedItem).StatID.Explosives;
                     break;
 
                 // Normal (Small Guns) or Big?
-                case (DamageTypes.N):
-                    skill = ((Unit) this.comboAttackingUnit.SelectedItem).StatID.SmallGuns;
+                case (DamageTypes.Normal):
+                    skill = ((dynamic) this.comboAttackingUnit.SelectedItem).StatID.SmallGuns;
                     break;
 
                 default:
@@ -730,13 +802,13 @@ namespace FRPGC
             int multiplier = 7;
             double divisor = singleShot ? 1 : .5;
             int weaponRange = ((Weapon) this.comboWeapon.SelectedItem).Range;
-            int perception = ((Unit) this.comboAttackingUnit.SelectedItem).StatID.Perception;
-            int luck = ((Unit) this.comboAttackingUnit.SelectedItem).StatID.Luck;
+            int perception = ((dynamic) this.comboAttackingUnit.SelectedItem).StatID.Perception;
+            int luck = ((dynamic) this.comboAttackingUnit.SelectedItem).StatID.Luck;
             int distance = int.Parse(textDistance.Text.Trim());
             int oac = ((Armour) this.comboArmour.SelectedItem).ArmourClass;
             int hitBonuses = 0;
 
-            return (int) Math.Floor((skill / ((distance / multiplier) / divisor)) * multiplier + (Math.Pow(weaponRange, 2)) / (distance - (2 * weaponRange)) + (luck - 10) + hitBonuses);
+            return (int) Math.Max(Math.Floor((skill / ((distance / multiplier) / divisor)) * multiplier + (Math.Pow(weaponRange, 2)) / (distance - (2 * weaponRange)) + (luck - 10) + hitBonuses), 0);
         }
 
         private int longRangeShotChance()
@@ -747,30 +819,30 @@ namespace FRPGC
             switch (((Weapon) this.comboWeapon.SelectedItem).DamageType)
             {
                 // Electrical (Energy Weapons)
-                case (DamageTypes.EL):
-                    skill = ((Unit) this.comboAttackingUnit.SelectedItem).StatID.EnergyWeapons;
+                case (DamageTypes.Electrical):
+                    skill = ((dynamic) this.comboAttackingUnit.SelectedItem).StatID.EnergyWeapons;
                     break;
 
                 // Explosive (Explosives)
-                case (DamageTypes.EX):
-                    skill = ((Unit) this.comboAttackingUnit.SelectedItem).StatID.Explosives;
+                case (DamageTypes.Explosion):
+                    skill = ((dynamic) this.comboAttackingUnit.SelectedItem).StatID.Explosives;
                     break;
 
                 // Normal (Small Guns) or Big?
-                case (DamageTypes.N):
-                    skill = ((Unit) this.comboAttackingUnit.SelectedItem).StatID.SmallGuns;
+                case (DamageTypes.Normal):
+                    skill = ((dynamic) this.comboAttackingUnit.SelectedItem).StatID.SmallGuns;
                     break;
 
                 default:
                     return 0;
             }
             int weaponRange = ((Weapon) this.comboWeapon.SelectedItem).Range;
-            int luck = ((Unit) this.comboAttackingUnit.SelectedItem).StatID.Luck;
+            int luck = ((dynamic) this.comboAttackingUnit.SelectedItem).StatID.Luck;
             int distance = int.Parse(textDistance.Text.Trim());
             int hitBonuses = 0;
             // Skill*e^(-(x - OptimalRange)^2/(2 * (Skill / 4)^2))
 
-            return (int) Math.Floor(skill * Math.Exp(-Math.Pow(distance - weaponRange, 2) / (2 * Math.Pow(skill / 4, 2))) + hitBonuses - (luck - 10));
+            return (int) Math.Max(Math.Floor(skill * Math.Exp(-Math.Pow(distance - weaponRange, 2) / (2 * Math.Pow(skill / 4, 2))) + hitBonuses - (luck - 10)), 0);
         }
 
         private int[] attackDamage(int attacks)
@@ -780,7 +852,7 @@ namespace FRPGC
 
             int flatDamage = ((Weapon) this.comboWeapon.SelectedItem).FlatDamage;
             bool melee = (((Weapon) this.comboWeapon.SelectedItem).WeaponType == WeaponSkillType.Melee || ((Weapon) this.comboWeapon.SelectedItem).WeaponType == WeaponSkillType.Unarmed);
-            flatDamage = (melee ? flatDamage + ((Unit) this.comboAttackingUnit.SelectedItem).StatID.MeleeDamage : flatDamage);
+            flatDamage = (melee ? flatDamage + ((dynamic) this.comboAttackingUnit.SelectedItem).StatID.MeleeDamage : flatDamage);
             Dice BD = ((Weapon) this.comboWeapon.SelectedItem).BaseDamage;
             Dice AD = ((Weapon) this.comboWeapon.SelectedItem).AdditionalDamage;
             int ad, bd = -1;
@@ -790,7 +862,8 @@ namespace FRPGC
             {
                 bd = BD.getRoll();
                 ad = AD.getRoll();
-                damages[i] = bd + ad + flatDamage;
+                // Burst Attack Modes (Excluding Shotguns) only do Additional Damage.
+                damages[i] = (((AttackTypes) this.comboAttackingMethod.SelectedItem == AttackTypes.ShortRangeBurst) && !((Weapon) this.comboWeapon.SelectedItem).ID.Substring(0, 3).Equals("SGS")) ? ad : bd + ad + flatDamage;
                 this.logger.writeLog(String.Format("Base Damage: {0} Additional Damage: {1} Flat Damage: {2}", bd.ToString(), ad.ToString(), flatDamage.ToString()));
             }
 
@@ -808,7 +881,7 @@ namespace FRPGC
             this.checkAttackerDefaultEquipment.Visible = false;
 
             // Clear comboUnit and populate with Player Name List
-            this.comboAttackingUnit.DataSource = this.players;
+            this.comboAttackingUnit.DataSource = this.attackerplayers;
             this.comboAttackingUnit.ValueMember = "ID";
             this.comboAttackingUnit.DisplayMember = "Name";
         }
@@ -823,7 +896,7 @@ namespace FRPGC
             this.checkAttackerDefaultEquipment.Visible = true;
 
             // Clear comboUnit and populate with Player Name List
-            this.comboAttackingUnit.DataSource = this.units;
+            this.comboAttackingUnit.DataSource = this.attackerunits;
             this.comboAttackingUnit.ValueMember = "ID";
             this.comboAttackingUnit.DisplayMember = "Name";
         }
@@ -838,7 +911,7 @@ namespace FRPGC
             this.checkDefenderDefaultEquipment.Visible = false;
 
             // Clear comboUnit and populate with Player Name List
-            this.comboDefendingUnit.DataSource = this.players;
+            this.comboDefendingUnit.DataSource = this.defenderplayers;
             this.comboDefendingUnit.ValueMember = "ID";
             this.comboDefendingUnit.DisplayMember = "Name";
         }
@@ -853,7 +926,7 @@ namespace FRPGC
             this.checkDefenderDefaultEquipment.Visible = true;
 
             // Clear comboUnit and populate with Player Name List
-            this.comboDefendingUnit.DataSource = this.units;
+            this.comboDefendingUnit.DataSource = this.defenderunits;
             this.comboDefendingUnit.ValueMember = "ID";
             this.comboDefendingUnit.DisplayMember = "Name";
         }
@@ -866,33 +939,34 @@ namespace FRPGC
 
         private void comboAttackerUnitChanged(object sender, EventArgs e)
         {
-            this.comboWeapon.SelectedItem = ((Unit) this.comboAttackingUnit.SelectedItem).WeaponID;
+            this.comboWeapon.SelectedItem = ((dynamic) this.comboAttackingUnit.SelectedItem).WeaponID;
         }
 
         private void comboDefenderUnitChanged(object sender, EventArgs e)
         {
-            this.comboArmour.SelectedItem = ((Unit) this.comboDefendingUnit.SelectedItem).ArmourID;
+            this.comboArmour.SelectedItem = ((dynamic) this.comboDefendingUnit.SelectedItem).ArmourID;
         }
 
-        private BindingList<AttackTypes> cWCMelee = new BindingList<AttackTypes>() { AttackTypes.M };
-        private BindingList<AttackTypes> cWCSR = new BindingList<AttackTypes>() { AttackTypes.SRS, AttackTypes.SRB };
-        private BindingList<AttackTypes> cWCLR = new BindingList<AttackTypes>() { AttackTypes.LR };
+        private BindingList<AttackTypes> cWCMelee = new BindingList<AttackTypes>() { AttackTypes.Melee };
+        private BindingList<AttackTypes> cWCSR = new BindingList<AttackTypes>() { AttackTypes.ShortRangeSingle, AttackTypes.ShortRangeBurst };
+        private BindingList<AttackTypes> cWCLR = new BindingList<AttackTypes>() { AttackTypes.LongRange };
 
         private void comboWeaponChanged(object sender, EventArgs e)
         {
+            if (this.comboWeapon.SelectedItem == null) { return; }
             AttackRange classification = ((Weapon) this.comboWeapon.SelectedItem).Classification;
             
             switch (classification)
             {
-                case (AttackRange.M):
+                case (AttackRange.Melee):
                     this.comboAttackingMethod.DataSource = this.cWCMelee;
                     break;
 
-                case (AttackRange.SR):
+                case (AttackRange.ShortRange):
                     this.comboAttackingMethod.DataSource = this.cWCSR;
                     break;
 
-                case (AttackRange.LR):
+                case (AttackRange.LongRange):
                     this.comboAttackingMethod.DataSource = this.cWCLR;
                     break;
             }

@@ -1,20 +1,25 @@
-Armored Vault Jumpsuit, AR1,15,25,20,10,30,20,20
-Armored Utility Jumpsuit, AR2,15,25,20,10,30,20,20
-Assassin Suit, AR3,15,15,10,10,15,30,30
-Radiation Suit, AR4,10,20,20,15,30,50,20
-Leather Jacket Armor, AR5,8,20,20,10,30,20,20
-Leather Armor, AR6,15,25,20,10,30,20,20
-Deathclaw Leather Armor, AR7,25,40,20,10,30,40,40
-Raider Leather Armor, AR8,15,25,20,10,30,20,20
-Metal Armor, AR9,10,30,75,20,0,20,25
-Raider Metal Armor, AR10,10,30,75,20,0,20,25
-Combat Leather Jacket, AR11,18,30,20,10,30,25,20
-Desert Ranger Armor, AR12,25,40,65,40,40,35,45
-Samurai Armor, AR13,18,30,20,10,30,25,20
-NCR Armor, AR14,20,35,35,30,30,30,30
-Combat Armor, AR15,20,40,60,40,35,30,40
-Combat Armor MK2, AR16,25,40,65,40,40,35,45
-Vault Security Armor, AR17,20,35,35,30,30,30,30
-T-45d Power Armor, AR18,25,40,80,40,30,70,50
-T-51b Power Armor, AR19,25,50,90,50,20,80,60
-X-01 Power Armor, AR20,30,55,90,60,30,70,60
+Armored Vault Jumpsuit,AR1,15,2,25,0,20,0,10,2,30,0,20,0,20
+Armored Utility Jumpsuit,AR2,15,2,25,0,20,0,10,2,30,0,20,0,20
+Assassin Suit,AR3,15,2,15,0,10,0,10,0,15,2,30,2,30
+Radiation Suit,AR4,10,0,20,0,20,0,15,2,30,4,50,0,20
+Leather Jacket Armor,AR5,8,0,20,0,20,0,10,2,30,0,20,0,20
+Leather Armor,AR6,15,2,25,0,20,0,10,2,30,0,20,0,20
+Deathclaw Leather Armor,AR7,25,6,40,0,20,0,10,2,30,4,40,4,40
+Raider Leather Armor,AR8,15,2,25,0,20,0,10,2,30,0,20,0,20
+Metal Armor,AR9,10,4,30,6,75,2,20,0,0,2,20,2,25
+Raider Metal Armor,AR10,10,4,30,6,75,2,20,0,0,2,20,2,25
+Combat Leather Jacket,AR11,18,2,30,0,20,0,10,0,30,2,25,0,20
+Desert Ranger Armor,AR12,25,6,40,6,65,5,40,4,40,2,35,4,45
+Samurai Armor,AR13,18,4,30,2,20,0,10,2,30,0,25,0,20
+NCR Armor,AR14,20,2,35,2,35,2,30,2,30,2,30,2,30
+Combat Armor,AR15,20,5,40,6,60,4,40,3,35,4,30,6,40
+Combat Armor MK2,AR16,25,6,40,6,65,5,40,4,40,5,35,9,45
+Vault Security Armor,AR17,20,4,35,2,35,2,30,2,30,2,30,2,30
+T-45d Power Armor,AR18,25,8,40,10,80,4,40,0,15,10,70,9,50
+T-51b Power Armor,AR19,25,10,50,12,90,5,50,0,10,12,80,10,60
+X-01 Power Armor,AR20,30,12,55,12,90,6,60,0,15,10,70,10,60
+Leather Body Armor,AV01,15,1,20,0,15,0,5,0,25,0,15,0,15
+Metal Body Armor,AV02,10,3,25,6,70,0,15,0,0,0,15,0,20
+Kevlar Body Armor,AV03,20,4,35,4,55,2,35,2,35,2,25,2,35
+Riot Body Armor,AV04,25,5,35,4,60,3,40,2,35,2,30,4,40
+None,None,0,0,0,0,0,0,0,0,0,0,0,0,0

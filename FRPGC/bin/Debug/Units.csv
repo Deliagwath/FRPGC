@@ -1,0 +1,43 @@
+Villager,Villager,U1,None,Villager
+Merchant,Merchant,SGH4,AR5,Merchant
+Traveller,Traveller,SGR3,AR6,Traveller
+Soldier,Soldier,SGR2,AR15,Soldier
+Sniper,Sniper,SGR10,AR6,Sniper
+Doctor,Doctor,M2,None,Doctor
+Monk,Monk,U1,None,Monk
+Junkie,Junkie,M8,None,Junkie
+Melee Raider,MeleeRaider,M1,AR10,MeleeRaider
+Gunner Raider,GunnerRaider,SGS2,AR8,GunnerRaider
+Sniper Raider,SniperRaider,SGR3,AR8,SniperRaider
+Boss Raider,BossRaider,SGR2,AR10,BossRaider
+Melee Thug,MeleeThug,M1,AR5,MeleeThug
+Range Thug,RangeThug,SGH1,AR5,RangeThug
+Sm Alpha Melee,SmAlphaMelee,U7,AR6,SmAlphaMelee
+Sm Alpha Ranged,SmAlphaRanged,EWR3,AR6,SmAlphaRanged
+Sm Beta Melee,SmBetaMelee,U4,AR6,SmBetaMelee
+Sm Beta Ranged,SmBetaRanged,SGS3,AR6,SmBetaRanged
+Nightkin Melee,NightkinMelee,M21,AR15,NightkinMelee
+Nightkin Ranged,NightkinRanged,EWR4,AR15,NightkinRanged
+Tribal,Tribal,M6,None,Tribal
+Ranger NCR,RangerNCR,SGR9,AR15,RangerNCR
+Ranger Desert,RangerDesert,SGH13,AR12,RangerDesert
+Shi Villager,ShiVillager,U1,None,ShiVillager
+Shi Warrior,ShiWarrior,M12,AR13,ShiWarrior
+Shi Ninja,ShiNinja,M18,AR3,ShiNinja
+BOS Paladin,BOSPaladin,BG3,AR19,BOSPaladin
+BOS Knight,BOSKnight,EWR2,AR15,BOSKnight
+BOS Scribe,BOSScribe,EWP2,None,BOSScribe
+Vault Dweller,VaultDweller,U1,None,VaultDweller
+Vault Guard,VaultGuard,M4,AR17,VaultGuard
+Vault Doctor,VaultDoctor,U1,None,VaultDoctor
+Gary,Gary,M2,None,Gary
+Legion Recruit,LegionRecruit,M13,AR6,LegionRecruit
+Legion Centurian,LegionCenturian,M15,AR9,LegionCenturian
+Legion Fumentari,LegionFumentari,U7,AR6,LegionFumentari
+Enclave Trooper,EnclaveTrooper,EWR4,AR20,EnclaveTrooper
+Enclave Officer,EnclaveOfficer,EWP5,None,EnclaveOfficer
+Axe-man,Axe-man,M15,None,Axe-man
+Bat-Man,Bat-Man,M1,AR6,Bat-Man
+Walter,Walter,U1,None,Walter
+Abby,Abby,M8,None,Abby
+Mailman,Mailman,SGS3,AR5,Mailman

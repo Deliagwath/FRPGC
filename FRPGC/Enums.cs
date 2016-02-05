@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 namespace FRPGC
 {
     // Normal, LA?, PL?, Electrical, Fire, Explosive
-    public enum DamageTypes { N, LA, PL, EL, FR, EX }
+    public enum DamageTypes { Normal, Laser, Plasma, Electrical, Fire, Explosion }
 
     // List Types for searching
-    public enum ListTypes { Weapons, Armours, Units, Stats }
+    public enum ListTypes { Weapons, Armours, Units, Stats, PlayerStats }
 
     // Melee, Short Range Single, Short Range Burst, Long Range
-    public enum AttackTypes { M, SRS, SRB, LR }
+    public enum AttackTypes { Melee, ShortRangeSingle, ShortRangeBurst, LongRange }
 
     // Melee, Short Range, Long Range
-    public enum AttackRange { M, SR, LR }
+    public enum AttackRange { Melee, ShortRange, LongRange }
 
     // The Five Combat Skills
     public enum WeaponSkillType { BigGuns, EnergyWeapons, Explosives, SmallGuns, Unarmed, Melee }

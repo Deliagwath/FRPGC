@@ -358,7 +358,7 @@
             this.buttonCalculate.TabIndex = 34;
             this.buttonCalculate.Text = "Calculate";
             this.buttonCalculate.UseVisualStyleBackColor = true;
-            this.buttonCalculate.Click += new System.EventHandler(this.dumpArmours);
+            this.buttonCalculate.Click += new System.EventHandler(this.calculate);
             // 
             // checkDefenderDefaultEquipment
             // 

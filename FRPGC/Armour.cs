@@ -12,24 +12,36 @@ namespace FRPGC
         public string Name              { get; set; }
         public string ID                { get; set; }
         public int ArmourClass          { get; set; }
-        public int DamageReduction      { get; set; }
-        public int LaserResistance      { get; set; }
-        public int PlasmaResistance     { get; set; }
-        public int ElectricalResistance { get; set; }
-        public int FireResistance       { get; set; }
-        public int ExplosiveResistance  { get; set; }
+        public int DTNormal             { get; set; }
+        public int DRNormal             { get; set; }
+        public int DTLaser              { get; set; }
+        public int DRLaser              { get; set; }
+        public int DTPlasma             { get; set; }
+        public int DRPlasma             { get; set; }
+        public int DTElectrical         { get; set; }
+        public int DRElectrical         { get; set; }
+        public int DTFire               { get; set; }
+        public int DRFire               { get; set; }
+        public int DTExplosive          { get; set; }
+        public int DRExplosive          { get; set; }
 
-        public Armour(string name, string id, int armourClass, int damageResistance, int laserResistance, int plasmaResistance, int electricalResistance, int fireResistance, int explosiveResistance)
+        public Armour(string name, string id, int armourClass, int dtn, int drn, int dtl, int drl, int dtp, int drp, int dte, int dre, int dtf, int drf, int dtex, int drex)
         {
             this.Name = name;
             this.ID = id;
             this.ArmourClass = armourClass;
-            this.DamageReduction = damageResistance;
-            this.LaserResistance = laserResistance;
-            this.PlasmaResistance = plasmaResistance;
-            this.ElectricalResistance = electricalResistance;
-            this.FireResistance = fireResistance;
-            this.ExplosiveResistance = explosiveResistance;
+            this.DTNormal = dtn;
+            this.DRNormal = drn;
+            this.DTLaser = dtl;
+            this.DRLaser = drl;
+            this.DTPlasma = dtp;
+            this.DRPlasma = drp;
+            this.DTElectrical = dte;
+            this.DRElectrical = dre;
+            this.DTFire = dtf;
+            this.DRFire = drf;
+            this.DTExplosive = dtex;
+            this.DRExplosive = drex;
         }
         // Normal damage, fire damage, laser damage, plasma damage, electrical damage, explosive damage. 
         public override string ToString()
@@ -38,12 +50,18 @@ namespace FRPGC
             return "[" + this.Name + comma +
                 this.ID + comma +
                 this.ArmourClass.ToString() + comma +
-                this.DamageReduction.ToString() + comma +
-                this.LaserResistance.ToString() + comma +
-                this.PlasmaResistance.ToString() + comma +
-                this.ElectricalResistance.ToString() + comma +
-                this.FireResistance.ToString() + comma +
-                this.ExplosiveResistance.ToString() + "]";
+                this.DTNormal.ToString() + comma + 
+                this.DRNormal.ToString() + comma +
+                this.DTLaser.ToString() + comma + 
+                this.DRLaser.ToString() + comma +
+                this.DTPlasma.ToString() + comma + 
+                this.DRPlasma.ToString() + comma +
+                this.DTElectrical.ToString() + comma + 
+                this.DRElectrical.ToString() + comma +
+                this.DTFire.ToString() + comma + 
+                this.DRFire.ToString() + comma +
+                this.DTExplosive.ToString() + comma + 
+                this.DRExplosive.ToString() + "]";
         }
     }
 }
