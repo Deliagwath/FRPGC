@@ -504,7 +504,7 @@
             // bonusHitChance
             // 
             this.bonusHitChance.Location = new System.Drawing.Point(266, 164);
-            this.bonusHitChance.MaxLength = 3;
+            this.bonusHitChance.MaxLength = 4;
             this.bonusHitChance.Name = "bonusHitChance";
             this.bonusHitChance.Size = new System.Drawing.Size(109, 20);
             this.bonusHitChance.TabIndex = 49;
