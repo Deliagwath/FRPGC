@@ -733,7 +733,7 @@ namespace FRPGC
             switch (dt)
             {
                 case (DamageTypes.Normal):
-                    damage -= ar.DTNormal;
+                    damage -= ((Weapon) this.comboWeapon.SelectedItem).Classification == AttackRange.LongRange ? (int) Math.Floor(ar.DTNormal / 2.0) : ar.DTNormal;
                     damage = ((Weapon) this.comboWeapon.SelectedItem).Classification == AttackRange.LongRange ? (int) Math.Max(damage, Math.Floor(damage * ((100 - ar.DRNormal) / 100.0))) : (int) Math.Floor(damage * (ar.DRNormal / 100.0));
                     return Math.Max(0, damage);
 
