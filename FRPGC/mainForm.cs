@@ -621,6 +621,8 @@ namespace FRPGC
 
         private void calculate(object sender, EventArgs e)
         {
+            if (this.textAttacksLaunched.Text == "") { this.textAttacksLaunched.Text = "!!!"; return; }
+            if (this.textDistance.Text == "") { this.textDistance.Text = "!!!"; return; }
             switch (this.comboAttackingMethod.SelectedIndex)
             {
                 case (-1): // ComboBox not touched
@@ -1045,6 +1047,11 @@ namespace FRPGC
                 }
                 this.hitChance.Text = chance.ToString();
             }
+        }
+
+        private void clearLog(object sender, EventArgs e)
+        {
+            this.textLog.Clear();
         }
     }
 }

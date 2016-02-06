@@ -70,6 +70,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.hitChanceLabel = new System.Windows.Forms.Label();
             this.hitChance = new System.Windows.Forms.TextBox();
+            this.clearLogButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -299,7 +300,7 @@
             // textDamageDealtLabel
             // 
             this.textDamageDealtLabel.AutoSize = true;
-            this.textDamageDealtLabel.Location = new System.Drawing.Point(378, 68);
+            this.textDamageDealtLabel.Location = new System.Drawing.Point(378, 28);
             this.textDamageDealtLabel.Name = "textDamageDealtLabel";
             this.textDamageDealtLabel.Size = new System.Drawing.Size(75, 13);
             this.textDamageDealtLabel.TabIndex = 27;
@@ -307,7 +308,7 @@
             // 
             // textDamageDealt
             // 
-            this.textDamageDealt.Location = new System.Drawing.Point(381, 84);
+            this.textDamageDealt.Location = new System.Drawing.Point(381, 44);
             this.textDamageDealt.Name = "textDamageDealt";
             this.textDamageDealt.ReadOnly = true;
             this.textDamageDealt.Size = new System.Drawing.Size(100, 20);
@@ -316,7 +317,7 @@
             // textCurrentHealthLabel
             // 
             this.textCurrentHealthLabel.AutoSize = true;
-            this.textCurrentHealthLabel.Location = new System.Drawing.Point(378, 108);
+            this.textCurrentHealthLabel.Location = new System.Drawing.Point(378, 68);
             this.textCurrentHealthLabel.Name = "textCurrentHealthLabel";
             this.textCurrentHealthLabel.Size = new System.Drawing.Size(75, 13);
             this.textCurrentHealthLabel.TabIndex = 29;
@@ -324,7 +325,7 @@
             // 
             // textCurrentHealth
             // 
-            this.textCurrentHealth.Location = new System.Drawing.Point(381, 125);
+            this.textCurrentHealth.Location = new System.Drawing.Point(381, 85);
             this.textCurrentHealth.Name = "textCurrentHealth";
             this.textCurrentHealth.ReadOnly = true;
             this.textCurrentHealth.Size = new System.Drawing.Size(100, 20);
@@ -332,7 +333,7 @@
             // 
             // buttonSetHP
             // 
-            this.buttonSetHP.Location = new System.Drawing.Point(381, 200);
+            this.buttonSetHP.Location = new System.Drawing.Point(381, 161);
             this.buttonSetHP.Name = "buttonSetHP";
             this.buttonSetHP.Size = new System.Drawing.Size(100, 23);
             this.buttonSetHP.TabIndex = 31;
@@ -361,7 +362,7 @@
             // 
             // buttonCalculate
             // 
-            this.buttonCalculate.Location = new System.Drawing.Point(381, 161);
+            this.buttonCalculate.Location = new System.Drawing.Point(381, 122);
             this.buttonCalculate.Name = "buttonCalculate";
             this.buttonCalculate.Size = new System.Drawing.Size(100, 23);
             this.buttonCalculate.TabIndex = 34;
@@ -484,11 +485,22 @@
             this.hitChance.Size = new System.Drawing.Size(109, 20);
             this.hitChance.TabIndex = 46;
             // 
+            // clearLogButton
+            // 
+            this.clearLogButton.Location = new System.Drawing.Point(382, 199);
+            this.clearLogButton.Name = "clearLogButton";
+            this.clearLogButton.Size = new System.Drawing.Size(100, 23);
+            this.clearLogButton.TabIndex = 47;
+            this.clearLogButton.Text = "Clear Log";
+            this.clearLogButton.UseVisualStyleBackColor = true;
+            this.clearLogButton.Click += new System.EventHandler(this.clearLog);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(494, 542);
+            this.Controls.Add(this.clearLogButton);
             this.Controls.Add(this.hitChance);
             this.Controls.Add(this.hitChanceLabel);
             this.Controls.Add(this.groupBox2);
@@ -583,6 +595,7 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label hitChanceLabel;
         private System.Windows.Forms.TextBox hitChance;
+        private System.Windows.Forms.Button clearLogButton;
     }
 }
 
