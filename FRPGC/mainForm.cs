@@ -26,14 +26,14 @@ namespace FRPGC
             "Players.csv"
         };
 
-        private BindingList<Weapon>         weapons = new BindingList<Weapon>();
-        private BindingList<Armour>         armours = new BindingList<Armour>();
+        private BindingList<Weapon>         weapons         = new BindingList<Weapon>();
+        private BindingList<Armour>         armours         = new BindingList<Armour>();
         private BindingList<Unit>           attackerunits   = new BindingList<Unit>();
-        private BindingList<Unit> defenderunits = new BindingList<Unit>();
-        private BindingList<Stat>          stats   = new BindingList<Stat>();
+        private BindingList<Unit>           defenderunits   = new BindingList<Unit>();
+        private BindingList<Stat>           stats           = new BindingList<Stat>();
         private BindingList<Player>         attackerplayers = new BindingList<Player>();
-        private BindingList<Player> defenderplayers = new BindingList<Player>();
-        private BindingList<PlayerStat>    pstats  = new BindingList<PlayerStat>();
+        private BindingList<Player>         defenderplayers = new BindingList<Player>();
+        private BindingList<PlayerStat>     pstats          = new BindingList<PlayerStat>();
 
         public mainForm()
         {
@@ -734,32 +734,32 @@ namespace FRPGC
             {
                 case (DamageTypes.Normal):
                     damage -= ar.DTNormal;
-                    damage = ((Weapon) this.comboWeapon.SelectedItem).Classification == AttackRange.LongRange ? damage : (int) Math.Floor(damage * (ar.DRNormal / 100.0));
+                    damage = ((Weapon) this.comboWeapon.SelectedItem).Classification == AttackRange.LongRange ? (int) Math.Max(damage, Math.Floor(damage * ((100 - ar.DRNormal) / 100.0))) : (int) Math.Floor(damage * (ar.DRNormal / 100.0));
                     return Math.Max(0, damage);
 
                 case (DamageTypes.Laser):
                     damage -= ar.DTLaser;
-                    damage = (int) Math.Floor(damage * (ar.DRLaser / 100.0));
+                    damage = (int) Math.Floor(damage * ((100 - ar.DRLaser) / 100.0));
                     return Math.Max(0, damage);
 
                 case (DamageTypes.Plasma):
                     damage -= ar.DTPlasma;
-                    damage = (int)Math.Floor(damage * (ar.DRPlasma / 100.0));
+                    damage = (int) Math.Floor(damage * ((100 - ar.DRPlasma) / 100.0));
                     return Math.Max(0, damage);
 
                 case (DamageTypes.Electrical):
                     damage -= ar.DTElectrical;
-                    damage = (int) Math.Floor(damage * (ar.DRElectrical / 100.0));
+                    damage = (int) Math.Floor(damage * ((100 - ar.DRElectrical) / 100.0));
                     return Math.Max(0, damage);
 
                 case (DamageTypes.Fire):
                     damage -= ar.DTFire;
-                    damage = (int) Math.Floor(damage * (ar.DRFire / 100.0));
+                    damage = (int) Math.Floor(damage * ((100 - ar.DRFire) / 100.0));
                     return Math.Max(0, damage);
 
                 case (DamageTypes.Explosion):
                     damage -= ar.DTExplosive;
-                    damage = (int) Math.Floor(damage * (ar.DTExplosive / 100.0));
+                    damage = (int) Math.Floor(damage * ((100 - ar.DRExplosive) / 100.0));
                     return Math.Max(0, damage);
 
                 default:
@@ -939,12 +939,18 @@ namespace FRPGC
 
         private void comboAttackerUnitChanged(object sender, EventArgs e)
         {
-            this.comboWeapon.SelectedItem = ((dynamic) this.comboAttackingUnit.SelectedItem).WeaponID;
+            dynamic newAttacker = (dynamic) this.comboAttackingUnit.SelectedItem;
+            this.comboWeapon.SelectedItem = newAttacker.WeaponID;
+            this.textSkill.Clear();
+            this.textSkill.Text = String.Join(Environment.NewLine, newAttacker.StatID.ToStringArray());
         }
 
         private void comboDefenderUnitChanged(object sender, EventArgs e)
         {
-            this.comboArmour.SelectedItem = ((dynamic) this.comboDefendingUnit.SelectedItem).ArmourID;
+            dynamic newDefender = (dynamic) this.comboDefendingUnit.SelectedItem;
+            this.comboArmour.SelectedItem = newDefender.ArmourID;
+            this.textSkill.Clear();
+            this.textSkill.Text = String.Join(Environment.NewLine, newDefender.StatID.ToStringArray());
         }
 
         private BindingList<AttackTypes> cWCMelee = new BindingList<AttackTypes>() { AttackTypes.Melee };

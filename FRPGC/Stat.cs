@@ -88,5 +88,24 @@ namespace FRPGC
                 this.MeleeDamage.ToString() + comma +
                 this.Diff.ToString() + "]";
         }
+
+        public string[] ToStringArray()
+        {
+            return new string[]
+            {
+                "ID: " + this.ID,
+                "Strength: " + this.Strength.ToString(),
+                "Perception: " + this.Perception.ToString(),
+                "Endurance: " + this.Endurance.ToString(),
+                "Agility: " + this.Agility.ToString(),
+                "Luck: " + this.Luck.ToString(),
+                "Big Guns: " + this.BigGuns.ToString(),
+                "Energy Weapons: " + this.EnergyWeapons.ToString(),
+                "Explosives: " + this.Explosives.ToString(),
+                "Small Guns: " + this.SmallGuns.ToString(),
+                "Unarmed: " + this.Unarmed.ToString(),
+                "Melee: " + this.Melee.ToString()
+            };
+        }
     }
 }
