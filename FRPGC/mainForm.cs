@@ -621,8 +621,20 @@ namespace FRPGC
 
         private void calculate(object sender, EventArgs e)
         {
-            if (this.textAttacksLaunched.Text == "") { this.textAttacksLaunched.Text = "!!!"; return; }
-            if (this.textDistance.Text == "") { this.textDistance.Text = "!!!"; return; }
+            int parseTest = 0;
+            if (this.textAttacksLaunched.Text == "" || !int.TryParse(this.textAttacksLaunched.Text, out parseTest))
+            {
+                this.textAttacksLaunched.Text = "!!!";
+                this.logger.logBoth("Incorrect Format for Number of Attacks Launched.");
+                return;
+            }
+            if (this.textDistance.Text == "" || !int.TryParse(this.textDistance.Text, out parseTest))
+            {
+                this.textDistance.Text = "!!!";
+                this.logger.logBoth("Incorrect Format for Distance.");
+                return;
+            }
+            
             switch (this.comboAttackingMethod.SelectedIndex)
             {
                 case (-1): // ComboBox not touched
@@ -736,7 +748,7 @@ namespace FRPGC
             {
                 case (DamageTypes.Normal):
                     damage -= ((Weapon) this.comboWeapon.SelectedItem).Classification == AttackRange.LongRange ? (int) Math.Floor(ar.DTNormal / 2.0) : ar.DTNormal;
-                    damage = ((Weapon) this.comboWeapon.SelectedItem).Classification == AttackRange.LongRange ? (int) Math.Max(damage, Math.Floor(damage * ((100 - ar.DRNormal) / 100.0))) : (int) Math.Floor(damage * (ar.DRNormal / 100.0));
+                    damage = ((Weapon) this.comboWeapon.SelectedItem).Classification == AttackRange.LongRange ? (int) Math.Max(damage, Math.Floor(damage * ((100 - ar.DRNormal) / 100.0))) : (int) Math.Floor(damage * ((100 - ar.DRNormal) / 100.0));
                     return Math.Max(0, damage);
 
                 case (DamageTypes.Laser):
@@ -972,6 +984,11 @@ namespace FRPGC
             this.comboWeapon.SelectedItem = newAttacker.WeaponID;
             this.textSkill.Clear();
             this.textSkill.Text = String.Join(Environment.NewLine, newAttacker.StatID.ToStringArray());
+            /*if (this.radioAttackerEnemy.Checked)
+            {
+                BindingList<Stat> difficulties = new BindingList<Stat>();
+
+            }*/
         }
 
         private void comboDefenderUnitChanged(object sender, EventArgs e)

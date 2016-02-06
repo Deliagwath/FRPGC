@@ -193,6 +193,7 @@
             this.textSkill.Location = new System.Drawing.Point(12, 227);
             this.textSkill.Multiline = true;
             this.textSkill.Name = "textSkill";
+            this.textSkill.ReadOnly = true;
             this.textSkill.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textSkill.Size = new System.Drawing.Size(121, 303);
             this.textSkill.TabIndex = 15;
