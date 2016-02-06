@@ -58,7 +58,7 @@ namespace FRPGC
             this.Explosives = explosives;
             this.SmallGuns = smallGuns;
             this.Unarmed = unarmed;
-            this.MeleeDamage = melee;
+            this.Melee = melee;
 
             this.Diff = diff;
         }
@@ -85,7 +85,7 @@ namespace FRPGC
                 this.Explosives.ToString() + comma +
                 this.SmallGuns.ToString() + comma +
                 this.Unarmed.ToString() + comma +
-                this.MeleeDamage.ToString() + comma +
+                this.Melee.ToString() + comma +
                 this.Diff.ToString() + "]";
         }
 

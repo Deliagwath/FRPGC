@@ -56,7 +56,7 @@ namespace FRPGC
             this.Explosives = explosives;
             this.SmallGuns = smallGuns;
             this.Unarmed = unarmed;
-            this.MeleeDamage = melee;
+            this.Melee = melee;
         }
 
         public override string ToString()
@@ -81,7 +81,7 @@ namespace FRPGC
                 this.Explosives.ToString() + comma +
                 this.SmallGuns.ToString() + comma +
                 this.Unarmed.ToString() + comma +
-                this.MeleeDamage.ToString() + "]";
+                this.Melee.ToString() + "]";
         }
 
         public string[] ToStringArray()
