@@ -758,7 +758,7 @@ namespace FRPGC
                     return 0;
                 }
             }
-
+            this.textDamageDealt.Text = totalDamage.ToString();
             return totalDamage;
         }
 
