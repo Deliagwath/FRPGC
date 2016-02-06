@@ -108,7 +108,6 @@
             this.comboAttackingUnit.Location = new System.Drawing.Point(12, 84);
             this.comboAttackingUnit.Name = "comboAttackingUnit";
             this.comboAttackingUnit.Size = new System.Drawing.Size(121, 21);
-            this.comboAttackingUnit.Sorted = true;
             this.comboAttackingUnit.TabIndex = 4;
             this.comboAttackingUnit.SelectedIndexChanged += new System.EventHandler(this.comboAttackerUnitChanged);
             // 
@@ -162,7 +161,6 @@
             this.comboWeapon.Location = new System.Drawing.Point(12, 187);
             this.comboWeapon.Name = "comboWeapon";
             this.comboWeapon.Size = new System.Drawing.Size(121, 21);
-            this.comboWeapon.Sorted = true;
             this.comboWeapon.TabIndex = 9;
             this.comboWeapon.SelectedIndexChanged += new System.EventHandler(this.comboWeaponChanged);
             // 
@@ -191,7 +189,6 @@
             this.comboArmour.Location = new System.Drawing.Point(139, 187);
             this.comboArmour.Name = "comboArmour";
             this.comboArmour.Size = new System.Drawing.Size(121, 21);
-            this.comboArmour.Sorted = true;
             this.comboArmour.TabIndex = 14;
             // 
             // textSkill
@@ -429,7 +426,6 @@
             this.comboDefendingUnit.Location = new System.Drawing.Point(139, 84);
             this.comboDefendingUnit.Name = "comboDefendingUnit";
             this.comboDefendingUnit.Size = new System.Drawing.Size(121, 21);
-            this.comboDefendingUnit.Sorted = true;
             this.comboDefendingUnit.TabIndex = 41;
             this.comboDefendingUnit.SelectedIndexChanged += new System.EventHandler(this.comboDefenderUnitChanged);
             // 
