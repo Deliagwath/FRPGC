@@ -100,6 +100,7 @@ namespace FRPGC
                 "Agility: " + this.Agility.ToString(),
                 "Luck: " + this.Luck.ToString(),
                 "Max HP: " + this.HP.ToString(),
+                "Action Points: " + this.ActionPoints.ToString(),
                 "Big Guns: " + this.BigGuns.ToString(),
                 "Energy Weapons: " + this.EnergyWeapons.ToString(),
                 "Explosives: " + this.Explosives.ToString(),
