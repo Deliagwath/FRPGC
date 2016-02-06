@@ -35,6 +35,9 @@ namespace FRPGC
         private BindingList<Player>         defenderplayers = new BindingList<Player>();
         private BindingList<PlayerStat>     pstats          = new BindingList<PlayerStat>();
 
+        private Dictionary<string, BindingList<Stat>> unitDifficultyAttacker = new Dictionary<string, BindingList<Stat>>();
+        private Dictionary<string, BindingList<Stat>> unitDifficultyDefender = new Dictionary<string, BindingList<Stat>>();
+
         public mainForm()
         {
             InitializeComponent();
@@ -477,9 +480,10 @@ namespace FRPGC
 
         public void getStats(StreamReader reader)
         {
-            string line, id = null;
+            string line, id, currentid = "";
             string[] splitted = null;
             Difficulty diff;
+            Stat stat;
 
             while ((line = reader.ReadLine()) != null)
             {
@@ -510,8 +514,21 @@ namespace FRPGC
 
                 id = splitted[0].Trim();
                 this.logger.writeLog(String.Format("Parsing {0}", id));
-                this.stats.Add(new Stat(id, int.Parse(splitted[1]), int.Parse(splitted[2]), int.Parse(splitted[3]), int.Parse(splitted[4]), int.Parse(splitted[5]), int.Parse(splitted[6]),
-                    int.Parse(splitted[7]), int.Parse(splitted[8]), int.Parse(splitted[9]), int.Parse(splitted[10]), int.Parse(splitted[11]), int.Parse(splitted[12]), diff));
+                stat = new Stat(id, int.Parse(splitted[1]), int.Parse(splitted[2]), int.Parse(splitted[3]), int.Parse(splitted[4]), int.Parse(splitted[5]), int.Parse(splitted[6]),
+                    int.Parse(splitted[7]), int.Parse(splitted[8]), int.Parse(splitted[9]), int.Parse(splitted[10]), int.Parse(splitted[11]), int.Parse(splitted[12]), diff);
+                this.stats.Add(stat);
+
+                if (!currentid.Equals(id))
+                {
+                    this.unitDifficultyAttacker.Add(id, new BindingList<Stat>() { stat });
+                    this.unitDifficultyDefender.Add(id, new BindingList<Stat>() { stat });
+                    currentid = id;
+                }
+                else
+                {
+                    this.unitDifficultyAttacker[id].Add(stat);
+                    this.unitDifficultyDefender[id].Add(stat);
+                }
             }
         }
 
@@ -669,7 +686,8 @@ namespace FRPGC
         private int attack(int attacksLaunched, AttackTypes attackType)
         {
             int chance = -1;
-
+            int bonusHit = 0;
+            int.TryParse(this.bonusHitChance.Text, out bonusHit);
             switch (attackType)
             {
                 case (AttackTypes.Melee):
@@ -693,7 +711,8 @@ namespace FRPGC
                     return 0;
             }
 
-            this.logger.logBoth(String.Format("Hit Chance: {0}", chance.ToString()));
+            this.logger.logBoth(String.Format("Hit Chance: {0}, Bonus Hit Chance: {1}", chance.ToString(), hitChance.ToString()));
+            chance += bonusHit;
             int[] damages = attackDamage(attacksLaunched);
             int totalDamage = 0;
             Dice dice = new Dice(1, Math.Max(100, chance), this.logger);
@@ -984,11 +1003,11 @@ namespace FRPGC
             this.comboWeapon.SelectedItem = newAttacker.WeaponID;
             this.textSkill.Clear();
             this.textSkill.Text = String.Join(Environment.NewLine, newAttacker.StatID.ToStringArray());
-            /*if (this.radioAttackerEnemy.Checked)
+            if (this.radioAttackerEnemy.Checked)
             {
-                BindingList<Stat> difficulties = new BindingList<Stat>();
-
-            }*/
+                this.comboAttackerDifficulty.DataSource = this.unitDifficultyAttacker[newAttacker.StatID.ID];
+                this.comboAttackerDifficulty.DisplayMember = "Diff";
+            }
         }
 
         private void comboDefenderUnitChanged(object sender, EventArgs e)
@@ -997,6 +1016,11 @@ namespace FRPGC
             this.comboArmour.SelectedItem = newDefender.ArmourID;
             this.textSkill.Clear();
             this.textSkill.Text = String.Join(Environment.NewLine, newDefender.StatID.ToStringArray());
+            if (this.radioDefenderEnemy.Checked)
+            {
+                this.comboDefenderDifficulty.DataSource = this.unitDifficultyDefender[newDefender.StatID.ID];
+                this.comboDefenderDifficulty.DisplayMember = "Diff";
+            }
         }
 
         private BindingList<AttackTypes> cWCMelee = new BindingList<AttackTypes>() { AttackTypes.Melee };
@@ -1029,10 +1053,12 @@ namespace FRPGC
             getData();
         }
 
-        private void textRangeChanged(object sender, EventArgs e)
+        private void hitChanceChange(object sender, EventArgs e)
         {
             int distance = 100000;
             double chance = 0;
+            int bonusHit = 0;
+            int.TryParse(this.bonusHitChance.Text, out bonusHit);
             if (this.textDistance.Text == "N/A") { return; }
             try
             {
@@ -1062,6 +1088,7 @@ namespace FRPGC
                         chance = longRangeShotChance();
                         break;
                 }
+                chance += bonusHit;
                 this.hitChance.Text = chance.ToString();
             }
         }
@@ -1069,6 +1096,22 @@ namespace FRPGC
         private void clearLog(object sender, EventArgs e)
         {
             this.textLog.Clear();
+        }
+
+        private void comboAttackerDifficultyChanged(object sender, EventArgs e)
+        {
+            Stat newDifficulty = (Stat) this.comboAttackerDifficulty.SelectedItem;
+            ((Unit) this.comboAttackingUnit.SelectedItem).StatID = newDifficulty;
+            this.textSkill.Clear();
+            this.textSkill.Text = String.Join(Environment.NewLine, newDifficulty.ToStringArray());
+        }
+
+        private void comboDefenderDifficultyChanged(object sender, EventArgs e)
+        {
+            Stat newDifficulty = (Stat) this.comboDefenderDifficulty.SelectedItem;
+            ((Unit) this.comboDefendingUnit.SelectedItem).StatID = newDifficulty;
+            //this.textSkill.Clear();
+            //this.textSkill.Text = String.Join(Environment.NewLine, newDifficulty.ToStringArray());
         }
     }
 }

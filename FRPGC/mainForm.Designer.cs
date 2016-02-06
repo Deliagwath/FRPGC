@@ -71,6 +71,8 @@
             this.hitChanceLabel = new System.Windows.Forms.Label();
             this.hitChance = new System.Windows.Forms.TextBox();
             this.clearLogButton = new System.Windows.Forms.Button();
+            this.bonusHitChance = new System.Windows.Forms.TextBox();
+            this.bonusHitChanceLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -106,6 +108,7 @@
             this.comboAttackingUnit.Location = new System.Drawing.Point(12, 84);
             this.comboAttackingUnit.Name = "comboAttackingUnit";
             this.comboAttackingUnit.Size = new System.Drawing.Size(121, 21);
+            this.comboAttackingUnit.Sorted = true;
             this.comboAttackingUnit.TabIndex = 4;
             this.comboAttackingUnit.SelectedIndexChanged += new System.EventHandler(this.comboAttackerUnitChanged);
             // 
@@ -118,6 +121,7 @@
             this.comboAttackerDifficulty.Size = new System.Drawing.Size(121, 21);
             this.comboAttackerDifficulty.TabIndex = 5;
             this.comboAttackerDifficulty.Visible = false;
+            this.comboAttackerDifficulty.SelectedIndexChanged += new System.EventHandler(this.comboAttackerDifficultyChanged);
             // 
             // comboAttackerUnitLabel
             // 
@@ -158,6 +162,7 @@
             this.comboWeapon.Location = new System.Drawing.Point(12, 187);
             this.comboWeapon.Name = "comboWeapon";
             this.comboWeapon.Size = new System.Drawing.Size(121, 21);
+            this.comboWeapon.Sorted = true;
             this.comboWeapon.TabIndex = 9;
             this.comboWeapon.SelectedIndexChanged += new System.EventHandler(this.comboWeaponChanged);
             // 
@@ -186,6 +191,7 @@
             this.comboArmour.Location = new System.Drawing.Point(139, 187);
             this.comboArmour.Name = "comboArmour";
             this.comboArmour.Size = new System.Drawing.Size(121, 21);
+            this.comboArmour.Sorted = true;
             this.comboArmour.TabIndex = 14;
             // 
             // textSkill
@@ -201,7 +207,7 @@
             // textSkillLabel
             // 
             this.textSkillLabel.AutoSize = true;
-            this.textSkillLabel.Location = new System.Drawing.Point(12, 211);
+            this.textSkillLabel.Location = new System.Drawing.Point(9, 211);
             this.textSkillLabel.Name = "textSkillLabel";
             this.textSkillLabel.Size = new System.Drawing.Size(31, 13);
             this.textSkillLabel.TabIndex = 16;
@@ -257,7 +263,7 @@
             // textInitialHealthLabel
             // 
             this.textInitialHealthLabel.AutoSize = true;
-            this.textInitialHealthLabel.Location = new System.Drawing.Point(263, 186);
+            this.textInitialHealthLabel.Location = new System.Drawing.Point(263, 225);
             this.textInitialHealthLabel.Name = "textInitialHealthLabel";
             this.textInitialHealthLabel.Size = new System.Drawing.Size(65, 13);
             this.textInitialHealthLabel.TabIndex = 22;
@@ -265,7 +271,7 @@
             // 
             // textInitialHealth
             // 
-            this.textInitialHealth.Location = new System.Drawing.Point(266, 202);
+            this.textInitialHealth.Location = new System.Drawing.Point(266, 241);
             this.textInitialHealth.Name = "textInitialHealth";
             this.textInitialHealth.Size = new System.Drawing.Size(109, 20);
             this.textInitialHealth.TabIndex = 23;
@@ -287,7 +293,7 @@
             this.textDistance.Name = "textDistance";
             this.textDistance.Size = new System.Drawing.Size(109, 20);
             this.textDistance.TabIndex = 25;
-            this.textDistance.TextChanged += new System.EventHandler(this.textRangeChanged);
+            this.textDistance.TextChanged += new System.EventHandler(this.hitChanceChange);
             // 
             // resultsLabel
             // 
@@ -344,18 +350,18 @@
             // 
             // textLog
             // 
-            this.textLog.Location = new System.Drawing.Point(139, 227);
+            this.textLog.Location = new System.Drawing.Point(139, 280);
             this.textLog.Multiline = true;
             this.textLog.Name = "textLog";
             this.textLog.ReadOnly = true;
             this.textLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textLog.Size = new System.Drawing.Size(342, 303);
+            this.textLog.Size = new System.Drawing.Size(342, 250);
             this.textLog.TabIndex = 32;
             // 
             // textLogLabel
             // 
             this.textLogLabel.AutoSize = true;
-            this.textLogLabel.Location = new System.Drawing.Point(136, 211);
+            this.textLogLabel.Location = new System.Drawing.Point(136, 264);
             this.textLogLabel.Name = "textLogLabel";
             this.textLogLabel.Size = new System.Drawing.Size(25, 13);
             this.textLogLabel.TabIndex = 33;
@@ -403,6 +409,7 @@
             this.comboDefenderDifficulty.Size = new System.Drawing.Size(121, 21);
             this.comboDefenderDifficulty.TabIndex = 37;
             this.comboDefenderDifficulty.Visible = false;
+            this.comboDefenderDifficulty.SelectedIndexChanged += new System.EventHandler(this.comboDefenderDifficultyChanged);
             // 
             // comboDefenderUnitLabel
             // 
@@ -420,6 +427,7 @@
             this.comboDefendingUnit.Location = new System.Drawing.Point(139, 84);
             this.comboDefendingUnit.Name = "comboDefendingUnit";
             this.comboDefendingUnit.Size = new System.Drawing.Size(121, 21);
+            this.comboDefendingUnit.Sorted = true;
             this.comboDefendingUnit.TabIndex = 41;
             this.comboDefendingUnit.SelectedIndexChanged += new System.EventHandler(this.comboDefenderUnitChanged);
             // 
@@ -472,7 +480,7 @@
             // hitChanceLabel
             // 
             this.hitChanceLabel.AutoSize = true;
-            this.hitChanceLabel.Location = new System.Drawing.Point(263, 147);
+            this.hitChanceLabel.Location = new System.Drawing.Point(263, 186);
             this.hitChanceLabel.Name = "hitChanceLabel";
             this.hitChanceLabel.Size = new System.Drawing.Size(60, 13);
             this.hitChanceLabel.TabIndex = 45;
@@ -480,9 +488,9 @@
             // 
             // hitChance
             // 
-            this.hitChance.Enabled = false;
-            this.hitChance.Location = new System.Drawing.Point(266, 163);
+            this.hitChance.Location = new System.Drawing.Point(266, 202);
             this.hitChance.Name = "hitChance";
+            this.hitChance.ReadOnly = true;
             this.hitChance.Size = new System.Drawing.Size(109, 20);
             this.hitChance.TabIndex = 46;
             // 
@@ -496,11 +504,30 @@
             this.clearLogButton.UseVisualStyleBackColor = true;
             this.clearLogButton.Click += new System.EventHandler(this.clearLog);
             // 
+            // bonusHitChance
+            // 
+            this.bonusHitChance.Location = new System.Drawing.Point(266, 164);
+            this.bonusHitChance.Name = "bonusHitChance";
+            this.bonusHitChance.Size = new System.Drawing.Size(109, 20);
+            this.bonusHitChance.TabIndex = 49;
+            this.bonusHitChance.TextChanged += new System.EventHandler(this.hitChanceChange);
+            // 
+            // bonusHitChanceLabel
+            // 
+            this.bonusHitChanceLabel.AutoSize = true;
+            this.bonusHitChanceLabel.Location = new System.Drawing.Point(263, 148);
+            this.bonusHitChanceLabel.Name = "bonusHitChanceLabel";
+            this.bonusHitChanceLabel.Size = new System.Drawing.Size(93, 13);
+            this.bonusHitChanceLabel.TabIndex = 48;
+            this.bonusHitChanceLabel.Text = "Bonus Hit Chance";
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(494, 542);
+            this.Controls.Add(this.bonusHitChance);
+            this.Controls.Add(this.bonusHitChanceLabel);
             this.Controls.Add(this.clearLogButton);
             this.Controls.Add(this.hitChance);
             this.Controls.Add(this.hitChanceLabel);
@@ -597,6 +624,8 @@
         private System.Windows.Forms.Label hitChanceLabel;
         private System.Windows.Forms.TextBox hitChance;
         private System.Windows.Forms.Button clearLogButton;
+        private System.Windows.Forms.TextBox bonusHitChance;
+        private System.Windows.Forms.Label bonusHitChanceLabel;
     }
 }
 
