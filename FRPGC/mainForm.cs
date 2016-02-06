@@ -687,7 +687,11 @@ namespace FRPGC
         {
             int chance = -1;
             int bonusHit = 0;
-            int.TryParse(this.bonusHitChance.Text, out bonusHit);
+            bool parseAttempt = int.TryParse(this.bonusHitChance.Text, out bonusHit);
+            if (!parseAttempt)
+            {
+                this.logger.logBoth(String.Format("Bonus Hit Chance could not be parsed. Input: {0}", this.bonusHitChance.Text));
+            }
             switch (attackType)
             {
                 case (AttackTypes.Melee):

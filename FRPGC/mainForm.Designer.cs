@@ -225,6 +225,7 @@
             // textAttacksLaunched
             // 
             this.textAttacksLaunched.Location = new System.Drawing.Point(266, 45);
+            this.textAttacksLaunched.MaxLength = 3;
             this.textAttacksLaunched.Name = "textAttacksLaunched";
             this.textAttacksLaunched.Size = new System.Drawing.Size(109, 20);
             this.textAttacksLaunched.TabIndex = 18;
@@ -272,6 +273,7 @@
             // textInitialHealth
             // 
             this.textInitialHealth.Location = new System.Drawing.Point(266, 241);
+            this.textInitialHealth.MaxLength = 5;
             this.textInitialHealth.Name = "textInitialHealth";
             this.textInitialHealth.Size = new System.Drawing.Size(109, 20);
             this.textInitialHealth.TabIndex = 23;
@@ -507,6 +509,7 @@
             // bonusHitChance
             // 
             this.bonusHitChance.Location = new System.Drawing.Point(266, 164);
+            this.bonusHitChance.MaxLength = 3;
             this.bonusHitChance.Name = "bonusHitChance";
             this.bonusHitChance.Size = new System.Drawing.Size(109, 20);
             this.bonusHitChance.TabIndex = 49;
