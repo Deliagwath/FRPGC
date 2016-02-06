@@ -692,7 +692,7 @@ namespace FRPGC
 
                 if (rolled < attacker.StatID.CriticalChance) // Critical Hit
                 {
-                    this.logger.logBoth(String.Format("Critical Hit: {0} < 5", rolled.ToString()));
+                    this.logger.logBoth(String.Format("Critical Hit: {0} < {1}", rolled.ToString(), attacker.StatID.CriticalChance));
                     this.logger.logBoth(String.Format("Damage Taken: {0}", (damageReduction(damage) * 2).ToString()));
                     totalDamage += damageReduction(damage) * 2;
                     continue;
