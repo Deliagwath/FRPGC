@@ -68,6 +68,8 @@
             this.radioDefenderPlayer = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.hitChanceLabel = new System.Windows.Forms.Label();
+            this.hitChance = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -98,6 +100,7 @@
             // 
             // comboAttackingUnit
             // 
+            this.comboAttackingUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboAttackingUnit.FormattingEnabled = true;
             this.comboAttackingUnit.Location = new System.Drawing.Point(12, 84);
             this.comboAttackingUnit.Name = "comboAttackingUnit";
@@ -107,6 +110,7 @@
             // 
             // comboAttackerDifficulty
             // 
+            this.comboAttackerDifficulty.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboAttackerDifficulty.FormattingEnabled = true;
             this.comboAttackerDifficulty.Location = new System.Drawing.Point(12, 124);
             this.comboAttackerDifficulty.Name = "comboAttackerDifficulty";
@@ -148,6 +152,7 @@
             // 
             // comboWeapon
             // 
+            this.comboWeapon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboWeapon.FormattingEnabled = true;
             this.comboWeapon.Location = new System.Drawing.Point(12, 187);
             this.comboWeapon.Name = "comboWeapon";
@@ -175,6 +180,7 @@
             // 
             // comboArmour
             // 
+            this.comboArmour.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboArmour.FormattingEnabled = true;
             this.comboArmour.Location = new System.Drawing.Point(139, 187);
             this.comboArmour.Name = "comboArmour";
@@ -210,7 +216,7 @@
             // 
             // textAttacksLaunched
             // 
-            this.textAttacksLaunched.Location = new System.Drawing.Point(266, 84);
+            this.textAttacksLaunched.Location = new System.Drawing.Point(266, 45);
             this.textAttacksLaunched.Name = "textAttacksLaunched";
             this.textAttacksLaunched.Size = new System.Drawing.Size(109, 20);
             this.textAttacksLaunched.TabIndex = 18;
@@ -218,7 +224,7 @@
             // textAttacksLaunchedLabel
             // 
             this.textAttacksLaunchedLabel.AutoSize = true;
-            this.textAttacksLaunchedLabel.Location = new System.Drawing.Point(263, 68);
+            this.textAttacksLaunchedLabel.Location = new System.Drawing.Point(263, 29);
             this.textAttacksLaunchedLabel.Name = "textAttacksLaunchedLabel";
             this.textAttacksLaunchedLabel.Size = new System.Drawing.Size(95, 13);
             this.textAttacksLaunchedLabel.TabIndex = 19;
@@ -227,7 +233,7 @@
             // comboAttackingMethodLabel
             // 
             this.comboAttackingMethodLabel.AutoSize = true;
-            this.comboAttackingMethodLabel.Location = new System.Drawing.Point(263, 107);
+            this.comboAttackingMethodLabel.Location = new System.Drawing.Point(263, 68);
             this.comboAttackingMethodLabel.Name = "comboAttackingMethodLabel";
             this.comboAttackingMethodLabel.Size = new System.Drawing.Size(91, 13);
             this.comboAttackingMethodLabel.TabIndex = 20;
@@ -235,12 +241,13 @@
             // 
             // comboAttackingMethod
             // 
+            this.comboAttackingMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboAttackingMethod.FormattingEnabled = true;
             this.comboAttackingMethod.Items.AddRange(new object[] {
             "Single Shot",
             "Burst Shot",
             "Melee"});
-            this.comboAttackingMethod.Location = new System.Drawing.Point(266, 123);
+            this.comboAttackingMethod.Location = new System.Drawing.Point(266, 84);
             this.comboAttackingMethod.Name = "comboAttackingMethod";
             this.comboAttackingMethod.Size = new System.Drawing.Size(109, 21);
             this.comboAttackingMethod.TabIndex = 21;
@@ -265,7 +272,7 @@
             // textDistanceLabel
             // 
             this.textDistanceLabel.AutoSize = true;
-            this.textDistanceLabel.Location = new System.Drawing.Point(263, 147);
+            this.textDistanceLabel.Location = new System.Drawing.Point(263, 108);
             this.textDistanceLabel.Name = "textDistanceLabel";
             this.textDistanceLabel.Size = new System.Drawing.Size(39, 13);
             this.textDistanceLabel.TabIndex = 24;
@@ -273,10 +280,12 @@
             // 
             // textDistance
             // 
-            this.textDistance.Location = new System.Drawing.Point(266, 163);
+            this.textDistance.Location = new System.Drawing.Point(266, 124);
+            this.textDistance.MaxLength = 4;
             this.textDistance.Name = "textDistance";
             this.textDistance.Size = new System.Drawing.Size(109, 20);
             this.textDistance.TabIndex = 25;
+            this.textDistance.TextChanged += new System.EventHandler(this.textRangeChanged);
             // 
             // resultsLabel
             // 
@@ -385,6 +394,7 @@
             // 
             // comboDefenderDifficulty
             // 
+            this.comboDefenderDifficulty.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboDefenderDifficulty.FormattingEnabled = true;
             this.comboDefenderDifficulty.Location = new System.Drawing.Point(139, 124);
             this.comboDefenderDifficulty.Name = "comboDefenderDifficulty";
@@ -403,6 +413,7 @@
             // 
             // comboDefendingUnit
             // 
+            this.comboDefendingUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboDefendingUnit.FormattingEnabled = true;
             this.comboDefendingUnit.Location = new System.Drawing.Point(139, 84);
             this.comboDefendingUnit.Name = "comboDefendingUnit";
@@ -456,11 +467,30 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Defender";
             // 
+            // hitChanceLabel
+            // 
+            this.hitChanceLabel.AutoSize = true;
+            this.hitChanceLabel.Location = new System.Drawing.Point(263, 147);
+            this.hitChanceLabel.Name = "hitChanceLabel";
+            this.hitChanceLabel.Size = new System.Drawing.Size(60, 13);
+            this.hitChanceLabel.TabIndex = 45;
+            this.hitChanceLabel.Text = "Hit Chance";
+            // 
+            // hitChance
+            // 
+            this.hitChance.Enabled = false;
+            this.hitChance.Location = new System.Drawing.Point(266, 163);
+            this.hitChance.Name = "hitChance";
+            this.hitChance.Size = new System.Drawing.Size(109, 20);
+            this.hitChance.TabIndex = 46;
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(494, 542);
+            this.Controls.Add(this.hitChance);
+            this.Controls.Add(this.hitChanceLabel);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.comboDefenderUnitLabel);
@@ -551,6 +581,8 @@
         private System.Windows.Forms.RadioButton radioDefenderPlayer;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label hitChanceLabel;
+        private System.Windows.Forms.TextBox hitChance;
     }
 }
 

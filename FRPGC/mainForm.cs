@@ -778,22 +778,35 @@ namespace FRPGC
             // TODO Implement Hit Bonuses
             // =(Skill / (Range / Multiplier / Divisor |If singleShot != true|)) * Multiplier + (Optimal Range ^ 2) / (Range - (2 * Optimal Range)) + (Luck - 10)
             int skill = -1;
+            if (this.textDistance.Text == "") { return 0; }
+            if (this.textDistance.Text == "1") { return 1000; }
+            try { double.Parse(this.textDistance.Text); }
+            catch (Exception) { return 0; }
             if (((Weapon) this.comboWeapon.SelectedItem).Range < 2 * double.Parse(this.textDistance.Text)) { return 0; }
-            switch (((Weapon) this.comboWeapon.SelectedItem).DamageType)
+            switch (((Weapon) this.comboWeapon.SelectedItem).WeaponType)
             {
-                // Electrical (Energy Weapons)
-                case (DamageTypes.Electrical):
+                case (WeaponSkillType.EnergyWeapons):
                     skill = ((dynamic) this.comboAttackingUnit.SelectedItem).StatID.EnergyWeapons;
                     break;
 
-                // Explosive (Explosives)
-                case (DamageTypes.Explosion):
+                case (WeaponSkillType.Explosives):
                     skill = ((dynamic) this.comboAttackingUnit.SelectedItem).StatID.Explosives;
                     break;
 
-                // Normal (Small Guns) or Big?
-                case (DamageTypes.Normal):
+                case (WeaponSkillType.SmallGuns):
                     skill = ((dynamic) this.comboAttackingUnit.SelectedItem).StatID.SmallGuns;
+                    break;
+
+                case (WeaponSkillType.Melee):
+                    skill = ((dynamic) this.comboAttackingUnit.SelectedItem).StatID.Melee;
+                    break;
+
+                case (WeaponSkillType.Unarmed):
+                    skill = ((dynamic) this.comboAttackingUnit.SelectedItem).StatID.Unarmed;
+                    break;
+
+                case (WeaponSkillType.BigGuns):
+                    skill = ((dynamic) this.comboAttackingUnit.SelectedItem).StatID.BigGuns;
                     break;
 
                 default:
@@ -807,8 +820,9 @@ namespace FRPGC
             int distance = int.Parse(textDistance.Text.Trim());
             int oac = ((Armour) this.comboArmour.SelectedItem).ArmourClass;
             int hitBonuses = 0;
-
-            return (int) Math.Max(Math.Floor((skill / ((distance / multiplier) / divisor)) * multiplier + (Math.Pow(weaponRange, 2)) / (distance - (2 * weaponRange)) + (luck - 10) + hitBonuses), 0);
+            int chance = (int) Math.Max(Math.Floor((skill / ((distance / multiplier) / divisor)) * multiplier + (Math.Pow(weaponRange, 2)) / (distance - (2 * weaponRange)) + (luck - 10) + hitBonuses), 0);
+            if (chance == -2147483648) { return 1000; }
+            return chance;
         }
 
         private int longRangeShotChance()
@@ -816,21 +830,33 @@ namespace FRPGC
             // TODO Implement Hit Bonuses
             // Skill * e ^ (-(x - OptimalRange) ^ 2 / (2 * (Skill / 4) ^ 2))
             int skill = -1;
-            switch (((Weapon) this.comboWeapon.SelectedItem).DamageType)
+            if (this.textDistance.Text == "") { return 0; }
+            try { double.Parse(this.textDistance.Text); }
+            catch (Exception) { return 0; }
+            switch (((Weapon) this.comboWeapon.SelectedItem).WeaponType)
             {
-                // Electrical (Energy Weapons)
-                case (DamageTypes.Electrical):
-                    skill = ((dynamic) this.comboAttackingUnit.SelectedItem).StatID.EnergyWeapons;
+                case (WeaponSkillType.EnergyWeapons):
+                    skill = ((dynamic)this.comboAttackingUnit.SelectedItem).StatID.EnergyWeapons;
                     break;
 
-                // Explosive (Explosives)
-                case (DamageTypes.Explosion):
-                    skill = ((dynamic) this.comboAttackingUnit.SelectedItem).StatID.Explosives;
+                case (WeaponSkillType.Explosives):
+                    skill = ((dynamic)this.comboAttackingUnit.SelectedItem).StatID.Explosives;
                     break;
 
-                // Normal (Small Guns) or Big?
-                case (DamageTypes.Normal):
-                    skill = ((dynamic) this.comboAttackingUnit.SelectedItem).StatID.SmallGuns;
+                case (WeaponSkillType.SmallGuns):
+                    skill = ((dynamic)this.comboAttackingUnit.SelectedItem).StatID.SmallGuns;
+                    break;
+
+                case (WeaponSkillType.Melee):
+                    skill = ((dynamic)this.comboAttackingUnit.SelectedItem).StatID.Melee;
+                    break;
+
+                case (WeaponSkillType.Unarmed):
+                    skill = ((dynamic)this.comboAttackingUnit.SelectedItem).StatID.Unarmed;
+                    break;
+
+                case (WeaponSkillType.BigGuns):
+                    skill = ((dynamic)this.comboAttackingUnit.SelectedItem).StatID.BigGuns;
                     break;
 
                 default:
@@ -838,6 +864,7 @@ namespace FRPGC
             }
             int weaponRange = ((Weapon) this.comboWeapon.SelectedItem).Range;
             int luck = ((dynamic) this.comboAttackingUnit.SelectedItem).StatID.Luck;
+            if (this.textDistance.Text.Trim() == "") { return 0; }
             int distance = int.Parse(textDistance.Text.Trim());
             int hitBonuses = 0;
             // Skill*e^(-(x - OptimalRange)^2/(2 * (Skill / 4)^2))
@@ -981,6 +1008,43 @@ namespace FRPGC
         private void onLoad(object sender, EventArgs e)
         {
             getData();
+        }
+
+        private void textRangeChanged(object sender, EventArgs e)
+        {
+            int distance = 100000;
+            double chance = 0;
+            if (this.textDistance.Text == "N/A") { return; }
+            try
+            {
+                distance = int.Parse(this.textDistance.Text);
+            }
+            catch (Exception)
+            {
+                this.hitChance.Text = "N/A";
+            }
+            finally
+            {
+                switch ((AttackTypes) Enum.Parse(typeof(AttackTypes), this.comboAttackingMethod.Text, true))
+                {
+                    case (AttackTypes.Melee):
+                        chance = meleeHitChance();
+                        break;
+
+                    case (AttackTypes.ShortRangeSingle):
+                        chance = shortRangeShotChance(true);
+                        break;
+
+                    case (AttackTypes.ShortRangeBurst):
+                        chance = shortRangeShotChance(false);
+                        break;
+
+                    case (AttackTypes.LongRange):
+                        chance = longRangeShotChance();
+                        break;
+                }
+                this.hitChance.Text = chance.ToString();
+            }
         }
     }
 }
