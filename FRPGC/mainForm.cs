@@ -830,7 +830,7 @@ namespace FRPGC
             if (this.textDistance.Text == "1") { return 1000; }
             try { double.Parse(this.textDistance.Text); }
             catch (Exception) { return 0; }
-            if (((Weapon) this.comboWeapon.SelectedItem).Range < 2 * double.Parse(this.textDistance.Text)) { return 0; }
+            if (((Weapon) this.comboWeapon.SelectedItem).Range * 2 < double.Parse(this.textDistance.Text)) { return 0; }
             switch (((Weapon) this.comboWeapon.SelectedItem).WeaponType)
             {
                 case (WeaponSkillType.EnergyWeapons):
