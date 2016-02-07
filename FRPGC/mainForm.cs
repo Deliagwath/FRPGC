@@ -1119,6 +1119,7 @@ namespace FRPGC
             ((Unit) this.comboAttackingUnit.SelectedItem).StatID = newDifficulty;
             this.textSkill.Clear();
             this.textSkill.Text = String.Join(Environment.NewLine, newDifficulty.ToStringArray());
+            hitChanceChange(this, new EventArgs());
         }
 
         private void comboDefenderDifficultyChanged(object sender, EventArgs e)
