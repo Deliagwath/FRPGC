@@ -701,7 +701,9 @@ namespace FRPGC
             bool parseAttempt = int.TryParse(this.bonusHitChance.Text, out bonusHit);
             if (!parseAttempt)
             {
-                this.logger.logBoth(String.Format("Bonus Hit Chance could not be parsed. Input: {0}", this.bonusHitChance.Text));
+                this.logger.logBoth(String.Format("Bonus Hit Chance could not be parsed. Input: {0}, setting to 0", this.bonusHitChance.Text));
+                this.bonusHitChance.Text = "0";
+                bonusHit = 0;
             }
             switch (attackType)
             {
@@ -726,8 +728,9 @@ namespace FRPGC
                     return 0;
             }
 
-            this.logger.logBoth(String.Format("Hit Chance: {0}, Bonus Hit Chance: {1}", chance.ToString(), hitChance.ToString()));
+            this.logger.logBoth(String.Format("Hit Chance: {0}, Bonus Hit Chance: {1}", chance.ToString(), bonusHit.ToString()));
             chance += bonusHit;
+            attacksLaunched *= ((AttackTypes) this.comboAttackingMethod.SelectedItem).Equals(AttackTypes.ShortRangeBurst) ? ((Weapon) this.comboWeapon.SelectedItem).ShotsPerBurst : 1;
             int[] damages = attackDamage(attacksLaunched);
             int totalDamage = 0;
             Dice dice = new Dice(1, Math.Max(100, chance), this.logger);
