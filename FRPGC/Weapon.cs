@@ -19,8 +19,9 @@ namespace FRPGC
         public AttackRange Classification   { get; set; }
         public DamageTypes DamageType       { get; set; }
         public WeaponSkillType WeaponType   { get; set; }
+        public bool Penetrating             { get; set; }
 
-        public Weapon(string name, string id, int singleRange, int flatDamage, Dice baseDamage, Dice additionalDamage, int shotsPerBurst, AttackRange classification, DamageTypes damageType, WeaponSkillType weaponType)
+        public Weapon(string name, string id, int singleRange, int flatDamage, Dice baseDamage, Dice additionalDamage, int shotsPerBurst, AttackRange classification, DamageTypes damageType, WeaponSkillType weaponType, bool pen)
         {
             this.Name = name;
             this.ID = id;
@@ -32,6 +33,7 @@ namespace FRPGC
             this.Classification = classification;
             this.DamageType = damageType;
             this.WeaponType = weaponType;
+            this.Penetrating = pen;
         }
 
         public override string ToString()
@@ -46,7 +48,8 @@ namespace FRPGC
                 this.ShotsPerBurst.ToString() + comma +
                 this.Classification.ToString() + comma + 
                 this.DamageType.ToString() + comma +
-                this.WeaponType.ToString() + "]";
+                this.WeaponType.ToString() + comma +
+                this.Penetrating.ToString() + "]";
         }
     }
 }

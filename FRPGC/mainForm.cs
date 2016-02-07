@@ -186,6 +186,7 @@ namespace FRPGC
             DamageTypes damageType;
             WeaponSkillType weaponType;
             string[] splitted = null, constantSplit = null, diceSplit = null;
+            bool penetrating = false;
 
             while ((line = reader.ReadLine()) != null)
             {
@@ -415,8 +416,18 @@ namespace FRPGC
                         continue;
                 }
 
+                // Penetrating (P, N)
+                try
+                {
+                    penetrating = (splitted[9].Trim().ToUpper().Equals("P")) ? true : false;
+                }
+                catch
+                {
+                    this.logger.logBoth(String.Format("Penetration could not be parsed. Expected P|N, received :{0}", splitted[9]));
+                    continue;
+                }
                 // Creating Weapon Object and adding to List
-                this.weapons.Add(new Weapon(name, id, singleRange, constant, baseDamage, additionalDamage, shotPerBurst, weaponRange, damageType, weaponType));
+                this.weapons.Add(new Weapon(name, id, singleRange, constant, baseDamage, additionalDamage, shotPerBurst, weaponRange, damageType, weaponType, penetrating));
             }
 
             // Binding to ComboBox
@@ -770,33 +781,33 @@ namespace FRPGC
             switch (dt)
             {
                 case (DamageTypes.Normal):
-                    damage -= ((Weapon) this.comboWeapon.SelectedItem).Classification == AttackRange.LongRange ? (int) Math.Floor(ar.DTNormal / 2.0) : ar.DTNormal;
-                    damage = ((Weapon) this.comboWeapon.SelectedItem).Classification == AttackRange.LongRange ? (int) Math.Max(damage, Math.Floor(damage * ((100 - ar.DRNormal) / 100.0))) : (int) Math.Floor(damage * ((100 - ar.DRNormal) / 100.0));
+                    damage -= ((Weapon) this.comboWeapon.SelectedItem).Penetrating ? (int) Math.Floor(ar.DTNormal / 2.0) : ar.DTNormal;
+                    damage = ((Weapon) this.comboWeapon.SelectedItem).Penetrating ? (int) Math.Max(damage, Math.Floor(damage * ((100 - ar.DRNormal) / 100.0))) : (int) Math.Floor(damage * ((100 - ar.DRNormal) / 100.0));
                     return Math.Max(0, damage);
 
                 case (DamageTypes.Laser):
-                    damage -= ar.DTLaser;
-                    damage = (int) Math.Floor(damage * ((100 - ar.DRLaser) / 100.0));
+                    damage -= ((Weapon)this.comboWeapon.SelectedItem).Penetrating ? (int)Math.Floor(ar.DTLaser / 2.0) : ar.DTLaser;
+                    damage = ((Weapon)this.comboWeapon.SelectedItem).Penetrating ? (int)Math.Max(damage, Math.Floor(damage * ((100 - ar.DRLaser) / 100.0))) : (int)Math.Floor(damage * ((100 - ar.DRLaser) / 100.0));
                     return Math.Max(0, damage);
 
                 case (DamageTypes.Plasma):
-                    damage -= ar.DTPlasma;
-                    damage = (int) Math.Floor(damage * ((100 - ar.DRPlasma) / 100.0));
+                    damage -= ((Weapon)this.comboWeapon.SelectedItem).Penetrating ? (int)Math.Floor(ar.DTPlasma / 2.0) : ar.DTPlasma;
+                    damage = ((Weapon)this.comboWeapon.SelectedItem).Penetrating ? (int)Math.Max(damage, Math.Floor(damage * ((100 - ar.DRPlasma) / 100.0))) : (int)Math.Floor(damage * ((100 - ar.DRPlasma) / 100.0));
                     return Math.Max(0, damage);
 
                 case (DamageTypes.Electrical):
-                    damage -= ar.DTElectrical;
-                    damage = (int) Math.Floor(damage * ((100 - ar.DRElectrical) / 100.0));
+                    damage -= ((Weapon)this.comboWeapon.SelectedItem).Penetrating ? (int)Math.Floor(ar.DTElectrical / 2.0) : ar.DTElectrical;
+                    damage = ((Weapon)this.comboWeapon.SelectedItem).Penetrating ? (int)Math.Max(damage, Math.Floor(damage * ((100 - ar.DRElectrical) / 100.0))) : (int)Math.Floor(damage * ((100 - ar.DRElectrical) / 100.0));
                     return Math.Max(0, damage);
 
                 case (DamageTypes.Fire):
-                    damage -= ar.DTFire;
-                    damage = (int) Math.Floor(damage * ((100 - ar.DRFire) / 100.0));
+                    damage -= ((Weapon)this.comboWeapon.SelectedItem).Penetrating ? (int)Math.Floor(ar.DRFire / 2.0) : ar.DRFire;
+                    damage = ((Weapon)this.comboWeapon.SelectedItem).Penetrating ? (int)Math.Max(damage, Math.Floor(damage * ((100 - ar.DRFire) / 100.0))) : (int)Math.Floor(damage * ((100 - ar.DRFire) / 100.0));
                     return Math.Max(0, damage);
 
                 case (DamageTypes.Explosion):
-                    damage -= ar.DTExplosive;
-                    damage = (int) Math.Floor(damage * ((100 - ar.DRExplosive) / 100.0));
+                    damage -= ((Weapon)this.comboWeapon.SelectedItem).Penetrating ? (int)Math.Floor(ar.DRExplosive / 2.0) : ar.DRExplosive;
+                    damage = ((Weapon)this.comboWeapon.SelectedItem).Penetrating ? (int)Math.Max(damage, Math.Floor(damage * ((100 - ar.DRExplosive) / 100.0))) : (int)Math.Floor(damage * ((100 - ar.DRExplosive) / 100.0));
                     return Math.Max(0, damage);
 
                 default:
