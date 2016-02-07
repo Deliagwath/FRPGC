@@ -786,28 +786,28 @@ namespace FRPGC
                     return Math.Max(0, damage);
 
                 case (DamageTypes.Laser):
-                    damage -= ((Weapon)this.comboWeapon.SelectedItem).Penetrating ? (int)Math.Floor(ar.DTLaser / 2.0) : ar.DTLaser;
-                    damage = ((Weapon)this.comboWeapon.SelectedItem).Penetrating ? (int)Math.Max(damage, Math.Floor(damage * ((100 - ar.DRLaser) / 100.0))) : (int)Math.Floor(damage * ((100 - ar.DRLaser) / 100.0));
+                    damage -= ((Weapon)this.comboWeapon.SelectedItem).Penetrating ? (int) Math.Floor(ar.DTLaser / 2.0) : ar.DTLaser;
+                    damage = ((Weapon)this.comboWeapon.SelectedItem).Penetrating ? (int) Math.Max(damage, Math.Floor(damage * ((100 - ar.DRLaser) / 100.0))) : (int)Math.Floor(damage * ((100 - ar.DRLaser) / 100.0));
                     return Math.Max(0, damage);
 
                 case (DamageTypes.Plasma):
-                    damage -= ((Weapon)this.comboWeapon.SelectedItem).Penetrating ? (int)Math.Floor(ar.DTPlasma / 2.0) : ar.DTPlasma;
-                    damage = ((Weapon)this.comboWeapon.SelectedItem).Penetrating ? (int)Math.Max(damage, Math.Floor(damage * ((100 - ar.DRPlasma) / 100.0))) : (int)Math.Floor(damage * ((100 - ar.DRPlasma) / 100.0));
+                    damage -= ((Weapon)this.comboWeapon.SelectedItem).Penetrating ? (int) Math.Floor(ar.DTPlasma / 2.0) : ar.DTPlasma;
+                    damage = ((Weapon)this.comboWeapon.SelectedItem).Penetrating ? (int) Math.Max(damage, Math.Floor(damage * ((100 - ar.DRPlasma) / 100.0))) : (int)Math.Floor(damage * ((100 - ar.DRPlasma) / 100.0));
                     return Math.Max(0, damage);
 
                 case (DamageTypes.Electrical):
-                    damage -= ((Weapon)this.comboWeapon.SelectedItem).Penetrating ? (int)Math.Floor(ar.DTElectrical / 2.0) : ar.DTElectrical;
-                    damage = ((Weapon)this.comboWeapon.SelectedItem).Penetrating ? (int)Math.Max(damage, Math.Floor(damage * ((100 - ar.DRElectrical) / 100.0))) : (int)Math.Floor(damage * ((100 - ar.DRElectrical) / 100.0));
+                    damage -= ((Weapon)this.comboWeapon.SelectedItem).Penetrating ? (int) Math.Floor(ar.DTElectrical / 2.0) : ar.DTElectrical;
+                    damage = ((Weapon)this.comboWeapon.SelectedItem).Penetrating ? (int) Math.Max(damage, Math.Floor(damage * ((100 - ar.DRElectrical) / 100.0))) : (int)Math.Floor(damage * ((100 - ar.DRElectrical) / 100.0));
                     return Math.Max(0, damage);
 
                 case (DamageTypes.Fire):
-                    damage -= ((Weapon)this.comboWeapon.SelectedItem).Penetrating ? (int)Math.Floor(ar.DRFire / 2.0) : ar.DRFire;
-                    damage = ((Weapon)this.comboWeapon.SelectedItem).Penetrating ? (int)Math.Max(damage, Math.Floor(damage * ((100 - ar.DRFire) / 100.0))) : (int)Math.Floor(damage * ((100 - ar.DRFire) / 100.0));
+                    damage -= ((Weapon)this.comboWeapon.SelectedItem).Penetrating ? (int) Math.Floor(ar.DTFire / 2.0) : ar.DTFire;
+                    damage = ((Weapon)this.comboWeapon.SelectedItem).Penetrating ? (int) Math.Max(damage, Math.Floor(damage * ((100 - ar.DRFire) / 100.0))) : (int)Math.Floor(damage * ((100 - ar.DRFire) / 100.0));
                     return Math.Max(0, damage);
 
                 case (DamageTypes.Explosion):
-                    damage -= ((Weapon)this.comboWeapon.SelectedItem).Penetrating ? (int)Math.Floor(ar.DRExplosive / 2.0) : ar.DRExplosive;
-                    damage = ((Weapon)this.comboWeapon.SelectedItem).Penetrating ? (int)Math.Max(damage, Math.Floor(damage * ((100 - ar.DRExplosive) / 100.0))) : (int)Math.Floor(damage * ((100 - ar.DRExplosive) / 100.0));
+                    damage -= ((Weapon)this.comboWeapon.SelectedItem).Penetrating ? (int) Math.Floor(ar.DTExplosive / 2.0) : ar.DTExplosive;
+                    damage = ((Weapon)this.comboWeapon.SelectedItem).Penetrating ? (int) Math.Max(damage, Math.Floor(damage * ((100 - ar.DRExplosive) / 100.0))) : (int)Math.Floor(damage * ((100 - ar.DRExplosive) / 100.0));
                     return Math.Max(0, damage);
 
                 default:
