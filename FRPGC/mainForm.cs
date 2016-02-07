@@ -751,7 +751,7 @@ namespace FRPGC
                     this.logger.logBoth("Ending Calculations.");
                     return totalDamage;
                 }
-                if (rolled < chance) // Hit
+                if (rolled <= chance) // Hit
                 {
                     this.logger.logBoth(String.Format("Hit: {0} < {1}", rolled.ToString(), chance.ToString()));
                     this.logger.logBoth(String.Format("Damage Taken: {0}", damageReduction(damage).ToString()));
