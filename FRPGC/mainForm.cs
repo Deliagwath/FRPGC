@@ -818,7 +818,7 @@ namespace FRPGC
 
         private int meleeHitChance()
         {
-            return Math.Max(((dynamic) this.comboAttackingUnit.SelectedItem).StatID.MeleeDamage - ((dynamic) this.comboDefendingUnit.SelectedItem).StatID.AC, 0);
+            return Math.Max(((dynamic) this.comboAttackingUnit.SelectedItem).StatID.Melee - ((dynamic) this.comboDefendingUnit.SelectedItem).StatID.AC, 0);
         }
 
         private int shortRangeShotChance(bool singleShot)
