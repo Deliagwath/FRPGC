@@ -8,11 +8,11 @@ namespace FRPGC
 {
     class Player
     {
-        public string Name { get; set; }
-        public string ID { get; set; }
-        public Weapon WeaponID { get; set; }
-        public Armour ArmourID { get; set; }
-        public PlayerStat StatID { get; set; }
+        public string Name          { get; set; }
+        public string ID            { get; set; }
+        public Weapon WeaponID      { get; set; }
+        public Armour ArmourID      { get; set; }
+        public PlayerStat StatID    { get; set; }
 
         public Player(string name, string id, Weapon wid, Armour aid, PlayerStat sid)
         {
@@ -29,7 +29,8 @@ namespace FRPGC
             return "[" + this.Name + comma +
                 this.ID + comma +
                 this.WeaponID.Name + comma +
-                this.ArmourID.Name + "]";
+                this.ArmourID.Name + comma +
+                this.StatID.ID.ToString() + "]";
         }
     }
 }

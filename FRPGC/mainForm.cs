@@ -1032,6 +1032,7 @@ namespace FRPGC
         {
             dynamic newDefender = (dynamic) this.comboDefendingUnit.SelectedItem;
             this.comboArmour.SelectedItem = newDefender.ArmourID;
+            this.textInitialHealth.Text = newDefender.StatID.HP.ToString();
             //this.textSkill.Clear();
             //this.textSkill.Text = String.Join(Environment.NewLine, newDefender.StatID.ToStringArray());
             if (this.radioDefenderEnemy.Checked)
