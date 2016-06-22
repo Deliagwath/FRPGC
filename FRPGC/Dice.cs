@@ -20,6 +20,38 @@ namespace FRPGC
             this.logger = logger;
         }
 
+        public Dice(string input, Log logger)
+        {
+            this.logger = logger;
+
+            bool parseOK = parseable(input);
+
+            if (!parseOK)
+            {
+                this.logger.logBoth(String.Format("Unable to create Dice, Input: {0}\nSetting Dice to 0d0", input));
+                this.Multiplier = 0;
+                this.MaxRoll = 0;
+                return;
+            }
+            int mul, max = -1;
+
+            // Traditional Dice Format
+            try
+            {
+                string[] parsed = input.Split('d');
+                mul = int.Parse(parsed[0]);
+                max = int.Parse(parsed[1]);
+                return;
+            }
+
+            // Constant
+            catch
+            {
+                max = int.Parse(input);
+                return;
+            }
+        }
+
         public int getRoll()
         {
             if (this.MaxRoll == 0 || this.MaxRoll == 1)
@@ -48,6 +80,28 @@ namespace FRPGC
         public string toString()
         {
             return this.Multiplier + "d" + this.MaxRoll;
+        }
+
+        public static bool parseable(string input)
+        {
+            int mul, max = -1;
+            bool diceFormat = false;
+            bool mulParse = false;
+            bool maxParse = false;
+
+            try
+            {
+                string[] parsed = input.Split('d');
+                diceFormat = true;
+                mulParse = int.TryParse(parsed[0], out mul);
+                maxParse = int.TryParse(parsed[1], out max);
+            }
+            catch
+            {
+                maxParse = int.TryParse(input, out max);
+            }
+
+            return diceFormat ? mulParse && maxParse : maxParse;
         }
     }
 }

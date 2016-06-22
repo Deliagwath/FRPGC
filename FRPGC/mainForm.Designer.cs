@@ -73,6 +73,8 @@
             this.clearLogButton = new System.Windows.Forms.Button();
             this.bonusHitChance = new System.Windows.Forms.TextBox();
             this.bonusHitChanceLabel = new System.Windows.Forms.Label();
+            this.bonusDamageLabel = new System.Windows.Forms.Label();
+            this.bonusDamageTextBox = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -519,11 +521,31 @@
             this.bonusHitChanceLabel.TabIndex = 48;
             this.bonusHitChanceLabel.Text = "Bonus Hit Chance";
             // 
+            // bonusDamageLabel
+            // 
+            this.bonusDamageLabel.AutoSize = true;
+            this.bonusDamageLabel.Location = new System.Drawing.Point(379, 225);
+            this.bonusDamageLabel.Name = "bonusDamageLabel";
+            this.bonusDamageLabel.Size = new System.Drawing.Size(80, 13);
+            this.bonusDamageLabel.TabIndex = 50;
+            this.bonusDamageLabel.Text = "Bonus Damage";
+            // 
+            // bonusDamageTextBox
+            // 
+            this.bonusDamageTextBox.Location = new System.Drawing.Point(381, 241);
+            this.bonusDamageTextBox.MaxLength = 5;
+            this.bonusDamageTextBox.Name = "bonusDamageTextBox";
+            this.bonusDamageTextBox.Size = new System.Drawing.Size(109, 20);
+            this.bonusDamageTextBox.TabIndex = 51;
+            this.bonusDamageTextBox.Text = "0";
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(494, 542);
+            this.Controls.Add(this.bonusDamageTextBox);
+            this.Controls.Add(this.bonusDamageLabel);
             this.Controls.Add(this.bonusHitChance);
             this.Controls.Add(this.bonusHitChanceLabel);
             this.Controls.Add(this.clearLogButton);
@@ -624,6 +646,8 @@
         private System.Windows.Forms.Button clearLogButton;
         private System.Windows.Forms.TextBox bonusHitChance;
         private System.Windows.Forms.Label bonusHitChanceLabel;
+        private System.Windows.Forms.Label bonusDamageLabel;
+        private System.Windows.Forms.TextBox bonusDamageTextBox;
     }
 }
 

@@ -698,12 +698,18 @@ namespace FRPGC
         {
             int chance = -1;
             int bonusHit = 0;
-            bool parseAttempt = int.TryParse(this.bonusHitChance.Text, out bonusHit);
-            if (!parseAttempt)
+            bool bonusHitParseAttempt = int.TryParse(this.bonusHitChance.Text, out bonusHit);
+            bool bonusDamageParseAttempt = Dice.parseable(this.bonusDamageTextBox.Text);
+            if (!bonusHitParseAttempt)
             {
                 this.logger.logBoth(String.Format("Bonus Hit Chance could not be parsed. Input: {0}, setting to 0", this.bonusHitChance.Text));
                 this.bonusHitChance.Text = "0";
                 bonusHit = 0;
+            }
+            if (!bonusDamageParseAttempt)
+            {
+                this.logger.logBoth(String.Format("Bonus Damage could not be parsed. Input: {0}, setting to 0", this.bonusDamageTextBox.Text));
+                this.bonusDamageTextBox.Text = "0";
             }
             switch (attackType)
             {
@@ -728,7 +734,7 @@ namespace FRPGC
                     return 0;
             }
 
-            this.logger.logBoth(String.Format("Hit Chance: {0}, Bonus Hit Chance: {1}", chance.ToString(), bonusHit.ToString()));
+            this.logger.logBoth(String.Format("Hit Chance: {0}, Bonus Hit Chance: {1}, Bonus Damage: {2}", chance.ToString(), bonusHit.ToString(), this.bonusDamageTextBox.Text));
             chance += bonusHit;
             attacksLaunched *= ((AttackTypes) this.comboAttackingMethod.SelectedItem).Equals(AttackTypes.ShortRangeBurst) ? ((Weapon) this.comboWeapon.SelectedItem).ShotsPerBurst : 1;
             int[] damages = attackDamage(attacksLaunched);
@@ -933,15 +939,17 @@ namespace FRPGC
             flatDamage = (melee ? flatDamage + ((dynamic) this.comboAttackingUnit.SelectedItem).StatID.MeleeDamage : flatDamage);
             Dice BD = ((Weapon) this.comboWeapon.SelectedItem).BaseDamage;
             Dice AD = ((Weapon) this.comboWeapon.SelectedItem).AdditionalDamage;
-            int ad, bd = -1;
+            Dice BonusDamage = new Dice(this.bonusDamageTextBox.Text, this.logger);
+            int ad, bd, bbd = -1;
 
             int[] damages = new int[attacks];
             for (int i = 0; i < attacks; i++)
             {
                 bd = BD.getRoll();
                 ad = AD.getRoll();
+                bbd = BonusDamage.getRoll();
                 // Burst Attack Modes (Excluding Shotguns) only do Additional Damage.
-                damages[i] = (((AttackTypes) this.comboAttackingMethod.SelectedItem == AttackTypes.ShortRangeBurst) && !((Weapon) this.comboWeapon.SelectedItem).ID.Substring(0, 3).Equals("SGS")) ? ad : bd + ad + flatDamage;
+                damages[i] = (((AttackTypes) this.comboAttackingMethod.SelectedItem == AttackTypes.ShortRangeBurst) && !((Weapon) this.comboWeapon.SelectedItem).ID.Substring(0, 3).Equals("SGS")) ? ad + bbd : bd + ad + flatDamage + bbd;
                 this.logger.writeLog(String.Format("Base Damage: {0} Additional Damage: {1} Flat Damage: {2}", bd.ToString(), ad.ToString(), flatDamage.ToString()));
             }
 
