@@ -25,6 +25,7 @@ namespace FRPGC
             this.logger = logger;
 
             bool parseOK = parseable(input);
+            bool d = false;
 
             if (!parseOK)
             {
@@ -38,26 +39,33 @@ namespace FRPGC
             // Traditional Dice Format
             try
             {
+                d = input.Contains("d");
+                if (!d) { throw new Exception("Constant Format"); }
                 string[] parsed = input.Split('d');
                 mul = int.Parse(parsed[0]);
+                this.Multiplier = mul;
                 max = int.Parse(parsed[1]);
+                this.MaxRoll = max;
                 return;
             }
 
             // Constant
             catch
             {
+                mul = 0;
+                this.Multiplier = mul;
                 max = int.Parse(input);
+                this.MaxRoll = max;
                 return;
             }
         }
 
         public int getRoll()
         {
-            if (this.MaxRoll == 0 || this.MaxRoll == 1)
+            if (this.Multiplier == 0)
             {
-                this.logger.writeLog("Constant Found, returning " + this.Multiplier);
-                return this.Multiplier;
+                this.logger.writeLog("Constant Found, returning " + this.MaxRoll);
+                return this.MaxRoll;
             }
 
             Random die = new Random();

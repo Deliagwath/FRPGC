@@ -952,9 +952,16 @@ namespace FRPGC
                 damages[i] = (((AttackTypes) this.comboAttackingMethod.SelectedItem == AttackTypes.ShortRangeBurst) && !((Weapon) this.comboWeapon.SelectedItem).ID.Substring(0, 3).Equals("SGS")) ? ad + bbd : bd + ad + flatDamage + bbd;
                 this.logger.writeLog(String.Format("Base Damage: {0} Additional Damage: {1} Flat Damage: {2}", bd.ToString(), ad.ToString(), flatDamage.ToString()));
             }
-
             this.logger.writeLog("Ending Attack Calculation");
             return damages;
+        }
+
+        private void debugIntArray(int[] array)
+        {
+            foreach (int i in array)
+            {
+                this.logger.logBoth(i.ToString());
+            }
         }
 
         private void radioAttackerPlayerChecked(object sender, EventArgs e)
