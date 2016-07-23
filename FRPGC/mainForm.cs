@@ -827,7 +827,8 @@ namespace FRPGC
 
         private int meleeHitChance()
         {
-            return Math.Max(((dynamic) this.comboAttackingUnit.SelectedItem).StatID.Melee - ((dynamic) this.comboDefendingUnit.SelectedItem).StatID.AC, 0);
+            return Math.Max(((dynamic) this.comboAttackingUnit.SelectedItem).StatID.Melee, 100);
+            //return Math.Max(((dynamic) this.comboAttackingUnit.SelectedItem).StatID.Melee - ((dynamic) this.comboDefendingUnit.SelectedItem).StatID.AC, 0);
         }
 
         private int shortRangeShotChance(bool singleShot)
@@ -836,7 +837,7 @@ namespace FRPGC
             // =(Skill / (Range / Multiplier / Divisor |If singleShot != true|)) * Multiplier + (Optimal Range ^ 2) / (Range - (2 * Optimal Range)) + (Luck - 10)
             int skill = -1;
             if (this.textDistance.Text == "") { return 0; }
-            if (this.textDistance.Text == "1") { return 1000; }
+            if (this.textDistance.Text == "1") { return 100; }
             try { double.Parse(this.textDistance.Text); }
             catch (Exception) { return 0; }
             if (((Weapon) this.comboWeapon.SelectedItem).Range * 2 < double.Parse(this.textDistance.Text)) { return 0; }
@@ -878,7 +879,7 @@ namespace FRPGC
             int oac = ((Armour) this.comboArmour.SelectedItem).ArmourClass;
             int hitBonuses = 0;
             int chance = (int) Math.Max(Math.Floor((skill / ((distance / multiplier) / divisor)) * multiplier + (Math.Pow(weaponRange, 2)) / (distance - (2 * weaponRange)) + (luck - 10) + hitBonuses), 0);
-            if (chance == -2147483648) { return 1000; }
+            if (chance == -2147483648) { return 100; }
             return chance;
         }
 
